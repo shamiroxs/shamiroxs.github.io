@@ -1,0 +1,17 @@
+git add .
+git commit -m "Fixed UI issue in index.html and updated styles.css"
+git push origin main
+
+
+
+//for initial connection to github 
+//if someone else commiting in the repo
+
+git pull origin main --rebase
+
+
+//If someone else adds a file or updates a file on GitHub through the web interface.
+
+git pull origin main
+
+

@@ -13,6 +13,7 @@ export async function startProject(scene, assets) {
         tv.position.copy(initialPosition);
         tv.rotation.y = Math.PI * rot;
         scene.add(tv);
+        
 
         const tvBox = new THREE.Box3().setFromObject(tv);
     }
