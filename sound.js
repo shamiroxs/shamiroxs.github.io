@@ -1,0 +1,99 @@
+import { Howl } from 'howler';
+
+// Create global sound instances for each sound effect
+const clickSound = new Howl({
+    src: ['./assets/sounds/click.mp3'],
+    volume: 0.5,
+    rate: 1.5
+});
+
+const screenSound = new Howl({
+    src: ['./assets/sounds/whoosh.mp3'],
+    volume: 0.3,
+    rate: 3
+});
+
+const endSoundEffect = new Howl({
+    src: ['./assets/sounds/end.mp3'],
+    volume: 1.04,
+    rate: 2
+});
+
+const airBalloonSoundEffect = new Howl({
+    src: ['./assets/sounds/air.mp3'],
+    volume: 0.2
+});
+
+
+const resetSound = new Howl({
+    src: ['./assets/sounds/end.mp3'],
+    volume: 0.5
+});
+
+const backgroundMusic = new Howl({
+    src: ['./assets/sounds/background.mp3'],
+    volume: 0.2,
+    loop: true  // Set loop to true for infinite playback
+});
+
+const oceanSound = new Howl({
+    src: ['./assets/sounds/ocean.mp3'],
+    volume: 0.05,
+    loop: true
+});
+
+const hornSound = new Howl({
+    src: ['./assets/sounds/horn.mp3'],
+    volume: 0.02
+});
+
+const glassSound = new Howl({
+    src: ['./assets/sounds/glass.mp3'],
+    volume: 0.9
+});
+
+// Export functions to play the sounds
+export function playClickSound() {
+    clickSound.stop();
+    clickSound.play();
+}
+
+export function playScreenSound() {
+    screenSound.stop();
+    screenSound.play();
+}
+
+export function playEndSound() {
+    endSoundEffect.stop();
+    endSoundEffect.play();    
+}
+
+export function playAirBalloonSound() {
+    airBalloonSoundEffect.stop();
+    airBalloonSoundEffect.play();
+}
+
+export function playResetSound() {
+    resetSound.stop();
+    resetSound.play();
+}
+
+export function playBackgroundMusic() {
+    backgroundMusic.stop();
+    backgroundMusic.play();
+}
+
+export function playOceanSound() {
+    oceanSound.stop();
+    oceanSound.play();
+}
+
+export function playHornSound() {
+    hornSound.stop();
+    hornSound.play();
+}
+
+export function playGlassSound() {
+    glassSound.stop();
+    glassSound.play();
+}
