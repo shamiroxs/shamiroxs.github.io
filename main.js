@@ -3,13 +3,47 @@ import { showLoadingScreen, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-// Detect if the user is on mobile
 function isMobile() {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    return /Mobi|Android/i.test(navigator.userAgent);
 }
-// Map button presses to game actions
-function bindMobileControls() {
-    const controls = {
+
+function createControlButtons() {
+    const controls = [
+        { id: "forward", text: "↑", style: "bottom: 140px; left: 22%; transform: translateX(-50%);" },
+        { id: "backward", text: "↓", style: "bottom: 20px; left: 22%; transform: translateX(-50%);" },
+        { id: "left", text: "←", style: "bottom: 80px; left: 10%;" },
+        { id: "right", text: "→", style: "bottom: 80px; left: 27%;" },
+        { id: "up", text: "Q", style: "bottom: 140px; left: 86%; transform: translateX(-50%);" },
+        { id: "down", text: "R", style: "bottom: 40px; left: 82.8%;" },
+        { id: "turn-left", text: "←←", style: "top: 50%; left: 10%; transform: translateY(-50%);" },
+        { id: "turn-right", text: "→→", style: "top: 50%; right: 10%; transform: translateY(-50%);" },
+        { id: "reset", text: "R", style: "top: 2%; left: 5%; transform: translateX(-50%);" },
+    ];
+
+    controls.forEach(({ id, text, style }) => {
+        const button = document.createElement("div");
+        button.id = id;
+        button.className = "control-button";
+        button.textContent = text;
+        button.style.cssText = style;
+
+        document.body.appendChild(button);
+
+        // Add touch event listeners
+        button.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            triggerKey(id, "keydown");
+        });
+
+        button.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            triggerKey(id, "keyup");
+        });
+    });
+}
+
+function triggerKey(controlId, eventType) {
+    const keyMap = {
         forward: "KeyW",
         backward: "KeyS",
         left: "KeyA",
@@ -21,46 +55,16 @@ function bindMobileControls() {
         reset: "KeyR",
     };
 
-    Object.keys(controls).forEach((control) => {
-        const button = document.getElementById(control);
-
-        if (button) {
-            // Handle touchstart to trigger keydown
-            button.addEventListener("touchstart", (e) => {
-                e.preventDefault(); // Prevent scrolling or accidental behavior
-                triggerKey(controls[control], "keydown");
-            });
-
-            // Handle touchend to trigger keyup
-            button.addEventListener("touchend", (e) => {
-                e.preventDefault(); // Prevent scrolling or accidental behavior
-                triggerKey(controls[control], "keyup");
-            });
-        }
-    });
-
-    // Gesture listeners for zoom in and zoom out
-    window.addEventListener("gesturestart", (e) => {
-        if (e.scale > 1) triggerKey("ZoomIn", "keydown"); // Pinch out to zoom in
-        if (e.scale < 1) triggerKey("ZoomOut", "keydown"); // Pinch in to zoom out
-    });
-
-    window.addEventListener("gestureend", (e) => {
-        triggerKey("ZoomIn", "keyup");
-        triggerKey("ZoomOut", "keyup");
-    });
+    const key = keyMap[controlId];
+    if (key) {
+        const event = new KeyboardEvent(eventType, { code: key });
+        window.dispatchEvent(event);
+    }
 }
 
-// Simulate keypress events for the game
-function triggerKey(key, eventType) {
-    const event = new KeyboardEvent(eventType, { code: key });
-    window.dispatchEvent(event);
-}
-
-// Show controls if on mobile
+// Add controls only for mobile devices
 if (isMobile()) {
-    document.getElementById("mobile-controls").style.display = "block";
-    bindMobileControls();
+    createControlButtons();
 }
 
 async function loadAssets(assetPaths) {
