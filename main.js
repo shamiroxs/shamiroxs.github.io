@@ -3,85 +3,56 @@ import { showLoadingScreen, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-// Detect if the user is on mobile
 function isMobile() {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-// Map button presses to game actions
-function bindMobileControls() {
-    const controls = {
-        forward: "KeyW",
-        backward: "KeyS",
-        left: "KeyA",
-        right: "KeyD",
-        up: "KeyQ",
-        down: "KeyE",
-        "turn-left": "ArrowLeft",
-        "turn-right": "ArrowRight",
-        reset: "KeyR",
-    };
+window.onload = function() {
+    if (isMobile()) {
+        document.getElementById('mobile-controls').style.display = 'block';
 
-    Object.keys(controls).forEach((control) => {
-        const button = document.getElementById(control);
-        if (button) {
-            button.addEventListener("touchstart", () => triggerKey(controls[control]));
-        }
-    });
+        // Add event listeners for mobile controls
+        document.getElementById('forward').addEventListener('click', () => { /* forward action */ });
+        document.getElementById('backward').addEventListener('click', () => { /* backward action */ });
+        document.getElementById('left').addEventListener('click', () => { /* left action */ });
+        document.getElementById('right').addEventListener('click', () => { /* right action */ });
+        document.getElementById('up').addEventListener('click', () => { /* up action */ });
+        document.getElementById('down').addEventListener('click', () => { /* down action */ });
+        document.getElementById('turn-left').addEventListener('click', () => { /* turn left action */ });
+        document.getElementById('turn-right').addEventListener('click', () => { /* turn right action */ });
+        document.getElementById('reset').addEventListener('click', () => { /* reset action */ });
 
-    // Gesture listeners for swipe and zoom
-    let startX = 0, startY = 0;
+        // Add touch event listeners for swipe and zoom
+        document.addEventListener('touchstart', handleTouchStart, false);
+        document.addEventListener('touchmove', handleTouchMove, false);
+        document.addEventListener('touchend', handleTouchEnd, false);
+        document.addEventListener('gesturechange', handleGestureChange, false);
+    }
+};
 
-    window.addEventListener("touchstart", (e) => {
-        if (e.touches.length === 1) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }
-    });
+let xDown = null;
+let yDown = null;
 
-    window.addEventListener("touchmove", (e) => {
-        if (e.touches.length === 1) {
-            const deltaX = e.touches[0].clientX - startX;
-            const deltaY = e.touches[0].clientY - startY;
-
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 50) triggerKey("ArrowRight"); // Swipe right for turn right
-                else if (deltaX < -50) triggerKey("ArrowLeft"); // Swipe left for turn left
-            } else {
-                if (deltaY > 50) triggerKey("KeyS"); // Swipe down for backward
-                else if (deltaY < -50) triggerKey("KeyW"); // Swipe up for forward
-            }
-
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }
-    });
-
-    window.addEventListener("touchend", (e) => {
-        if (e.touches.length === 0) {
-            startX = 0;
-            startY = 0;
-        }
-    });
-
-    window.addEventListener("gesturestart", (e) => {
-        if (e.scale > 1) triggerKey("ZoomIn"); // Pinch out to zoom in
-        if (e.scale < 1) triggerKey("ZoomOut"); // Pinch in to zoom out
-    });
+function handleTouchStart(evt) {
+    const firstTouch = evt.touches[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
 }
 
-// Simulate keypress event for the game
-function triggerKey(key) {
-    const event = new KeyboardEvent("keydown", { code: key });
-    window.dispatchEvent(event);
-}
+function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+        return;
+    }
 
-// Show controls if on mobile
-if (isMobile()) {
-    document.getElementById("mobile-controls").style.display = "block";
-    bindMobileControls();
-}
+    const xUp = evt.touches[0].clientX;
+    const yUp = evt.touches[0].clientY;
 
+    const xDiff = xDown - xUp;
+    const yDiff = yDown - yUp;
+
+    xDown = null;
+    yDown = null;
+}
 
 async function loadAssets(assetPaths) {
     const loader = new GLTFLoader();
