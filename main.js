@@ -3,55 +3,60 @@ import { showLoadingScreen, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-function isMobile() {
-    return /Mobi|Android/i.test(navigator.userAgent);
+// Map button presses to game actions
+function bindMobileControls() {
+    const controls = {
+        forward: "KeyW",
+        backward: "KeyS",
+        left: "KeyA",
+        right: "KeyD",
+        up: "KeyQ",
+        down: "KeyE",
+        "turn-left": "ArrowLeft",
+        "turn-right": "ArrowRight",
+        reset: "KeyR",
+    };
+
+    Object.keys(controls).forEach((control) => {
+        const button = document.getElementById(control);
+
+        if (button) {
+            // Handle touchstart to trigger keydown
+            button.addEventListener("touchstart", (e) => {
+                e.preventDefault(); // Prevent scrolling or accidental behavior
+                triggerKey(controls[control], "keydown");
+            });
+
+            // Handle touchend to trigger keyup
+            button.addEventListener("touchend", (e) => {
+                e.preventDefault(); // Prevent scrolling or accidental behavior
+                triggerKey(controls[control], "keyup");
+            });
+        }
+    });
+
+    // Gesture listeners for zoom in and zoom out
+    window.addEventListener("gesturestart", (e) => {
+        if (e.scale > 1) triggerKey("ZoomIn", "keydown"); // Pinch out to zoom in
+        if (e.scale < 1) triggerKey("ZoomOut", "keydown"); // Pinch in to zoom out
+    });
+
+    window.addEventListener("gestureend", (e) => {
+        triggerKey("ZoomIn", "keyup");
+        triggerKey("ZoomOut", "keyup");
+    });
 }
 
-window.onload = function() {
-    if (isMobile()) {
-        document.getElementById('mobile-controls').style.display = 'block';
-
-        // Add event listeners for mobile controls
-        document.getElementById('forward').addEventListener('click', () => { /* forward action */ });
-        document.getElementById('backward').addEventListener('click', () => { /* backward action */ });
-        document.getElementById('left').addEventListener('click', () => { /* left action */ });
-        document.getElementById('right').addEventListener('click', () => { /* right action */ });
-        document.getElementById('up').addEventListener('click', () => { /* up action */ });
-        document.getElementById('down').addEventListener('click', () => { /* down action */ });
-        document.getElementById('turn-left').addEventListener('click', () => { /* turn left action */ });
-        document.getElementById('turn-right').addEventListener('click', () => { /* turn right action */ });
-        document.getElementById('reset').addEventListener('click', () => { /* reset action */ });
-
-        // Add touch event listeners for swipe and zoom
-        document.addEventListener('touchstart', handleTouchStart, false);
-        document.addEventListener('touchmove', handleTouchMove, false);
-        document.addEventListener('touchend', handleTouchEnd, false);
-        document.addEventListener('gesturechange', handleGestureChange, false);
-    }
-};
-
-let xDown = null;
-let yDown = null;
-
-function handleTouchStart(evt) {
-    const firstTouch = evt.touches[0];
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
+// Simulate keypress events for the game
+function triggerKey(key, eventType) {
+    const event = new KeyboardEvent(eventType, { code: key });
+    window.dispatchEvent(event);
 }
 
-function handleTouchMove(evt) {
-    if (!xDown || !yDown) {
-        return;
-    }
-
-    const xUp = evt.touches[0].clientX;
-    const yUp = evt.touches[0].clientY;
-
-    const xDiff = xDown - xUp;
-    const yDiff = yDown - yUp;
-
-    xDown = null;
-    yDown = null;
+// Show controls if on mobile
+if (isMobile()) {
+    document.getElementById("mobile-controls").style.display = "block";
+    bindMobileControls();
 }
 
 async function loadAssets(assetPaths) {
