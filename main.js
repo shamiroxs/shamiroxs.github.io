@@ -38,6 +38,24 @@ async function initializeApp() {
 
     // Initialize the main scene with the loaded assets
     initScene(assets);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const keyboardButton = document.getElementById('show-keyboard-button');
+        const hiddenInput = document.getElementById('hidden-input');
+    
+        keyboardButton.addEventListener('click', () => {
+            // Focus the hidden input to trigger the keyboard
+            hiddenInput.focus();
+        });
+    
+        // Optional: Blur the input when user presses Enter or Escape
+        hiddenInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === 'Escape') {
+                hiddenInput.blur(); // Dismiss the keyboard
+            }
+        });
+    });
+    
 }
 
 // Start the application
