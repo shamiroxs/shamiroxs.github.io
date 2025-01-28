@@ -3,6 +3,10 @@ import { showLoadingScreen, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+// Detect if the user is on mobile
+function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
 // Map button presses to game actions
 function bindMobileControls() {
     const controls = {
@@ -54,7 +58,7 @@ function triggerKey(key, eventType) {
 }
 
 // Show controls if on mobile
-if (isMobile()) {
+if (!isMobile()) {
     document.getElementById("mobile-controls").style.display = "block";
     bindMobileControls();
 }
