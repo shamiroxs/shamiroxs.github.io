@@ -63,7 +63,7 @@ function triggerKey(controlId, eventType) {
 }
 
 // Add controls only for mobile devices
-if (isMobile()) {
+if (!isMobile()) {
     createControlButtons();
 }
 
