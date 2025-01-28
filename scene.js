@@ -187,11 +187,16 @@ export async function initScene(assets) {
 
     //Retrive tutorial blocks
     const allBlocks = scene.children.filter(obj => obj.name.startsWith('Tblock'));
-
     allBlocks.forEach(block => {
         block.boundingBox = new THREE.Box3().setFromObject(block);
     });
-    console.log(allBlocks);
+
+    //TV Screens
+    const tvScreen = scene.children.filter(obj => obj.name.startsWith('TV'));
+    tvScreen.forEach(tv => {
+        tv.boundingBox = new THREE.Box3().setFromObject(tv);
+    });
+    console.log(tvScreen);
 
     /////////////////////////////////////////////////////////
 
@@ -414,6 +419,34 @@ export async function initScene(assets) {
                     block.position.y = -1;
                 }
             });
+
+            //Tv Screens
+            tvScreen.forEach(tv => {
+                if (characterBox.intersectsBox(tv.boundingBox)) {
+                    // Calculate the overlap
+                    const overlap = characterBox.intersection(tv.boundingBox);
+            
+                    // Determine which side of the TV screen the character is touching
+                    if (overlap.width > overlap.height) {  // Character is hitting the left or right side
+                        if (characterBox.center.x < tv.boundingBox.center.x) {
+                            // Character is on the left, move them to the left of the TV
+                            characterBox.position.x = tv.boundingBox.max.x;
+                        } else {
+                            // Character is on the right, move them to the right of the TV
+                            characterBox.position.x = tv.boundingBox.min.x - characterBox.width;
+                        }
+                    } else {  // Character is hitting the top or bottom side
+                        if (characterBox.center.y < tv.boundingBox.center.y) {
+                            // Character is above, move them above the TV
+                            characterBox.position.y = tv.boundingBox.max.y;
+                        } else {
+                            // Character is below, move them below the TV
+                            characterBox.position.y = tv.boundingBox.min.y - characterBox.height;
+                        }
+                    }
+                }
+            });
+            
 
             if (isFirstPerson) {
                 // Calculate the direction vector from the camera to the character

@@ -12,13 +12,22 @@ export async function startProject(scene, assets) {
         tv.scale.set(6, 6, 6);
         tv.position.copy(initialPosition);
         tv.rotation.y = Math.PI * rot;
+        tv.name = "TV" + (x+y+z);
         scene.add(tv);
-        
+
 
         const tvBox = new THREE.Box3().setFromObject(tv);
     }
 
     createTv(-22.2, 0, 2, 1);
     createTv(-22.2, 0, -28, 0);
+
+    createTv(-38, 0, -28, 0);
+    createTv(-38, 0, 2, 1);
+
+    createTv(-52, 0, -28, 0);
+    createTv(-52, 0, 2, 1);
+    
+    createTv(-53, 0, -12.8, 0.5);
 
 }
