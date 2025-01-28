@@ -77,7 +77,7 @@ function triggerKey(key) {
 }
 
 // Show controls if on mobile
-if (!isMobile()) {
+if (isMobile()) {
     document.getElementById("mobile-controls").style.display = "block";
     bindMobileControls();
 }
