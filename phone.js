@@ -4,16 +4,17 @@ function isMobile() {
 
 function createControlButtons() {
     const controls = [
-        { id: "forward", text: "↑", style: "bottom: 130px; left: 22%; transform: translateX(-50%);" },
-        { id: "backward", text: "↓", style: "bottom: 30px; left: 22%; transform: translateX(-50%);" },
-        { id: "left", text: "←", style: "bottom: 60px; left: 14.55%; transform: translateY(-50%);" },
-        { id: "right", text: "→", style: "bottom: 60px; left: 24.8%; transform: translateY(-50%);" },
+        { id: "forward", text: "↑", style: "bottom: 130px; left: 28%; transform: translateX(-50%);" },
+        { id: "backward", text: "↓", style: "bottom: 30px; left: 28%; transform: translateX(-50%);" },
+        { id: "left", text: "←", style: "bottom: 60px; left: 20.55%; transform: translateY(-50%);" },
+        { id: "right", text: "→", style: "bottom: 60px; left: 30.8%; transform: translateY(-50%);" },
+
         { id: "up", text: "Q", style: "bottom: 120px; right: 10%; transform: translateY(-50%);" },
         { id: "down", text: "E", style: "bottom: 40px; right: 10%; transform: translateY(-50%);" },
         { id: "turn-left", text: "←←", style: "top: 50%; left: 10%; transform: translateY(-50%);" },
         { id: "turn-right", text: "→→", style: "top: 50%; right: 10%; transform: translateY(-50%);" },
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
-        { id: "view", text: "o", style: "bottom: 80px; left: 22%; transform: translateX(-50%);" },
+        { id: "view", text: "o", style: "bottom: 80px; left: 28%; transform: translateX(-50%);" },
     ];
 
     controls.forEach(({ id, text, style }) => {
