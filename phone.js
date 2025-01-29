@@ -13,6 +13,7 @@ function createControlButtons() {
         { id: "turn-left", text: "←←", style: "top: 50%; left: 10%; transform: translateY(-50%);" },
         { id: "turn-right", text: "→→", style: "top: 50%; right: 10%; transform: translateY(-50%);" },
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
+        { id: "view", text: "o", style: "bottom: 80px; left: 22%; transform: translateX(-50%);" },
     ];
 
     controls.forEach(({ id, text, style }) => {
@@ -48,6 +49,7 @@ function triggerKey(controlId, eventType) {
         "turn-left": "ArrowLeft",
         "turn-right": "ArrowRight",
         reset: "KeyR",
+        view: "Space"
     };
 
     const key = keyMap[controlId];
