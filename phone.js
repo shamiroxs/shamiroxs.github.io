@@ -6,7 +6,7 @@ function createControlButtons() {
     const controls = [
         { id: "forward", text: "↑", style: "bottom: 130px; left: 30%; transform: translateX(-50%);" },
         { id: "backward", text: "↓", style: "bottom: 30px; left: 30%; transform: translateX(-50%);" },
-        { id: "left", text: "←", style: "bottom: 60px; left: 22.55%; transform: translateY(-50%);" },
+        { id: "left", text: "←", style: "bottom: 60px; left: 5.55%; transform: translateY(-50%);" },
         { id: "right", text: "→", style: "bottom: 60px; left: 32.8%; transform: translateY(-50%);" },
 
         { id: "up", text: "Q", style: "bottom: 120px; right: 10%; transform: translateY(-50%);" },
