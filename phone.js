@@ -7,7 +7,7 @@ function createControlButtons() {
         { id: "forward", text: "↑", style: "bottom: 130px; left: 30%; transform: translateX(-50%);" },
         { id: "backward", text: "↓", style: "bottom: 30px; left: 30%; transform: translateX(-50%);" },
         { id: "left", text: "←", style: "bottom: 60px; left: 8.55%; transform: translateY(-50%);" },
-        { id: "right", text: "→", style: "bottom: 60px; left: 35.8%; transform: translateY(-50%);" },
+        { id: "right", text: "→", style: "bottom: 60px; left: 38.8%; transform: translateY(-50%);" },
 
         { id: "up", text: "Q", style: "bottom: 120px; right: 10%; transform: translateY(-50%);" },
         { id: "down", text: "E", style: "bottom: 40px; right: 10%; transform: translateY(-50%);" },
