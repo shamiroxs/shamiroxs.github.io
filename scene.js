@@ -48,7 +48,7 @@ export async function initScene(assets) {
 
     // Add the character model
     let character = assets[0].scene;
-    const initialPosition = new THREE.Vector3(0, 0.6, 0);
+    const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     scene.add(character);
@@ -423,6 +423,8 @@ export async function initScene(assets) {
             //Tv Screens
             tvScreen.forEach(tv => {
                 if (characterBox.intersectsBox(tv.boundingBox)) {
+
+                    playScreenSound();
                     // Calculate the overlap
                     const overlap = characterBox.intersection(tv.boundingBox);
             
