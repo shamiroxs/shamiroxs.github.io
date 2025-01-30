@@ -29,8 +29,8 @@ function createControlButtons() {
                 : "bottom: 70px; left: 38.8%; transform: translateY(-50%);"
         },
 
-        { id: "up", text: "Q", style: "bottom: 120px; right: 10%; transform: translateY(-50%);" },
-        { id: "down", text: "E", style: "bottom: 40px; right: 10%; transform: translateY(-50%);" },
+        { id: "up", text: "Q", style: "bottom: 130px; right: 10%; transform: translateY(-50%);" },
+        { id: "down", text: "E", style: "bottom: 30px; right: 10%; transform: translateY(-50%);" },
         { id: "turn-left", text: "←←", style: "top: 50%; left: 10%; transform: translateY(-50%);" },
         { id: "turn-right", text: "→→", style: "top: 50%; right: 10%; transform: translateY(-50%);" },
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
