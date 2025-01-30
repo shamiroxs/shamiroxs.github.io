@@ -97,14 +97,14 @@ export async function startProject(scene, assets) {
     
     createTv(-53, 0, -12.8, 0.5);
 
-    createGlassPlane('', -22.2, 4.5, 3.75, 1);
-    createGlassPlane('', -22.2, 4.5, -29.8, 0);
+    createGlassPlane('', -22.2, 4.5, 3.75, 1);//ffirst back
+    createGlassPlane('','/assets/image/image2.jpeg', -22.2, 4.5, -29.8, 0);//first front
 
-    createGlassPlane('', -38, 4.5, -29.8, 0);
-    createGlassPlane('', -38, 4.5, 3.75, 1);
+    createGlassPlane('', -38, 4.5, -29.8, 0);//second back
+    createGlassPlane('', -38, 4.5, 3.75, 1);//second front
 
-    createGlassPlane('', -52, 4.5, -29.8, 0);
-    createGlassPlane('', -52, 4.5, 3.75, 1);
+    createGlassPlane('','/assets/image/image3.jpeg', -52, 4.5, -29.8, 0);//third back
+    createGlassPlane('', -52, 4.5, 3.75, 1);//third front
 
     createGlassPlane('', '/assets/image/image1.png', -54.6, 4.5, -12.8, 0.5);
 
