@@ -22,7 +22,7 @@ export async function startProject(scene, assets) {
     }
 
     //glaseplane below tv
-    function createGlassPlane(input_text, img_path, x , y , z, rot){
+    function createGlassPlane(img_path, x , y , z, rot){
 
         const textureLoader = new THREE.TextureLoader();
         const imageTexture = textureLoader.load(img_path);
@@ -43,6 +43,28 @@ export async function startProject(scene, assets) {
         const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(11.5, 6.5), planeGlassMaterial);
         glassPlane.position.set(x, y, z);
         glassPlane.rotation.y = Math.PI * rot;
+        scene.add(glassPlane);        
+
+    }
+
+    //glaseplane below tv
+    function createGlassGround(input_text, x , y , z, rot){
+
+         // Create a glass plane
+        const planeGlassMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x808080, // black color
+            transmission: 0.9,
+            opacity: 0.1,
+            roughness: 0.1,
+            metalness: 0,
+            clearcoat: 1.0,
+            clearcoatRoughness: 0.05,
+            side: THREE.DoubleSide
+        });
+
+        const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(12.5, 11.7), planeGlassMaterial);
+        glassPlane.position.set(x, y, z);
+        glassPlane.rotation.x = Math.PI * rot;
         scene.add(glassPlane);        
 
         let xt, yt, zt;
@@ -81,7 +103,7 @@ export async function startProject(scene, assets) {
             }
 
             textMesh.position.set(xt, yt, zt);
-            textMesh.rotation.y = Math.PI * rot;
+            textMesh.rotation.x = Math.PI * rot;
             scene.add(textMesh);
         });
     }
@@ -98,16 +120,16 @@ export async function startProject(scene, assets) {
     createTv(-53, 0, -12.8, 0.5);
 
     createGlassPlane('', -22.2, 4.5, 3.75, 1);//ffirst back
-    createGlassPlane('','/assets/image/image2.jpeg', -22.2, 4.5, -29.8, 0);//first front
+    createGlassPlane('/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
 
-    createGlassPlane('', -38, 4.5, -29.8, 0);//second back
-    createGlassPlane('', -38, 4.5, 3.75, 1);//second front
+    createGlassPlane('/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
+    createGlassPlane('', -38, 4.5, 3.75, 1);//second back
 
-    createGlassPlane('','/assets/image/image3.jpeg', -52, 4.5, -29.8, 0);//third back
-    createGlassPlane('', -52, 4.5, 3.75, 1);//third front
+    createGlassPlane('/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
+    createGlassPlane('/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
 
-    createGlassPlane('', '/assets/image/image1.png', -54.6, 4.5, -12.8, 0.5);
+    createGlassPlane('/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
-
+    createGlassGround('hello', -37.5, 0, 0.55, 0.5)
 
 }
