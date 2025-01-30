@@ -18,7 +18,7 @@ function createControlButtons() {
             id: "left",
             text: "←",
             style: isLargeScreen
-                ? "bottom: 60px; left: 21%; transform: translateY(-50%);"  // Adjusted for large-screen phones
+                ? "bottom: 60px; left: 21.3%; transform: translateY(-50%);"  // Adjusted for large-screen phones
                 : "bottom: 60px; left: 8.55%; transform: translateY(-50%);"
         },
         {
