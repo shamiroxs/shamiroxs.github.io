@@ -10,23 +10,23 @@ function createControlButtons() {
     const isLargeScreen = isLargeScreenMobile();
 
     const controls = [
-        { id: "forward", text: "↑", style: "bottom: 130px; left: 30%; transform: translateX(-50%);" },
-        { id: "backward", text: "↓", style: "bottom: 30px; left: 30%; transform: translateX(-50%);" },
+        { id: "forward", text: "↑", style: "bottom: 140px; left: 30%; transform: translateX(-50%);" },
+        { id: "backward", text: "↓", style: "bottom: 40px; left: 30%; transform: translateX(-50%);" },
         
         // Only adjust left and right for large-screen phones
         {
             id: "left",
             text: "←",
             style: isLargeScreen
-                ? "bottom: 60px; left: 21.3%; transform: translateY(-50%);"  // Adjusted for large-screen phones
-                : "bottom: 60px; left: 8.55%; transform: translateY(-50%);"
+                ? "bottom: 70px; left: 21%; transform: translateY(-50%);"  // Adjusted for large-screen phones
+                : "bottom: 70px; left: 8.55%; transform: translateY(-50%);"
         },
         {
             id: "right",
             text: "→",
             style: isLargeScreen
-                ? "bottom: 60px; left: 33.6%; transform: translateY(-50%);" // Adjusted for large-screen phones
-                : "bottom: 60px; left: 38.8%; transform: translateY(-50%);"
+                ? "bottom: 70px; left: 33.6%; transform: translateY(-50%);" // Adjusted for large-screen phones
+                : "bottom: 70px; left: 38.8%; transform: translateY(-50%);"
         },
 
         { id: "up", text: "Q", style: "bottom: 120px; right: 10%; transform: translateY(-50%);" },
@@ -34,7 +34,7 @@ function createControlButtons() {
         { id: "turn-left", text: "←←", style: "top: 50%; left: 10%; transform: translateY(-50%);" },
         { id: "turn-right", text: "→→", style: "top: 50%; right: 10%; transform: translateY(-50%);" },
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
-        { id: "view", text: "o", style: "bottom: 80px; left: 30%; transform: translateX(-50%);" }
+        { id: "view", text: "o", style: "bottom: 90px; left: 30%; transform: translateX(-50%);" }
     ];
 
     controls.forEach(({ id, text, style }) => {
