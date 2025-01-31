@@ -25,7 +25,34 @@ export function showLoadingScreen() {
         circle = new THREE.Mesh(circleGeometry, circleMaterial);
         circle.position.set(0, 1.5, 0); // Start above the sphere
         scene.add(circle);
+1
+        // Create and style the "loading.." text
+        const loadingText = document.createElement("div");
+        loadingText.innerText = "Loading..";
+        loadingText.style.position = "absolute";
+        loadingText.style.top = "75%"; // Adjusted for proper positioning1
+        loadingText.style.left = "50%";
+        loadingText.style.transform = "translate(-50%, -50%)";
+        loadingText.style.color = "white";
+        loadingText.style.fontSize = "25px";
+        loadingText.style.fontFamily = "Verdana, sans-serif";
+        loadingText.style.textAlign = "center";
+        loadingText.style.animation = "blink 2s infinite";
+        loadingText.id = "loading3";
 
+        document.body.appendChild(loadingText);
+
+        // Add CSS for blinking effect
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes blink {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
         // Set camera position
         camera.position.z = 5;
 
@@ -75,7 +102,10 @@ export function hideLoadingScreen() {
         loaderTextDiv.innerText = 'Click to Start';
         //loaderTextDiv.id = 'loading1';
         document.body.appendChild(loaderTextDiv);
-*/
+*/      
+        const loadingText = document.getElementById("loading3");
+        loadingText.remove();
+
         // Add a text element for "Start" (inside the sphere)
         const startTextDiv = document.createElement('div');
         startTextDiv.style.position = 'absolute';

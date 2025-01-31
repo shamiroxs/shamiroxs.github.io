@@ -32,7 +32,13 @@ async function initializeApp() {
     showLoadingScreen();
 
     // Load assets
-    const assetPaths = ['./assets/character.glb', './assets/sky.jpg', './assets/background.glb', './assets/cars/car1.glb', './assets/cars/car2.glb', './assets/cars/car3.glb', './assets/cars/car4.glb', './assets/aircraft.glb', './assets/cars/car1.glb', './assets/cars/car4.glb', './assets/tv.glb'];//[10]
+    const assetPaths = ['./assets/character.glb', 
+    './assets/sky.jpg', './assets/background.glb', 
+    './assets/cars/car1.glb', './assets/cars/car2.glb', 
+    './assets/cars/car3.glb', './assets/cars/car4.glb', 
+    './assets/aircraft.glb', './assets/cars/car1.glb', 
+    './assets/cars/car4.glb', './assets/tv.glb',
+    './assets/night.jpg'];//[11]
     const assets = await loadAssets(assetPaths);
     console.log('Assets loaded and loading screen completed!');
 

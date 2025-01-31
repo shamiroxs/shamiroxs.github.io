@@ -1,5 +1,8 @@
 import * as THREE from 'three';
-import { playClickSound, playAirBalloonSound, playEndSound, playResetSound, playBackgroundMusic, playOceanSound, playHornSound, playGlassSound, playScreenSound } from './sound';
+import { playClickSound, playAirBalloonSound, 
+    playEndSound, playResetSound, playBackgroundMusic, 
+    playOceanSound, playHornSound, playGlassSound, 
+    playScreenSound, playNightMusic } from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen } from './loading.js';
@@ -42,10 +45,6 @@ export async function initScene(assets) {
     ground.rotation.x = -Math.PI / 2;
     scene.add(ground);
 
-    // Add a skybox
-    const skyTexture = assets[1];
-    scene.background = skyTexture;
-
     // Add the character model
     let character = assets[0].scene;
     const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0
@@ -62,6 +61,77 @@ export async function initScene(assets) {
     await startTutorial(scene, assets);
     await startProject(scene, assets);
     await hideLoadingScreen();
+
+    // Add a skybox
+    function toggleDarkMode() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+        updateSceneLighting(isDarkMode);
+        }
+    
+        function updateSceneLighting(isDarkMode) {
+            if (isDarkMode) {
+                ambientLight.intensity = 0.4;
+                light1.intensity = 0.08;
+                light2.intensity = 0.08;
+                light3.intensity = 0.08;
+                light4.intensity = 0.2;
+                scene.background = assets[11]; // Night sky
+            } else {
+                ambientLight.intensity = 0.8;
+                light1.intensity = 0.25;
+                light2.intensity = 0.25;
+                light3.intensity = 0.25;
+                light4.intensity = 1;
+                scene.background = assets[1]; // Day sky
+            }
+        }
+    
+        // Create toggle button
+        const toggleButton = document.createElement('img');
+        toggleButton.id = 'dark-mode-toggle';
+        toggleButton.src = localStorage.getItem('darkMode') === 'true' ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
+        toggleButton.style.position = 'absolute';
+        toggleButton.style.top = '15px';
+        toggleButton.style.right = '15px';
+        toggleButton.style.width = '25px';
+        toggleButton.style.height = '25px';
+        toggleButton.style.cursor = 'pointer';
+        toggleButton.style.opacity = '0.7';
+    
+        toggleButton.addEventListener('mouseenter', () => {
+            toggleButton.style.opacity = '1.5';
+          });
+          
+          toggleButton.addEventListener('mouseleave', () => {
+            toggleButton.style.opacity = '0.7';
+          });
+    
+        document.body.appendChild(toggleButton);
+    
+        toggleButton.addEventListener('click', () => {
+        const isDarkMode = localStorage.getItem('darkMode') !== 'true';
+        localStorage.setItem('darkMode', isDarkMode);
+        toggleButton.src = isDarkMode ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
+        updateSceneLighting(isDarkMode);
+    
+        if (isDarkMode) {
+            playNightMusic();
+        } else {
+            playBackgroundMusic();
+        }
+    
+        });
+    
+        // Apply saved dark mode preference on load
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (savedDarkMode) {
+            document.body.classList.add('dark-mode');
+            updateSceneLighting(true);
+        }
+        else{
+            updateSceneLighting(false);
+        }
 
     // Car positions and movement ranges
     const carPositions = [
@@ -312,7 +382,6 @@ export async function initScene(assets) {
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
 
-    playBackgroundMusic();
     playOceanSound();
 
     // Randomly play horn sound

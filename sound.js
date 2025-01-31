@@ -36,9 +36,15 @@ const backgroundMusic = new Howl({
     loop: true  // Set loop to true for infinite playback
 });
 
+const nightMusic = new Howl({
+    src: ['./assets/sounds/night.mp3'],
+    volume: 0.4,
+    loop: true  // Set loop to true for infinite playback
+});
+
 const oceanSound = new Howl({
     src: ['./assets/sounds/ocean.mp3'],
-    volume: 0.05,
+    volume: 0.1,
     loop: true
 });
 
@@ -79,8 +85,15 @@ export function playResetSound() {
 }
 
 export function playBackgroundMusic() {
+    nightMusic.stop();
     backgroundMusic.stop();
     backgroundMusic.play();
+}
+
+export function playNightMusic() {
+    backgroundMusic.stop();
+    nightMusic.stop();
+    nightMusic.play();
 }
 
 export function playOceanSound() {
