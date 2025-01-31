@@ -7,6 +7,7 @@ import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen } from './loading.js';
 import { startProject } from './project';
+import { checkMobile } from './phone.js';
 
 export async function initScene(assets) {
     const scene = new THREE.Scene();
@@ -61,6 +62,8 @@ export async function initScene(assets) {
     await startTutorial(scene, assets);
     await startProject(scene, assets);
     await hideLoadingScreen();
+
+    checkMobile(); //is phone browser or desktop
 
     // Add a skybox
     function toggleDarkMode() {

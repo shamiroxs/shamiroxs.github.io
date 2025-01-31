@@ -2,9 +2,6 @@ import * as THREE from 'three';
 import { showLoadingScreen, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { checkMobile } from './phone.js';
-
-checkMobile(); //is phone browser or desktop
 
 async function loadAssets(assetPaths) {
     const loader = new GLTFLoader();
