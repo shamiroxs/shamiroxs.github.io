@@ -56,7 +56,7 @@ export async function initScene(assets, chara) {
     scene.add(character);
 
     //recent skin
-    let savedSkinIndex = localStorage.getItem('selectedSkin') ? parseInt(localStorage.getItem('selectedSkin')) : 0;
+    let savedSkinIndex = localStorage.getItem('selectedSkin') ? parseInt(localStorage.getItem('selectedSkin')) : 3;
 
     if (chara[savedSkinIndex]) {
         while (character.children.length > 0) {
