@@ -11,7 +11,15 @@ export async function drawCharacterSkin(scene, chara) {
     for (let i = 0; i < 7; i++) {
         let skin = chara[i].scene.clone(); // Clone the model to avoid modifying the original
         skin.scale.set(0.03, 0.03, 0.03);
-        skin.position.set(-30 + i * 5, 0.6, -10); // Spread out skins in the scene
+        if(i < 3){
+            skin.position.set(22.6 + i * 15, 0.6, -39.6); // Spread out skins in the scene
+        }
+        else if(i == 6){
+            skin.position.set(37.2, 9, -53.5);
+        }
+        else{
+            skin.position.set(22.6 + (i-3) * 15, 0.6, -26.5)
+        }
         skin.name = `character ${i}`; // Assign a unique name
         scene.add(skin);
     }

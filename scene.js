@@ -49,7 +49,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0
+    const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0 || -37,0.6, -11
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -365,7 +365,8 @@ export async function initScene(assets, chara) {
         Space: false,
         KeyR: false,
         ArrowLeft: false,
-        ArrowRight: false
+        ArrowRight: false,
+        KeyF: false
     };
 
     let currentDirection = 0; // 0: forward, 1: right, 2: backward, 3: left
@@ -424,7 +425,7 @@ export async function initScene(assets, chara) {
     function smoothRotate() {
         if (character.rotation.y !== targetRotationY) {
             const delta = targetRotationY - character.rotation.y;
-            character.rotation.y += delta * 0.1; // Adjust the 0.1 to change the smoothness
+            character.rotation.y += delta * 0.1;
         }
     }
 
@@ -440,26 +441,27 @@ export async function initScene(assets, chara) {
 
             const previousPosition = character.position.clone();
 
+            // 0: forward, 1: right, 2: backward, 3: left
             if (keys.KeyW) {
                 switch (currentDirection) {
                     case 0: character.position.z -= moveSpeed+0.03; break; // forward
-                    case 1: character.position.x += moveSpeed; break; // right
-                    case 2: character.position.z += moveSpeed; break; // backward
-                    case 3: character.position.x -= moveSpeed; break; // left
+                    case 1: character.position.x += moveSpeed+0.03; break; // right
+                    case 2: character.position.z += moveSpeed+0.03; break; // backward
+                    case 3: character.position.x -= moveSpeed+0.03; break; // left
                 }
             }
             if (keys.KeyS) {
                 switch (currentDirection) {
                     case 0: character.position.z += moveSpeed; break; // backward
                     case 1: character.position.x -= moveSpeed; break; // left
-                    case 2: character.position.z -= moveSpeed+ 0.03; break; // forward
+                    case 2: character.position.z -= moveSpeed; break; // forward
                     case 3: character.position.x += moveSpeed; break; // right
                 }
             }
             if (keys.KeyA) {
                 switch (currentDirection) {
                     case 0: character.position.x -= moveSpeed; break; // left
-                    case 1: character.position.z -= moveSpeed + 0.03; break; // forward
+                    case 1: character.position.z -= moveSpeed; break; // forward
                     case 2: character.position.x += moveSpeed; break; // right
                     case 3: character.position.z += moveSpeed; break; // backward
                 }
@@ -469,7 +471,7 @@ export async function initScene(assets, chara) {
                     case 0: character.position.x += moveSpeed; break; // right
                     case 1: character.position.z += moveSpeed; break; // backward
                     case 2: character.position.x -= moveSpeed; break; // left
-                    case 3: character.position.z -= moveSpeed + 0.1; break; // forward
+                    case 3: character.position.z -= moveSpeed; break; // forward
                 }
             }
             if (keys.KeyQ) {
