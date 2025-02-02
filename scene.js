@@ -49,7 +49,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0 || -37,0.6, -11
+    const initialPosition = new THREE.Vector3(-37,0.6,-11); //0,0.6,0 || -37,0.6,-11 || 28, 0.6,-24)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -75,7 +75,7 @@ export async function initScene(assets, chara) {
 
     await startTutorial(scene, assets);
     await startProject(scene, assets);
-    await drawCharacterSkin(scene, chara);
+    await drawCharacterSkin(scene, chara, assets);
     await hideLoadingScreen();
 
     checkMobile(); //is phone browser or desktop
