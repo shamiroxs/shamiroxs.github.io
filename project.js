@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
-import { TextureLoader } from 'three';
-
 
 export async function startProject(scene, assets) {
 
@@ -88,22 +86,23 @@ export async function startProject(scene, assets) {
 
             if(rot == 0){
                 xt = x - 1.8;
-                yt = y + 2;
+                yt = y + 0.1;
                 zt = z;
             }
             else if(rot == -0.5){
                 xt = x;
-                yt = y + 2 ;
+                yt = y + 0.1;
                 zt = z - 1.8;
             }
             else if(rot == 0.5){
                 xt = x ;
-                yt = y + 2;
+                yt = y + 0.1;
                 zt = z + 2.5;
             }
 
             textMesh.position.set(xt, yt, zt);
             textMesh.rotation.x = Math.PI * rot;
+            textMesh.rotation.z = Math.PI * rot * 2;
             scene.add(textMesh);
         });
     }
@@ -130,6 +129,16 @@ export async function startProject(scene, assets) {
 
     createGlassPlane('/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
-    createGlassGround('hello', -37.5, 0, 0.55, 0.5)
+    createGlassGround('hello', -22.6, 0, 0.55, -0.5);//frist back
+    createGlassGround('hello', -21.7, 0, -27.45, -0.5);//first front
+
+    createGlassGround('hello', -37.5, 0, -27.45, -0.5);
+    createGlassGround('hello', -37.5, 0, 0.55, -0.5);
+
+    createGlassGround('hello', -51.5, 0, -27.45, -0.5);
+    createGlassGround('hello', -52.4, 0, 0.55, -0.5);//third back
+
+    createGlassGround('hello', -52.5, 0, -12.25, 0.5);
+
 
 }

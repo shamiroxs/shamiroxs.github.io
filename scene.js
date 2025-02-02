@@ -8,8 +8,9 @@ import { startTutorial } from './tutorial';
 import { hideLoadingScreen } from './loading.js';
 import { startProject } from './project';
 import { checkMobile } from './phone.js';
+import { drawCharacterSkin } from './fun';
 
-export async function initScene(assets) {
+export async function initScene(assets, chara) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -51,7 +52,20 @@ export async function initScene(assets) {
     const initialPosition = new THREE.Vector3(-37, 0.6, -11); //0,0.6,0
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
+    character.name = 'character';
     scene.add(character);
+
+    //recent skin
+    let savedSkinIndex = localStorage.getItem('selectedSkin') ? parseInt(localStorage.getItem('selectedSkin')) : 0;
+
+    if (chara[savedSkinIndex]) {
+        while (character.children.length > 0) {
+            character.remove(character.children[0]);
+        }
+        chara[savedSkinIndex].scene.children.forEach(child => {
+            character.add(child.clone());
+        });
+    }
 
     // Add the background model
     let background = assets[2].scene;
@@ -61,6 +75,7 @@ export async function initScene(assets) {
 
     await startTutorial(scene, assets);
     await startProject(scene, assets);
+    await drawCharacterSkin(scene, chara);
     await hideLoadingScreen();
 
     checkMobile(); //is phone browser or desktop
@@ -270,6 +285,16 @@ export async function initScene(assets) {
         tv.boundingBox = new THREE.Box3().setFromObject(tv);
     });
     console.log(tvScreen);
+
+    //skin add bounding box
+    const skins = scene.children.filter(obj => obj.name.startsWith('character '));
+
+    skins.forEach(skin => {
+        skin.boundingBox = new THREE.Box3().setFromObject(skin);
+    });
+    console.log(skins);
+
+
 
     /////////////////////////////////////////////////////////
 
@@ -520,7 +545,28 @@ export async function initScene(assets) {
                     }
                 }
             });
+
+            //skin 
+            skins.forEach(skin => {
+
+                if (characterBox.intersectsBox(skin.boundingBox)) {
+                    const index = parseInt(skin.name.replace('character ', ''));
             
+                    // Remove current character model
+                    while (character.children.length > 0) {
+                        character.remove(character.children[0]);
+                    }
+        
+                    // Add new skin model
+                    chara[index].scene.children.forEach(child => {
+                        character.add(child.clone());
+                    });
+                    
+                    localStorage.setItem('selectedSkin', index);
+                    console.log(`Character skin changed to: ${index}`);
+                }
+            });
+                
 
             if (isFirstPerson) {
                 // Calculate the direction vector from the camera to the character

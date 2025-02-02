@@ -36,14 +36,25 @@ async function initializeApp() {
     './assets/aircraft.glb', './assets/cars/car1.glb', 
     './assets/cars/car4.glb', './assets/tv.glb',
     './assets/night.jpg'];//[11]
+
+    const charaPaths = ['./assets/character_skin/blue.glb', 
+    './assets/character_skin/purple.glb', 
+    './assets/character_skin/yellow.glb', 
+    './assets/character_skin/org.glb', 
+    './assets/character_skin/green.glb', 
+    './assets/character_skin/grey.glb', 
+    './assets/character_skin/dark_grey.glb']
+
     const assets = await loadAssets(assetPaths);
     console.log('Assets loaded and loading screen completed!');
+    const chara = await loadAssets(charaPaths);
+    console.log('Character skins loaded and loading screen completed!');
 
     // Hide the loading screen
      // Clear the DOM content
 
     // Initialize the main scene with the loaded assets
-    initScene(assets);    
+    initScene(assets, chara);    
 }
 
 // Start the application
