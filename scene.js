@@ -5,10 +5,11 @@ import { playClickSound, playAirBalloonSound,
     playScreenSound, playNightMusic } from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
-import { hideLoadingScreen } from './loading.js';
+import { hideLoadingScreen, showLoadingScreen } from './loading.js';
 import { startProject } from './project';
 import { checkMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
+import { startGame, playGame } from './game';
 
 export async function initScene(assets, chara) {
     const scene = new THREE.Scene();
@@ -49,7 +50,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    const initialPosition = new THREE.Vector3(-37,0.6,-11); //0,0.6,0 || -37,0.6,-11 || 28, 0.6,-24)
+    const initialPosition = new THREE.Vector3(21, 0.6,-14); //0,0.6,0 || -37,0.6,-11 || 28, 0.6,-24)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -67,6 +68,17 @@ export async function initScene(assets, chara) {
         });
     }
 
+    // Add a torch light to the character
+    const torchLight = new THREE.SpotLight(0xffa95c, 2);
+    torchLight.angle = Math.PI / 3.5;
+    torchLight.penumbra = 0.1;
+    torchLight.decay = 2;
+    torchLight.distance = 50;
+    torchLight.position.set(0, 5, 0);
+    torchLight.target = character;
+    character.add(torchLight);
+    character.add(torchLight.target);
+
     // Add the background model
     let background = assets[2].scene;
     background.scale.set(0.006, 0.006, 0.006);
@@ -76,6 +88,7 @@ export async function initScene(assets, chara) {
     await startTutorial(scene, assets);
     await startProject(scene, assets);
     await drawCharacterSkin(scene, chara, assets);
+    await startGame(scene, assets);
     await hideLoadingScreen();
 
     checkMobile(); //is phone browser or desktop
@@ -94,6 +107,7 @@ export async function initScene(assets, chara) {
                 light2.intensity = 0.08;
                 light3.intensity = 0.08;
                 light4.intensity = 0.2;
+                torchLight.visible = true; 
                 scene.background = assets[11]; // Night sky
             } else {
                 ambientLight.intensity = 0.8;
@@ -101,6 +115,7 @@ export async function initScene(assets, chara) {
                 light2.intensity = 0.25;
                 light3.intensity = 0.25;
                 light4.intensity = 1;
+                torchLight.visible = false;
                 scene.background = assets[1]; // Day sky
             }
         }
@@ -251,28 +266,6 @@ export async function initScene(assets, chara) {
         scene.add(truck);
     }
 
-    // Add portals (playground and projects)
-    const portalGeometry = new THREE.TorusGeometry(1, 0.2, 16, 100);
-    const portalMaterial = new THREE.MeshStandardMaterial({ color: 0xffd700 });
-    const playgroundPortal = new THREE.Mesh(portalGeometry, portalMaterial);
-    const projectsPortal = new THREE.Mesh(portalGeometry, portalMaterial);
-
-    playgroundPortal.position.set(-5, 1, 0);
-    projectsPortal.position.set(5, 1, 0);
-
-    playgroundPortal.rotation.x = Math.PI / 2;
-    projectsPortal.rotation.x = Math.PI / 2;
-
-    scene.add(playgroundPortal, projectsPortal);
-
-    // Create bounding boxes for portals
-    const playgroundPortalOuterBox = new THREE.Box3().setFromObject(playgroundPortal);
-    const projectsPortalOuterBox = new THREE.Box3().setFromObject(projectsPortal);
-
-    // Define the bounding box for the hole (simplified as a smaller box)
-    const playgroundPortalHoleBox = new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(-5, 1, 0), new THREE.Vector3(0.5, 0.5, 0.5));
-    const projectsPortalHoleBox = new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(5, 1, 0), new THREE.Vector3(0.5, 0.5, 0.5));
-
     //Retrive tutorial blocks
     const allBlocks = scene.children.filter(obj => obj.name.startsWith('Tblock'));
     allBlocks.forEach(block => {
@@ -294,6 +287,10 @@ export async function initScene(assets, chara) {
     });
     console.log(skins);
 
+    //game portal
+    const portal = scene.children.find(obj => obj.name === 'portal');
+    portal.boundingBox = new THREE.Box3().setFromObject(portal);
+
 
 
     /////////////////////////////////////////////////////////
@@ -303,6 +300,7 @@ export async function initScene(assets, chara) {
     let isDragging = false;
     let initialMousePosition = new THREE.Vector2();
     let initialCameraPosition = new THREE.Vector3();
+    let gameCamera = false;
 
     camera.position.set(0, 5, zoomLevel);
 
@@ -429,7 +427,7 @@ export async function initScene(assets, chara) {
         }
     }
 
-    function animate() {
+    async function animate() {
         requestAnimationFrame(animate);
 
         TWEEN.update();
@@ -487,15 +485,6 @@ export async function initScene(assets, chara) {
             }
 
             console.log('character psotion ' + character.position.x + ', ' + character.position.y + ', ' + character.position.z);
-
-            // Check collision with outer part of portals and allow movement through the hole
-            if (characterBox.intersectsBox(playgroundPortalOuterBox) && !characterBox.intersectsBox(playgroundPortalHoleBox)) {
-                character.position.copy(previousPosition);
-            }
-            if (characterBox.intersectsBox(projectsPortalOuterBox) && !characterBox.intersectsBox(projectsPortalHoleBox)) {
-                character.position.copy(previousPosition);
-            }
-
             //tutorial blocks
             
             allBlocks.forEach(block => {
@@ -563,14 +552,45 @@ export async function initScene(assets, chara) {
                     chara[index].scene.children.forEach(child => {
                         character.add(child.clone());
                     });
+
+                    character.add(torchLight);
+                    torchLight.target = character;
                     
                     localStorage.setItem('selectedSkin', index);
                     console.log(`Character skin changed to: ${index}`);
                 }
             });
+
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            if(characterBox.intersectsBox(portal.boundingBox)){
+
+                await playGame(scene);
+
+
+                character.position.set(22, 8, 2); 
+
+                //camera.up.set(0, 1, 0); 
+
+                //show the track     
+                gameCamera = true;   
+                camera.lookAt(new THREE.Vector3(1, 0, 0));    
+                camera.position.set(24, 7.5, 7);
+                camera.rotateY(Math.PI) ;
+                
+                //await delay(2000); 
+                //camera.position.set(45, 4, 7.5);
+                //camera.rotateY(Math.PI /2) ;
+                
+                await delay(2000); 
+                gameCamera = false;
+                
+            }
                 
 
-            if (isFirstPerson) {
+            if (isFirstPerson && !gameCamera) {
                 // Calculate the direction vector from the camera to the character
                 const direction = new THREE.Vector3();
                 direction.subVectors(character.position, camera.position).normalize();
@@ -591,7 +611,7 @@ export async function initScene(assets, chara) {
             
                 // Set the camera to look at the calculated position
                 camera.lookAt(lookAtPosition);
-            } else {
+            } else if(!isFirstPerson && !gameCamera) {
                 if (!isDragging) {
                     const offset = new THREE.Vector3(0, 1, zoomLevel).applyQuaternion(character.quaternion);
                     camera.position.copy(character.position).add(offset);
@@ -665,9 +685,6 @@ export async function initScene(assets, chara) {
                 }
             }
         }
-
-        playgroundPortal.rotation.z += 0.01;
-        projectsPortal.rotation.z -= 0.01;
 
         smoothRotate();
         renderer.render(scene, camera);
