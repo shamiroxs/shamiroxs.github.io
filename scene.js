@@ -290,8 +290,9 @@ export async function initScene(assets, chara) {
     //game portal
     const portal = scene.children.find(obj => obj.name === 'portal');
     portal.boundingBox = new THREE.Box3().setFromObject(portal);
-
-
+    
+    let rings = scene.children.filter(obj => obj.name.startsWith('ring '));
+    let pops = scene.children.filter(obj => obj.name.startsWith('reward '));
 
     /////////////////////////////////////////////////////////
 
@@ -427,17 +428,21 @@ export async function initScene(assets, chara) {
         }
     }
 
+    let isRingCollision = false;
+
     async function animate() {
         requestAnimationFrame(animate);
 
         TWEEN.update();
         const characterBox = new THREE.Box3().setFromObject(character);
-
+        
         if (character) {
             const moveSpeed = 0.2;
             const liftSpeed = 0.4;
 
-            const previousPosition = character.position.clone();
+            if(!isRingCollision){
+                const previousPosition = character.position.clone();
+            }
 
             // 0: forward, 1: right, 2: backward, 3: left
             if (keys.KeyW) {
@@ -570,6 +575,22 @@ export async function initScene(assets, chara) {
 
                 await playGame(scene);
 
+                //game ring
+                rings = scene.children.filter(obj => obj.name.startsWith('ring '));
+
+                rings.forEach(ring => {
+                    ring.outerBox = new THREE.Box3().setFromObject(ring);
+                    ring.holeBox = new THREE.Box3().setFromCenterAndSize(
+                        ring.position.clone(), // Use the ring's actual position
+                        new THREE.Vector3(1, 1, 1) // Adjust hole size as needed
+                    );
+                });
+
+
+                pops = scene.children.filter(obj => obj.name.startsWith('reward '));
+                pops.forEach(pop => {
+                    pop.boundingBox = new THREE.Box3().setFromObject(pop);
+                });
 
                 character.position.set(22, 8, 6.9); 
 
@@ -608,6 +629,30 @@ export async function initScene(assets, chara) {
 
                 currentDirection = 1 ; // 1: right               
             }
+
+            //rings
+            rings.forEach(ring => {
+
+                if (characterBox.intersectsBox(ring.outerBox) && !characterBox.intersectsBox(ring.holeBox)) {
+                    character.position.copy(previousPosition);
+                    isRingCollision = true;
+                }
+                else{
+                    isRingCollision = false;
+                }
+            });
+
+            //rewards
+            // Rewards
+            pops.forEach((pop, index) => {
+            if (characterBox.intersectsBox(pop.boundingBox)) {  
+                playGlassSound();
+                scene.remove(pop);
+                pops.splice(index, 1);
+            }
+});
+            
+            
                 
 
             if (isFirstPerson && !gameCamera) {

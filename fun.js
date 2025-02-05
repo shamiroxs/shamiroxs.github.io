@@ -28,7 +28,7 @@ export async function drawCharacterSkin(scene, chara, assets) {
 
     // Add pyramid
     let pyramid ;
-    // Add the tv
+    
     for (let i = 0; i < 6; i++) {
         let pyramid = assets[12].scene.clone();
         pyramid.scale.set(4.1, 4.1, 4.1);
