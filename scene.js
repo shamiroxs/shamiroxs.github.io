@@ -564,29 +564,49 @@ export async function initScene(assets, chara) {
             function delay(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
+            
 
             if(characterBox.intersectsBox(portal.boundingBox)){
 
                 await playGame(scene);
 
 
-                character.position.set(22, 8, 2); 
+                character.position.set(22, 8, 6.9); 
 
                 //camera.up.set(0, 1, 0); 
 
                 //show the track     
                 gameCamera = true;   
-                camera.lookAt(new THREE.Vector3(1, 0, 0));    
+                playScreenSound(); 
+                camera.lookAt(new THREE.Vector3(1, 0, 0));   
                 camera.position.set(24, 7.5, 7);
                 camera.rotateY(Math.PI) ;
+                await delay(1500); 
                 
-                //await delay(2000); 
-                //camera.position.set(45, 4, 7.5);
-                //camera.rotateY(Math.PI /2) ;
+                playScreenSound();
+                camera.position.set(9, 17, 21.5);
+                //camera.rotateY(Math.PI) ;
+                await delay(1500); 
+                gameCamera = false; 
+
+                character.position.set(22, 8, 6.9); 
                 
-                await delay(2000); 
-                gameCamera = false;
-                
+                switch (currentDirection) {
+                    case 0: // Forward (+z axis)
+                        targetRotationY -= Math.PI / 2;
+                        break;
+                    case 1: // Right (+x axis)
+                        targetRotationY = -Math.PI / 2;
+                        break;
+                    case 2: // Backward (-z axis)
+                        targetRotationY += Math.PI / 2;
+                        break;
+                    case 3: // Left (-x axis)
+                        targetRotationY = -Math.PI / 2;
+                        break;
+                }
+
+                currentDirection = 1 ; // 1: right               
             }
                 
 
