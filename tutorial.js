@@ -162,13 +162,13 @@ export async function startTutorial(scene, assets) {
 
 
     // Create Planes
-    createGlassPlane('Welcome!\nPress SPACE KEY to view\nPress                              to move', 0, 0, -2.8, 0);
     createGlassPlane('Left                           Right\n\n\n\n\n\n     Hint:Undo view!', 0, 0, -10.55, 0);
     createGlassPlane('\nFly                                      Fall', 2.8, 0.2, -6.4, -0.5);
     createGlassPlane('Mouse:\n<> Click & Drag to move around\n<> Scroll to Zoom', -3, 0.2, -6.4, 0.5);
 
     // Create blocks
     if(isMobile()){
+        createGlassPlane('Welcome!\nPress O to view\nPress                              to move', 0, 0, -2.8, 0);
         createGlassBlock('\n^', 0, 1, -2.4, 0);
         createGlassBlock('<', -1, 0, -2.4, 0);
         createGlassBlock('o', 0, 0, -2.4, 0);
@@ -179,6 +179,7 @@ export async function startTutorial(scene, assets) {
         createGlassBlock('D', 2.8, 1, -4.8, -0.5);
     }
     else{
+        createGlassPlane('Welcome!\nPress SPACE KEY to view\nPress                              to move', 0, 0, -2.8, 0);
         createGlassBlock('W', 0, 1, -2.4, 0);
         createGlassBlock('A', -1, 0, -2.4, 0);
         createGlassBlock('S', 0, 0, -2.4, 0);
