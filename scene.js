@@ -439,7 +439,7 @@ export async function initScene(assets, chara) {
         const characterBox = new THREE.Box3().setFromObject(character);
         
         if (character) {
-            if(!isMobile){
+            if(isMobile()){
                 moveSpeed = 0.1;
                 liftSpeed = 0.2;
             }

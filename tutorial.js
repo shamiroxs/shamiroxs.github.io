@@ -168,7 +168,7 @@ export async function startTutorial(scene, assets) {
     createGlassPlane('Mouse:\n<> Click & Drag to move around\n<> Scroll to Zoom', -3, 0.2, -6.4, 0.5);
 
     // Create blocks
-    if(!isMobile){
+    if(isMobile()){
         createGlassBlock('\n^', 0, 1, -2.4, 0);
         createGlassBlock('<', -1, 0, -2.4, 0);
         createGlassBlock('o', 0, 0, -2.4, 0);
