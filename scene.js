@@ -429,6 +429,8 @@ export async function initScene(assets, chara) {
     }
 
     let isRingCollision = false;
+    let moveSpeed;
+    let liftSpeed;
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -437,13 +439,13 @@ export async function initScene(assets, chara) {
         const characterBox = new THREE.Box3().setFromObject(character);
         
         if (character) {
-            if(isMobile){
-                const moveSpeed = 0.1;
-                const liftSpeed = 0.2;
+            if(!isMobile){
+                moveSpeed = 0.1;
+                liftSpeed = 0.2;
             }
             else{
-                const moveSpeed = 0.2;
-                const liftSpeed = 0.4;
+                moveSpeed = 0.2;
+                liftSpeed = 0.4;
             }
 
             if(!isRingCollision){

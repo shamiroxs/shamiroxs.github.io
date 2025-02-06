@@ -123,7 +123,7 @@ export async function startTutorial(scene, assets) {
         let xt, yt, zt;
         const fontLoader = new FontLoader();
         // Load a font and create the text
-        fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
+        fontLoader.load('https://threejs.org/examples/fonts/droid_sans_mono_regular.typeface.json', (font) => {
             const textGeometry = new TextGeometry(input_text, {
                 font: font,
                 size: 1.2,
@@ -168,13 +168,13 @@ export async function startTutorial(scene, assets) {
     createGlassPlane('Mouse:\n<> Click & Drag to move around\n<> Scroll to Zoom', -3, 0.2, -6.4, 0.5);
 
     // Create blocks
-    if(isMobile){
-        createGlassBlock('↑', 0, 1, -2.4, 0);
-        createGlassBlock('←', -1, 0, -2.4, 0);
-        createGlassBlock('↓', 0, 0, -2.4, 0);
-        createGlassBlock('→', 1, 0, -2.4, 0);
-        createGlassBlock('←←', -1.8, 1, -10.55, 0);
-        createGlassBlock('→→', 1, 1, -10.55, 0);
+    if(!isMobile){
+        createGlassBlock('\n^', 0, 1, -2.4, 0);
+        createGlassBlock('<', -1, 0, -2.4, 0);
+        createGlassBlock('o', 0, 0, -2.4, 0);
+        createGlassBlock('>', 1, 0, -2.4, 0);
+        createGlassBlock('<<', -1.8, 1, -10.55, 0);
+        createGlassBlock('>>', 1, 1, -10.55, 0);
         createGlassBlock('U', 2.8, 1, -8, -0.5);
         createGlassBlock('D', 2.8, 1, -4.8, -0.5);
     }
