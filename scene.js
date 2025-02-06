@@ -7,7 +7,7 @@ import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
 import { startProject } from './project';
-import { checkMobile } from './phone.js';
+import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame } from './game';
 
@@ -437,8 +437,14 @@ export async function initScene(assets, chara) {
         const characterBox = new THREE.Box3().setFromObject(character);
         
         if (character) {
-            const moveSpeed = 0.2;
-            const liftSpeed = 0.4;
+            if(isMobile){
+                const moveSpeed = 0.1;
+                const liftSpeed = 0.2;
+            }
+            else{
+                const moveSpeed = 0.2;
+                const liftSpeed = 0.4;
+            }
 
             if(!isRingCollision){
                 const previousPosition = character.position.clone();

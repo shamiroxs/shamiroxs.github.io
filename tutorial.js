@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { isMobile } from './phone';
 
 export async function startTutorial(scene, assets) {
     // Create a glass plane
@@ -167,15 +168,27 @@ export async function startTutorial(scene, assets) {
     createGlassPlane('Mouse:\n<> Click & Drag to move around\n<> Scroll to Zoom', -3, 0.2, -6.4, 0.5);
 
     // Create blocks
-    createGlassBlock('W', 0, 1, -2.4, 0);
-    createGlassBlock('A', -1, 0, -2.4, 0);
-    createGlassBlock('S', 0, 0, -2.4, 0);
-    createGlassBlock('D', 1, 0, -2.4, 0);
-    createGlassBlock('<-', -1.8, 1, -10.55, 0);
-    createGlassBlock('->', 1, 1, -10.55, 0);
-    createGlassBlock('Q', 2.8, 1, -8, -0.5);
-    createGlassBlock('E', 2.8, 1, -4.8, -0.5);
-
+    if(isMobile){
+        createGlassBlock('↑', 0, 1, -2.4, 0);
+        createGlassBlock('←', -1, 0, -2.4, 0);
+        createGlassBlock('↓', 0, 0, -2.4, 0);
+        createGlassBlock('→', 1, 0, -2.4, 0);
+        createGlassBlock('←←', -1.8, 1, -10.55, 0);
+        createGlassBlock('→→', 1, 1, -10.55, 0);
+        createGlassBlock('U', 2.8, 1, -8, -0.5);
+        createGlassBlock('D', 2.8, 1, -4.8, -0.5);
+    }
+    else{
+        createGlassBlock('W', 0, 1, -2.4, 0);
+        createGlassBlock('A', -1, 0, -2.4, 0);
+        createGlassBlock('S', 0, 0, -2.4, 0);
+        createGlassBlock('D', 1, 0, -2.4, 0);
+        createGlassBlock('<-', -1.8, 1, -10.55, 0);
+        createGlassBlock('->', 1, 1, -10.55, 0);
+        createGlassBlock('Q', 2.8, 1, -8, -0.5);
+        createGlassBlock('E', 2.8, 1, -4.8, -0.5);
+    }
+    
     // Create plane of blocks
 // Side 1: From left to right along the x-axis
     for (let x = -2.5; x <= 2.5; x += 0.5) {
