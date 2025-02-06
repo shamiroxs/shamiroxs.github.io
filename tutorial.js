@@ -123,7 +123,7 @@ export async function startTutorial(scene, assets) {
         let xt, yt, zt;
         const fontLoader = new FontLoader();
         // Load a font and create the text
-        fontLoader.load('https://threejs.org/examples/fonts/droid_sans_mono_regular.typeface.json', (font) => {
+        fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
             const textGeometry = new TextGeometry(input_text, {
                 font: font,
                 size: 1.2,
