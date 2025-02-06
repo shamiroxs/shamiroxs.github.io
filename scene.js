@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import { playClickSound, playAirBalloonSound, 
     playEndSound, playResetSound, playBackgroundMusic, 
     playOceanSound, playHornSound, playGlassSound, 
-    playScreenSound, playNightMusic } from './sound';
+    playScreenSound, playNightMusic, playAirBalloonFallSound,
+    playMoveSound, playSkinSound} from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
@@ -454,6 +455,7 @@ export async function initScene(assets, chara) {
 
             // 0: forward, 1: right, 2: backward, 3: left
             if (keys.KeyW) {
+                playMoveSound();
                 switch (currentDirection) {
                     case 0: character.position.z -= moveSpeed+0.03; break; // forward
                     case 1: character.position.x += moveSpeed+0.03; break; // right
@@ -462,6 +464,7 @@ export async function initScene(assets, chara) {
                 }
             }
             if (keys.KeyS) {
+                playMoveSound();
                 switch (currentDirection) {
                     case 0: character.position.z += moveSpeed; break; // backward
                     case 1: character.position.x -= moveSpeed; break; // left
@@ -470,6 +473,7 @@ export async function initScene(assets, chara) {
                 }
             }
             if (keys.KeyA) {
+                playMoveSound();
                 switch (currentDirection) {
                     case 0: character.position.x -= moveSpeed; break; // left
                     case 1: character.position.z -= moveSpeed; break; // forward
@@ -478,6 +482,7 @@ export async function initScene(assets, chara) {
                 }
             }
             if (keys.KeyD) {
+                playMoveSound();
                 switch (currentDirection) {
                     case 0: character.position.x += moveSpeed; break; // right
                     case 1: character.position.z += moveSpeed; break; // backward
@@ -491,6 +496,7 @@ export async function initScene(assets, chara) {
             }
             if (keys.KeyE) {
                 if (character.position.y - liftSpeed > 0) {
+                    playAirBalloonFallSound();
                     character.position.y -= liftSpeed;
                 } else {
                     playEndSound();
@@ -554,6 +560,7 @@ export async function initScene(assets, chara) {
             skins.forEach(skin => {
 
                 if (characterBox.intersectsBox(skin.boundingBox)) {
+                    playSkinSound();
                     const index = parseInt(skin.name.replace('character ', ''));
             
                     // Remove current character model

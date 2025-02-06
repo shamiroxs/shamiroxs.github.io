@@ -24,6 +24,18 @@ const airBalloonSoundEffect = new Howl({
     volume: 0.2
 });
 
+const airBalloonFallSound = new Howl({
+    src: ['./assets/sounds/air.mp3'],
+    volume: 0.1,
+    rate: 0.9
+});
+
+const movementSound = new Howl({
+    src: ['./assets/sounds/move.mp3'],
+    volume: 1,
+    rate: 2
+});
+
 
 const resetSound = new Howl({
     src: ['./assets/sounds/end.mp3'],
@@ -58,6 +70,12 @@ const glassSound = new Howl({
     volume: 0.9
 });
 
+const skinSound = new Howl({
+    src: ['./assets/sounds/skin.mp3'],
+    volume: 1.2,
+    rate: 4
+});
+
 // Export functions to play the sounds
 export function playClickSound() {
     clickSound.stop();
@@ -77,6 +95,17 @@ export function playEndSound() {
 export function playAirBalloonSound() {
     airBalloonSoundEffect.stop();
     airBalloonSoundEffect.play();
+}
+
+export function playAirBalloonFallSound() {
+    airBalloonFallSound.stop();
+    airBalloonFallSound.play();
+}
+
+export function playMoveSound() {
+    /*
+    movementSound.stop();
+    movementSound.play();*/
 }
 
 export function playResetSound() {
@@ -109,4 +138,9 @@ export function playHornSound() {
 export function playGlassSound() {
     glassSound.stop();
     glassSound.play();
+}
+
+export function playSkinSound() {
+    skinSound.stop();
+    skinSound.play();
 }
