@@ -88,9 +88,10 @@ function addSwipeListeners() {
     let isDragging = false;
 
     document.addEventListener("touchstart", (event) => {
-        startX = event.touches[0].clientX;
-        startY = event.touches[0].clientY;
+        endX =0; endY =0;
         isDragging = false;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;      
     });
 
     document.addEventListener("touchmove", (event) => {
