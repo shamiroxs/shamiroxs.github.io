@@ -88,6 +88,11 @@ function addSwipeListeners() {
     let isDragging = false;
 
     document.addEventListener("touchstart", (event) => {
+        endX = 0;
+        startX = 0;
+        endY = 0 ;
+        startY = 0;
+        
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
         isDragging = false;
