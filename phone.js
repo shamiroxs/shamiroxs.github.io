@@ -3,7 +3,7 @@ export function isMobile() {
 }
 
 function isLargeScreenMobile() {
-    return isMobile() && window.innerWidth > 600;
+    return isMobile() && window.innerWidth > 600; // Adjust threshold if needed
 }
 
 function createControlButtons() {
@@ -12,6 +12,8 @@ function createControlButtons() {
     const controls = [
         { id: "forward", text: "↑", style: "bottom: 140px; left: 30%; transform: translateX(-50%);" },
         { id: "backward", text: "↓", style: "bottom: 40px; left: 30%; transform: translateX(-50%);" },
+        
+        // Only adjust left and right for large-screen phones
         {
             id: "left",
             text: "←",
@@ -26,6 +28,9 @@ function createControlButtons() {
                 ? "bottom: 70px; left: 33.6%; transform: translateY(-50%);"
                 : "bottom: 70px; left: 38.8%; transform: translateY(-50%);"
         },
+
+        { id: "up", text: "U", style: "bottom: 130px; right: 10%; transform: translateY(-50%);" },
+        { id: "down", text: "D", style: "bottom: 30px; right: 10%; transform: translateY(-50%);" },
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
         { id: "view", text: "o", style: "bottom: 90px; left: 30%; transform: translateX(-50%);" }
     ];
@@ -50,7 +55,7 @@ function createControlButtons() {
         });
     });
 
-    addSwipeListeners();
+    addSwipeListeners(); // Add swipe event detection
 }
 
 function triggerMouseEvent(eventType, clientY) {
@@ -64,19 +69,22 @@ function triggerMouseEvent(eventType, clientY) {
     document.dispatchEvent(event);
 }
 
-// Swipe detection
+// Add swipe gesture detection
 function addSwipeListeners() {
-    let startY = 0;
+    let startX = 0, startY = 0;
+    let endX = 0, endY = 0;
     let isDragging = false;
 
     document.addEventListener("touchstart", (event) => {
+        startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
         isDragging = false;
     });
 
     document.addEventListener("touchmove", (event) => {
-        const currentY = event.touches[0].clientY;
-        const diffY = startY - currentY;
+        endX = event.touches[0].clientX;
+        endY = event.touches[0].clientY;
+        const diffY = startY - endY;
         const moveAmount = Math.abs(diffY);
 
         if (moveAmount > 10) {
@@ -85,22 +93,55 @@ function addSwipeListeners() {
                 isDragging = true;
             }
 
-            triggerMouseEvent("mousemove", currentY);
+            triggerMouseEvent("mousemove", endY);
         }
     });
 
     document.addEventListener("touchend", () => {
+        let diffX = startX - endX;
+        let diffY = startY - endY;
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // Horizontal swipe
+            if (diffX > 50) {
+                console.log("Swiped Left (Triggering 'ArrowLeft')");
+                triggerKey("swipeLeft", "keydown");
+                setTimeout(() => triggerKey("swipeLeft", "keyup"), 100);
+            } else if (diffX < -50) {
+                console.log("Swiped Right (Triggering 'ArrowRight')");
+                triggerKey("swipeRight", "keydown");
+                setTimeout(() => triggerKey("swipeRight", "keyup"), 100);
+            }
+        } else {
+            // Vertical swipe
+            if (diffY > 10) {  // Swiping up moves the mouse up
+                console.log("Swiped Up (Triggering Mouse Move Up)");
+                triggerMouseMove(-20); // Move mouse up
+            } else if (diffY < -10) { // Swiping down moves the mouse down
+                console.log("Swiped Down (Triggering Mouse Move Down)");
+                triggerMouseMove(20); // Move mouse down
+            }
+        }
         if (isDragging) {
             triggerMouseEvent("mouseup", 0);
             isDragging = false;
         }
+
     });
 }
 
 function triggerKey(controlId, eventType) {
     const keyMap = {
-        left: "ArrowLeft",
-        right: "ArrowRight"
+        forward: "KeyW",
+        backward: "KeyS",
+        left: "KeyA",
+        right: "KeyD",
+        up: "KeyQ",
+        down: "KeyE",
+        reset: "KeyR",
+        view: "Space",
+        swipeLeft: "ArrowLeft",
+        swipeRight: "ArrowRight"
     };
 
     const key = keyMap[controlId];
