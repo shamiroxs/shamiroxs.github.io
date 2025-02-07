@@ -90,6 +90,8 @@ function addSwipeListeners() {
     document.addEventListener("touchstart", (event) => {
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
+        endX = startX;
+        endY = startY;
         isDragging = false;
     });
 
@@ -115,7 +117,7 @@ function addSwipeListeners() {
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
             // Horizontal swipe
-            if (diffX > 80 && diffX < 95) {
+            if (diffX > 80) {
                 console.log("Swiped Left (Triggering 'ArrowLeft')");
                 triggerKey("swipeLeft", "keydown");
                 setTimeout(() => triggerKey("swipeLeft", "keyup"), 100);
