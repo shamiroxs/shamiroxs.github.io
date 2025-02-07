@@ -115,11 +115,11 @@ function addSwipeListeners() {
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
             // Horizontal swipe
-            if (diffX > 80) {
+            if (diffX > 10) {
                 console.log("Swiped Left (Triggering 'ArrowLeft')");
                 triggerKey("swipeLeft", "keydown");
                 setTimeout(() => triggerKey("swipeLeft", "keyup"), 100);
-            } else if (diffX < -80) {
+            } else if (diffX < -10) {
                 console.log("Swiped Right (Triggering 'ArrowRight')");
                 triggerKey("swipeRight", "keydown");
                 setTimeout(() => triggerKey("swipeRight", "keyup"), 100);
@@ -143,8 +143,6 @@ function addSwipeListeners() {
         startX = 0;
         endY = 0 ;
         startY = 0;
-        diffX = 0;
-        diffY = 0;
     });
 }
 
