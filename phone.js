@@ -113,7 +113,7 @@ function addSwipeListeners() {
         let diffX = startX - endX;
         let diffY = startY - endY;
 
-        if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 100) {
             // Horizontal swipe
             if (diffX > 10) {
                 console.log("Swiped Left (Triggering 'ArrowLeft')");
