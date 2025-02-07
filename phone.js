@@ -58,6 +58,18 @@ function createControlButtons() {
     addSwipeListeners(); // Add swipe event detection
 }
 
+function triggerMouseMove(deltaY) {
+    const event = new MouseEvent("mousemove", {
+        bubbles: true,
+        cancelable: true,
+        clientX: window.innerWidth / 2, // Simulate movement in the middle of the screen
+        clientY: window.innerHeight / 2 + deltaY // Move up or down based on swipe direction
+    });
+
+    document.dispatchEvent(event);
+}
+
+
 function triggerMouseEvent(eventType, clientY) {
     const event = new MouseEvent(eventType, {
         bubbles: true,
