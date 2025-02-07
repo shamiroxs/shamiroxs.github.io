@@ -99,7 +99,7 @@ function addSwipeListeners() {
         const diffY = startY - endY;
         const moveAmount = Math.abs(diffY);
 
-        if (moveAmount > 10) {
+        if (moveAmount > 20) {
             if (!isDragging) {
                 triggerMouseEvent("mousedown", startY);
                 isDragging = true;
