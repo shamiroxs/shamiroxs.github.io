@@ -88,10 +88,9 @@ function addSwipeListeners() {
     let isDragging = false;
 
     document.addEventListener("touchstart", (event) => {
-        endX =0; endY =0;
-        isDragging = false;
         startX = event.touches[0].clientX;
-        startY = event.touches[0].clientY;      
+        startY = event.touches[0].clientY;
+        isDragging = false;
     });
 
     document.addEventListener("touchmove", (event) => {
@@ -100,7 +99,7 @@ function addSwipeListeners() {
         const diffY = startY - endY;
         const moveAmount = Math.abs(diffY);
 
-        if (moveAmount > 80) {
+        if (moveAmount > 30) {
             if (!isDragging) {
                 triggerMouseEvent("mousedown", startY);
                 isDragging = true;
@@ -115,12 +114,12 @@ function addSwipeListeners() {
         let diffY = startY - endY;
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
-            // Horizontal swipe
+           /* // Horizontal swipe
             if (diffX > 80) {
                 console.log("Swiped Left (Triggering 'ArrowLeft')");
                 triggerKey("swipeLeft", "keydown");
                 setTimeout(() => triggerKey("swipeLeft", "keyup"), 100);
-            } else if (diffX < -80) {
+            } else*/ if (diffX < -80) {
                 console.log("Swiped Right (Triggering 'ArrowRight')");
                 triggerKey("swipeRight", "keydown");
                 setTimeout(() => triggerKey("swipeRight", "keyup"), 100);
