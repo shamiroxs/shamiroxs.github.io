@@ -139,6 +139,8 @@ function addSwipeListeners() {
             isDragging = false;
         }
 
+        endX = startX;
+        endY = startY;
     });
 }
 
