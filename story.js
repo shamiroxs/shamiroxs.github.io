@@ -4,7 +4,7 @@ export function startStory(scene) {
     // Create a container for the message
     const messageDiv = document.createElement("div");
     messageDiv.style.position = "absolute";
-    messageDiv.style.top = "80%";
+    messageDiv.style.top = "60%";
     messageDiv.style.left = "50%";
     messageDiv.style.transform = "translate(-50%, -50%)";
     messageDiv.style.color = "white";
