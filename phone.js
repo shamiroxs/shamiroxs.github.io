@@ -6,10 +6,16 @@ function isLargeScreenMobile() {
     return isMobile() && window.innerWidth > 600; // Adjust threshold if needed
 }
 
+let isGameFinished = false;
+
+export function gameFinished(){
+    isGameFinished = true;
+}
+
 function createControlButtons() {
     const isLargeScreen = isLargeScreenMobile();
 
-    const controls = [
+    let controls = [
         { id: "forward", text: "↑", style: "bottom: 140px; left: 30%; transform: translateX(-50%);" },
         { id: "backward", text: "↓", style: "bottom: 40px; left: 30%; transform: translateX(-50%);" },
         
@@ -31,13 +37,20 @@ function createControlButtons() {
 
         { id: "up", text: "U", style: "bottom: 130px; right: 10%; transform: translateY(-50%);" },
         { id: "down", text: "D", style: "bottom: 30px; right: 10%; transform: translateY(-50%);" },
-        { id: "p1", text: "P1", style: "bottom: 230px; right: 10%; transform: translateY(-50%);" },
-        { id: "p2", text: "P2", style: "bottom: 280px; right: 10%; transform: translateY(-50%);" },
-        { id: "p3", text: "P3", style: "bottom: 330px; right: 10%; transform: translateY(-50%);" },
-                
+              
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
-        { id: "view", text: "o", style: "bottom: 90px; left: 30%; transform: translateX(-50%);" }
+        { id: "view", text: "o", style: "bottom: 90px; left: 30%; transform: translateX(-50%);" },
+
     ];
+
+    if(isGameFinished){
+
+        controls = controls.concat([
+            { id: "p1", text: "P1", style: "bottom: 230px; right: 10%; transform: translateY(-50%);" },
+            { id: "p2", text: "P2", style: "bottom: 280px; right: 10%; transform: translateY(-50%);" },
+            { id: "p3", text: "P3", style: "bottom: 330px; right: 10%; transform: translateY(-50%);" },
+        ]);   
+    }
 
     controls.forEach(({ id, text, style }) => {
         const button = document.createElement("div");

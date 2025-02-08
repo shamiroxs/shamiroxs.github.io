@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { checkMobile, gameFinished, isMobile } from './phone';
 
 export async function startGame(scene, assets) {
     const portal = assets[13].scene.clone();
@@ -123,6 +124,9 @@ export function drawFinish(scene) {
             });
         });
     });
+
+    gameFinished();
+    checkMobile();
 }
 
 export function skinText(scene){
