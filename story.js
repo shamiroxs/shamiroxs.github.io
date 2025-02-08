@@ -6,7 +6,7 @@ export function startStory(scene) {
     const messageDiv = document.createElement("div");
     messageDiv.style.position = "absolute";
     
- 
+    messageDiv.style.left = "50%";
     messageDiv.style.transform = "translate(-50%, -50%)";
     messageDiv.style.color = "white";
 
@@ -20,13 +20,11 @@ export function startStory(scene) {
 
     if(isMobile()){
         messageDiv.style.top = "60%";
-        messageDiv.style.fontSize = "20px";
-        messageDiv.style.left = "20%";
+        messageDiv.style.fontSize = "18px";
     }
     else{
         messageDiv.style.top = "80%";
         messageDiv.style.fontSize = "24px";
-        messageDiv.style.left = "50%";
     }
     document.body.appendChild(messageDiv);
 
