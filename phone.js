@@ -6,10 +6,12 @@ function isLargeScreenMobile() {
     return isMobile() && window.innerWidth > 600; // Adjust threshold if needed
 }
 
-let isGameFinished = false;
+// Retrieve game state from localStorage
+let isGameFinished = localStorage.getItem("isGameFinished") === "true";
 
 export function gameFinished() {
     isGameFinished = true;
+    localStorage.setItem("isGameFinished", "true"); // Save state in localStorage
 }
 
 function removeControlButtons() {
