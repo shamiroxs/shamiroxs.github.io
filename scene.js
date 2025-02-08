@@ -477,7 +477,7 @@ export async function initScene(assets, chara) {
         if (character) {
             if(isMobile()){
                 moveSpeed = 0.16;
-                liftSpeed = 0.3;
+                liftSpeed = 0.18;
             }
             else{
                 moveSpeed = 0.2;
