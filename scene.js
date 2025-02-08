@@ -10,7 +10,8 @@ import { hideLoadingScreen, showLoadingScreen } from './loading.js';
 import { startProject } from './project';
 import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
-import { startGame, playGame } from './game';
+import { startGame, playGame, drawFinish, skinText } from './game';
+import { startStory } from './story';
 
 export async function initScene(assets, chara) {
     const scene = new THREE.Scene();
@@ -51,7 +52,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    const initialPosition = new THREE.Vector3(21, 0.6,-14); //0,0.6,0 || -37,0.6,-11 || 28, 0.6,-24)
+    let initialPosition = new THREE.Vector3(0, 0.6,0); //0,0.6,0 || -37,0.6,-11 || 28, 0.6,-24)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -93,15 +94,16 @@ export async function initScene(assets, chara) {
     await hideLoadingScreen();
 
     checkMobile(); //is phone browser or desktop
+    startStory();
 
     // Add a skybox
     function toggleDarkMode() {
         const isDarkMode = document.body.classList.toggle('dark-mode');
         localStorage.setItem('darkMode', isDarkMode);
         updateSceneLighting(isDarkMode);
-        }
+    }
     
-        function updateSceneLighting(isDarkMode) {
+    function updateSceneLighting(isDarkMode) {
             if (isDarkMode) {
                 ambientLight.intensity = 0.4;
                 light1.intensity = 0.08;
@@ -119,7 +121,7 @@ export async function initScene(assets, chara) {
                 torchLight.visible = false;
                 scene.background = assets[1]; // Day sky
             }
-        }
+    }
     
         // Create toggle button
         const toggleButton = document.createElement('img');
@@ -366,7 +368,12 @@ export async function initScene(assets, chara) {
         KeyR: false,
         ArrowLeft: false,
         ArrowRight: false,
-        KeyF: false
+        KeyF: false,
+        KeyP: false,
+        Digit1: false,
+        Digit2: false,
+        Digit3: false
+
     };
 
     let currentDirection = 0; // 0: forward, 1: right, 2: backward, 3: left
@@ -389,6 +396,31 @@ export async function initScene(assets, chara) {
             targetRotationY -= Math.PI / 2;
             console.log('Turned right');
         }
+
+        if(keys.KeyP && keys.Digit2){
+            if(character){
+                character.position.set(0,0.6,0);
+                playResetSound();
+                initialPosition.set(0,0.6,0);
+            }
+        }
+
+        if(keys.KeyP && keys.Digit1){
+            if(character){
+                character.position.set(22,0.6,-11);
+                playResetSound();
+                initialPosition.set(22, 0.6, -11);
+            }
+        }
+
+        if(keys.KeyP && keys.Digit3){
+            if(character){
+                character.position.set(-37, 0.6, -12);
+                playResetSound();
+                initialPosition.set(-37, 0.6, -12);
+            }
+        }
+
     }
 
     function onKeyUp(event) {
@@ -432,6 +464,9 @@ export async function initScene(assets, chara) {
     let isRingCollision = false;
     let moveSpeed;
     let liftSpeed;
+    let score =0 ;
+    let previousPosition = new THREE.Vector3();
+    let skinChanged = false;
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -450,7 +485,10 @@ export async function initScene(assets, chara) {
             }
 
             if(!isRingCollision){
-                const previousPosition = character.position.clone();
+                if(previousPosition.distanceTo(character.position) > 3){
+                    previousPosition.copy(character.position) ;
+                }
+           
             }
 
             // 0: forward, 1: right, 2: backward, 3: left
@@ -578,8 +616,14 @@ export async function initScene(assets, chara) {
                     
                     localStorage.setItem('selectedSkin', index);
                     console.log(`Character skin changed to: ${index}`);
+                    skinChanged = true;
                 }
             });
+
+            if(skinChanged){
+                skinText(scene);
+                skinChanged = false;
+            }
 
             function delay(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
@@ -662,10 +706,30 @@ export async function initScene(assets, chara) {
             pops.forEach((pop, index) => {
             if (characterBox.intersectsBox(pop.boundingBox)) {  
                 playGlassSound();
+
+                score += 1;
+                console.log('score ' + score);
+
+                if(score == 14){
+                    for (let j = rings.length - 1; j >= 0; j--) {
+                        scene.remove(rings[j]);
+                        rings.splice(j, 1);
+                    }
+                    for (let j = pops.length - 1; j >= 0; j--) {
+                        scene.remove(pops[j]);
+                        pops.splice(j, 1);
+                    }
+                }
+
                 scene.remove(pop);
                 pops.splice(index, 1);
             }
-});
+            });
+
+            if(score == 14){
+                await drawFinish(scene);
+                score = 0;
+            }
             
             
                 
