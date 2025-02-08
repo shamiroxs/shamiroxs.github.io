@@ -31,6 +31,10 @@ function createControlButtons() {
 
         { id: "up", text: "U", style: "bottom: 130px; right: 10%; transform: translateY(-50%);" },
         { id: "down", text: "D", style: "bottom: 30px; right: 10%; transform: translateY(-50%);" },
+        { id: "p1", text: "P1", style: "bottom: 230px; right: 10%; transform: translateY(-50%);" },
+        { id: "p2", text: "P2", style: "bottom: 280px; right: 10%; transform: translateY(-50%);" },
+        { id: "p3", text: "P3", style: "bottom: 330px; right: 10%; transform: translateY(-50%);" },
+                
         { id: "reset", text: "R", style: "top: 8%; left: 10%; transform: translateY(-50%);" },
         { id: "view", text: "o", style: "bottom: 90px; left: 30%; transform: translateX(-50%);" }
     ];
@@ -149,6 +153,8 @@ function addSwipeListeners() {
     });
 }
 
+const pressedKeys = {};
+
 function triggerKey(controlId, eventType) {
     const keyMap = {
         forward: "KeyW",
@@ -160,14 +166,24 @@ function triggerKey(controlId, eventType) {
         reset: "KeyR",
         view: "Space",
         swipeLeft: "ArrowLeft",
-        swipeRight: "ArrowRight"
+        swipeRight: "ArrowRight",
+        p1: ["KeyP", "Digit1"],
+        p2: ["KeyP", "Digit2"],
+        p3: ["KeyP", "Digit3"]
     };
 
-    const key = keyMap[controlId];
-    if (key) {
+    const keys = Array.isArray(keyMap[controlId]) ? keyMap[controlId] : [keyMap[controlId]]; // Ensure array
+
+    keys.forEach((key) => {
+        if (eventType === "keydown") {
+            pressedKeys[key] = true;
+        } else {
+            delete pressedKeys[key];
+        }
+
         const event = new KeyboardEvent(eventType, { code: key });
         window.dispatchEvent(event);
-    }
+    });
 }
 
 export function checkMobile() {
