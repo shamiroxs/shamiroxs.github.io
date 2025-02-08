@@ -1,14 +1,15 @@
+import { isMobile } from "./phone";
 
 
 export function startStory(scene) {
     // Create a container for the message
     const messageDiv = document.createElement("div");
     messageDiv.style.position = "absolute";
-    messageDiv.style.top = "60%";
+    
     messageDiv.style.left = "50%";
     messageDiv.style.transform = "translate(-50%, -50%)";
     messageDiv.style.color = "white";
-    messageDiv.style.fontSize = "24px";
+
     messageDiv.style.fontFamily = "Arial, sans-serif";
     messageDiv.style.padding = "10px";
     messageDiv.style.background = "rgba(0, 0, 0, 0.7)";
@@ -16,7 +17,15 @@ export function startStory(scene) {
     messageDiv.style.textAlign = "center";
     messageDiv.style.opacity = "0"; // Initially hidden
     messageDiv.style.transition = "opacity 1s";
-    
+
+    if(isMobile()){
+        messageDiv.style.top = "60%";
+        messageDiv.style.fontSize = "20px";
+    }
+    else{
+        messageDiv.style.top = "80%";
+        messageDiv.style.fontSize = "24px";
+    }
     document.body.appendChild(messageDiv);
 
     function showMessage(text, delay, callback) {
