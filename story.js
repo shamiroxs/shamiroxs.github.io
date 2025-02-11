@@ -41,7 +41,7 @@ export function startStory(scene) {
 
     // Show messages without blocking other animations
     showMessage("Hello, I am Shamir's Balloon!", 20, () => {
-        showMessage("This open world has hidden games and showcased projects.", 500, () => {
+        showMessage("Here we have hidden games and showcased projects.", 500, () => {
             showMessage("Happy Exploring!", 500, () =>{
                 document.body.removeChild(messageDiv);
             });

@@ -135,7 +135,7 @@ export async function startTutorial(scene, assets) {
                 bevelOffset: 0,
                 bevelSegments: 5
             });
-            const textMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00 }); // White color
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // White color
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
             if(rot == 0){
