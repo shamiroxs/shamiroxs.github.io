@@ -79,7 +79,6 @@ export async function initScene(assets, chara) {
     torchLight.position.set(0, 5, 0);
     torchLight.target = character;
     character.add(torchLight);
-    character.add(torchLight.target);
 
     // Add the background model
     let background = assets[2].scene;
