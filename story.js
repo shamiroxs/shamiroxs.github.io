@@ -43,8 +43,14 @@ export function startStory(scene) {
     showMessage("Hello, I am Shamir's Balloon!", 20, () => {
         showMessage("Here we have hidden games and showcased projects.", 500, () => {
             showMessage("Happy Exploring!", 500, () =>{
-                document.body.removeChild(messageDiv);
+                setTimeout(() => {
+                    showMessage("If you ever get stuck!<br>Press R", 20, () => {
+                        document.body.removeChild(messageDiv);
+                    })
+                }, 30000);
             });
         });
     });
+
+    
 }

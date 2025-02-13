@@ -118,7 +118,7 @@ export async function startTutorial(scene, assets) {
     }
 
     // Function to create a glass block with text
-    function createText(input_text, x, y, z, rot) {
+    function createText(input_text, x, y, z, roty, rotx) {
         
         let xt, yt, zt;
         const fontLoader = new FontLoader();
@@ -138,23 +138,24 @@ export async function startTutorial(scene, assets) {
             const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // White color
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
-            if(rot == 0){
+            if(roty == 0){
                 xt = x ;
                 yt = y ;
                 zt = z ;
             }
-            else if(rot == -0.5){
+            else if(roty == -0.5){
                 xt = x + 0.06;
                 yt = y - 0.15 ;
                 zt = z - 0.30;
             }
-            else if(rot == 0.5){
+            else if(roty == 0.5){
                 xt = x + 0.06;
                 yt = y + 0.15 ;
                 zt = z - 0.30;
             }
 
-            textMesh.rotation.y = Math.PI * rot;
+            textMesh.rotation.y = Math.PI * roty;
+            textMesh.rotation.x = Math.PI * rotx;
             textMesh.position.set(xt, yt, zt); // Adjust position to place text on the block
             scene.add(textMesh);
         });
@@ -162,13 +163,13 @@ export async function startTutorial(scene, assets) {
 
 
     // Create Planes
-    createGlassPlane('Left                           Right\n\n\n\n\n\n     Hint:Undo view!', 0, 0, -10.55, 0);
     createGlassPlane('\nFly                                      Fall', 2.8, 0.2, -6.4, -0.5);
     createGlassPlane('Mouse:\n<> Click & Drag to move around\n<> Scroll to Zoom', -3, 0.2, -6.4, 0.5);
 
     // Create blocks
     if(isMobile()){
         createGlassPlane('Welcome!\nPress O to view\nPress                              to move', 0, 0, -2.8, 0);
+        createGlassPlane('Swipe Left                     Swipe Right\n\n\n\n\n\n     Hint:Undo view!', 0, 0, -10.55, 0);
         createGlassBlock('\n^', 0, 1, -2.4, 0);
         createGlassBlock('<', -1, 0, -2.4, 0);
         createGlassBlock('o', 0, 0, -2.4, 0);
@@ -180,6 +181,7 @@ export async function startTutorial(scene, assets) {
     }
     else{
         createGlassPlane('Welcome!\nPress SPACE KEY to view\nPress                              to move', 0, 0, -2.8, 0);
+        createGlassPlane('Left                           Right\n\n\n\n\n\n     Hint:Undo view!', 0, 0, -10.55, 0);
         createGlassBlock('W', 0, 1, -2.4, 0);
         createGlassBlock('A', -1, 0, -2.4, 0);
         createGlassBlock('S', 0, 0, -2.4, 0);
@@ -220,10 +222,16 @@ export async function startTutorial(scene, assets) {
 
     //create texts/instructions 
     for (let y = -0.5; y <= 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
-        createText("^", 2.7, y, -6.4, -0.5);
+        createText("^", 2.7, y, -6.4, -0.5, 0);
     }
 
-    createText("Projects", -4.7, 6.3, -3.2, 0.5);
-    createText("Fun!", 4.7, 6.3, -7.2, -0.5);
+    //Above game portal
+    for (let y = -0.5; y <= 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+        createText("^", 22.3, y+8, 0.8, 0.5, 1);
+    }
+
+    createText("Projects", -4.7, 6.3, -3.2, 0.5, 0);
+    createText("Fun!", 4.7, 6.3, -7.2, -0.5, 0);
+    createText("Change Your Look", 16, 7, -14, 0, 0);
 
 }
