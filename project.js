@@ -106,6 +106,9 @@ export async function startProject(scene, assets) {
             if(roty == 0){
                 textMesh.rotation.z = Math.PI * rotx * 2;
             }
+            else if(roty == 0.5){
+                textMesh.rotation.z = -Math.PI * rotx;
+            }
             else{
                 //No rotation for front
             }
@@ -137,15 +140,15 @@ export async function startProject(scene, assets) {
     createGlassPlane('/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
 
-    createGlassGround('hello', -22.6, 0, -26.5, -0.5, 1);//first front
-    createGlassGround('hello', -37.5, 0, -26.5, -0.5, 1); //second front
-    createGlassGround('hello', -51.5, 0, -26.5, -0.5, 1);//third front
+    createGlassGround('hello', -22.5, -0.28, -26.5, -0.5, 1);//first front
+    createGlassGround('hello', -37.5, -0.28, -26.5, -0.5, 1); //second front
+    createGlassGround('hello', -51.5, -0.28, -26.5, -0.5, 1);//third front
 
-    createGlassGround('hello', -22.6, 0, 0.55, -0.5, 0);//frist back
-    createGlassGround('hello', -37.5, 0, 0.55, -0.5, 0);//second back
-    createGlassGround('hello', -52.4, 0, 0.55, -0.5, 0);//third back
+    createGlassGround('hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
+    createGlassGround('hello', -37.5, -0.28, 0.55, -0.5, 0);//second back
+    createGlassGround('hello', -52.4, -0.28, 0.55, -0.5, 0);//third back
 
-    createGlassGround('hello', -52.5, 0, -12.25, 0.5, 0);
+    createGlassGround('hello', -52.5, -0.28, -13.2, -0.5, 0.5);
 
 
 }
