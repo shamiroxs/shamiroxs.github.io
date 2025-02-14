@@ -46,11 +46,11 @@ export async function startProject(scene, assets) {
     }
 
     //glaseplane below tv
-    function createGlassGround(input_text, x , y , z, rot){
+    function createGlassGround(input_text, x , y , z, rotx, roty){
 
          // Create a glass plane
         const planeGlassMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0x808080, // black color
+            color: 0x121212, // black color
             transmission: 0.9,
             opacity: 0.1,
             roughness: 0.1,
@@ -62,7 +62,7 @@ export async function startProject(scene, assets) {
 
         const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(12.5, 11.7), planeGlassMaterial);
         glassPlane.position.set(x, y, z);
-        glassPlane.rotation.x = Math.PI * rot;
+        glassPlane.rotation.x = Math.PI * rotx;
         scene.add(glassPlane);        
 
         let xt, yt, zt;
@@ -84,25 +84,32 @@ export async function startProject(scene, assets) {
             const textMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF }); // White color
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
-            if(rot == 0){
+            if(rotx == 0){
                 xt = x - 1.8;
                 yt = y + 0.1;
                 zt = z;
             }
-            else if(rot == -0.5){
+            else if(rotx == -0.5){
                 xt = x;
                 yt = y + 0.1;
                 zt = z - 1.8;
             }
-            else if(rot == 0.5){
+            else if(rotx == 0.5){
                 xt = x ;
                 yt = y + 0.1;
                 zt = z + 2.5;
             }
 
             textMesh.position.set(xt, yt, zt);
-            textMesh.rotation.x = Math.PI * rot;
-            textMesh.rotation.z = Math.PI * rot * 2;
+            textMesh.rotation.x = Math.PI * rotx;
+
+            if(roty == 0){
+                textMesh.rotation.z = Math.PI * rotx * 2;
+            }
+            else{
+                //No rotation for front
+            }
+            
             scene.add(textMesh);
         });
     }
@@ -129,16 +136,16 @@ export async function startProject(scene, assets) {
 
     createGlassPlane('/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
-    createGlassGround('hello', -22.6, 0, 0.55, -0.5);//frist back
-    createGlassGround('hello', -21.7, 0, -27.45, -0.5);//first front
 
-    createGlassGround('hello', -37.5, 0, -27.45, -0.5);
-    createGlassGround('hello', -37.5, 0, 0.55, -0.5);
+    createGlassGround('hello', -22.6, 0, -26.5, -0.5, 1);//first front
+    createGlassGround('hello', -37.5, 0, -26.5, -0.5, 1); //second front
+    createGlassGround('hello', -51.5, 0, -26.5, -0.5, 1);//third front
 
-    createGlassGround('hello', -51.5, 0, -27.45, -0.5);
-    createGlassGround('hello', -52.4, 0, 0.55, -0.5);//third back
+    createGlassGround('hello', -22.6, 0, 0.55, -0.5, 0);//frist back
+    createGlassGround('hello', -37.5, 0, 0.55, -0.5, 0);//second back
+    createGlassGround('hello', -52.4, 0, 0.55, -0.5, 0);//third back
 
-    createGlassGround('hello', -52.5, 0, -12.25, 0.5);
+    createGlassGround('hello', -52.5, 0, -12.25, 0.5, 0);
 
 
 }
