@@ -19,6 +19,18 @@ export async function startProject(scene, assets) {
         const tvBox = new THREE.Box3().setFromObject(tv);
     }
 
+    //create powerstation
+    let power;
+    function createPower(x, y, z, rot){
+        power = assets[14].scene.clone();
+        const initialPosition = new THREE.Vector3(x, y, z);
+        power.scale.set(1.5, 1.5, 1.5);
+        power.position.copy(initialPosition);
+        power.rotation.y = Math.PI * rot;
+        power.name = "power " + (x+y+z);
+        scene.add(power);    
+    }
+
     //glaseplane below tv
     function createGlassPlane(img_path, x , y , z, rot){
 
@@ -150,5 +162,8 @@ export async function startProject(scene, assets) {
 
     createGlassGround('hello', -52.5, -0.28, -13.2, -0.5, 0.5);
 
+    ////////////////// POWER STATTION \\\\\\\\\\\\\\\\\\\\
+
+    createPower(-40, 0.1, -14, -0.5);
 
 }
