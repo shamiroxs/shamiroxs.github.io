@@ -32,8 +32,7 @@ const airBalloonFallSound = new Howl({
 
 const movementSound = new Howl({
     src: ['./assets/sounds/move.mp3'],
-    volume: 1,
-    rate: 2
+    volume: 1
 });
 
 
@@ -108,9 +107,9 @@ export function playAirBalloonFallSound() {
 }
 
 export function playMoveSound() {
-    /*
-    movementSound.stop();
-    movementSound.play();*/
+    
+    //movementSound.stop();
+    //movementSound.play();
 }
 
 export function playResetSound() {
