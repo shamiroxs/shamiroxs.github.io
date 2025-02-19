@@ -2,6 +2,34 @@ import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
+//glaseplane on tv
+async function createGlassPlane(scene, img_path, x , y , z, rot){
+
+    const textureLoader = new THREE.TextureLoader();
+    const imageTexture = textureLoader.load(img_path);
+
+     // Create a glass plane
+    const planeGlassMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff, // white color
+        transmission: 0.9,
+        opacity: 0.3,
+        roughness: 0.1,
+        metalness: 0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        side: THREE.DoubleSide,
+        map: imageTexture
+    });
+
+    const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(11.5, 6.5), planeGlassMaterial);
+    glassPlane.position.set(x, y, z);
+    glassPlane.rotation.y = Math.PI * rot;
+    glassPlane.name = 'screen ' + (x+y+z);
+    scene.add(glassPlane);        
+
+}       
+
+
 export async function startProject(scene, assets) {
 
     let tv;
@@ -29,32 +57,6 @@ export async function startProject(scene, assets) {
         power.rotation.y = Math.PI * rot;
         power.name = "power " + (x+y+z);
         scene.add(power);    
-    }
-
-    //glaseplane below tv
-    function createGlassPlane(img_path, x , y , z, rot){
-
-        const textureLoader = new THREE.TextureLoader();
-        const imageTexture = textureLoader.load(img_path);
-
-         // Create a glass plane
-        const planeGlassMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff, // white color
-            transmission: 0.9,
-            opacity: 0.3,
-            roughness: 0.1,
-            metalness: 0,
-            clearcoat: 1.0,
-            clearcoatRoughness: 0.1,
-            side: THREE.DoubleSide,
-            map: imageTexture
-        });
-
-        const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(11.5, 6.5), planeGlassMaterial);
-        glassPlane.position.set(x, y, z);
-        glassPlane.rotation.y = Math.PI * rot;
-        scene.add(glassPlane);        
-
     }
 
     //glaseplane below tv
@@ -140,16 +142,16 @@ export async function startProject(scene, assets) {
     
     createTv(-53, 0, -12.8, 0.5);
 
-    createGlassPlane('', -22.2, 4.5, 3.75, 1);//ffirst back
-    createGlassPlane('/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
+    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
+    createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
 
-    createGlassPlane('/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
-    createGlassPlane('', -38, 4.5, 3.75, 1);//second back
+    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
+    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
 
-    createGlassPlane('/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
-    createGlassPlane('/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
+    createGlassPlane(scene, '/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
+    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
 
-    createGlassPlane('/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
+    createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
 
     createGlassGround('hello', -22.5, -0.28, -26.5, -0.5, 1);//first front
@@ -164,6 +166,37 @@ export async function startProject(scene, assets) {
 
     ////////////////// POWER STATTION \\\\\\\\\\\\\\\\\\\\
 
-    createPower(-40, 0.1, -14, -0.5);
+    createPower(-38, 0.1, -13, -0.5);
+    createPower(-36, 0.1, -13, 0.5);
 
+    createPower(-23, 0.1, -13, -0.5);
+    createPower(-21, 0.1, -13, 0.5);
+}
+
+export function offTV(scene){
+    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
+    createGlassPlane(scene, '', -22.2, 4.5, -29.8, 0);//first front
+
+    createGlassPlane(scene, '', -38, 4.5, -29.8, 0);//second front
+    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
+
+    createGlassPlane(scene, '', -52, 4.5, -29.8, 0);//third front
+    createGlassPlane(scene, '', -52, 4.5, 3.75, 1);//third back
+
+    createGlassPlane(scene, '', -54.6, 4.5, -12.8, 0.5);
+}
+
+
+export async function onTV(scene){
+
+    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
+    createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
+
+    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
+    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
+
+    createGlassPlane(scene, '/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
+    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
+
+    createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 }

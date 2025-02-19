@@ -3,11 +3,11 @@ import { playClickSound, playAirBalloonSound,
     playEndSound, playResetSound, playBackgroundMusic, 
     playOceanSound, playHornSound, playGlassSound, 
     playScreenSound, playNightMusic, playAirBalloonFallSound,
-    playMoveSound, playSkinSound} from './sound';
+    playMoveSound, playSkinSound, playSparkSound} from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
-import { startProject } from './project';
+import { startProject, onTV, offTV } from './project';
 import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';
@@ -101,6 +101,10 @@ export async function initScene(assets, chara) {
         localStorage.setItem('darkMode', isDarkMode);
         updateSceneLighting(isDarkMode);
     }
+
+
+    let originalIntensities;
+    let isDarkMode = false ;
     
     function updateSceneLighting(isDarkMode) {
             if (isDarkMode) {
@@ -120,6 +124,13 @@ export async function initScene(assets, chara) {
                 torchLight.visible = false;
                 scene.background = assets[1]; // Day sky
             }
+            originalIntensities = {
+                ambientLight: ambientLight.intensity,
+                light1: light1.intensity,
+                light2: light2.intensity,
+                light3: light3.intensity,
+                light4: light4.intensity
+            };
     }
     
         // Create toggle button
@@ -145,7 +156,7 @@ export async function initScene(assets, chara) {
         document.body.appendChild(toggleButton);
     
         toggleButton.addEventListener('click', () => {
-        const isDarkMode = localStorage.getItem('darkMode') !== 'true';
+        isDarkMode = localStorage.getItem('darkMode') !== 'true';
         localStorage.setItem('darkMode', isDarkMode);
         toggleButton.src = isDarkMode ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
         updateSceneLighting(isDarkMode);
@@ -287,7 +298,7 @@ export async function initScene(assets, chara) {
     skins.forEach(skin => {
         skin.boundingBox = new THREE.Box3().setFromObject(skin);
     });
-    console.log(skins);
+
 
     //game portal
     const portal = scene.children.find(obj => obj.name === 'portal');
@@ -295,6 +306,13 @@ export async function initScene(assets, chara) {
     
     let rings = scene.children.filter(obj => obj.name.startsWith('ring '));
     let pops = scene.children.filter(obj => obj.name.startsWith('reward '));
+    let screens = scene.children.filter(obj => obj.name.startsWith('screen '));
+
+    //power station
+    const powers = scene.children.filter(obj => obj.name.startsWith('power '));
+    powers.forEach(power => {
+        power.boundingBox = new THREE.Box3().setFromObject(power);
+    });
 
     /////////////////////////////////////////////////////////
 
@@ -304,6 +322,7 @@ export async function initScene(assets, chara) {
     let initialMousePosition = new THREE.Vector2();
     let initialCameraPosition = new THREE.Vector3();
     let gameCamera = false;
+    let powerTimes = 0;
 
     camera.position.set(0, 5, zoomLevel);
 
@@ -466,6 +485,7 @@ export async function initScene(assets, chara) {
     let score =0 ;
     let previousPosition = new THREE.Vector3();
     let skinChanged = false;
+    let isScreenOn = true;
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -484,7 +504,7 @@ export async function initScene(assets, chara) {
             }
 
             if(!isRingCollision){
-                if(previousPosition.distanceTo(character.position) > 3){
+                if(previousPosition.distanceTo(character.position) > 4){
                     previousPosition.copy(character.position) ;
                 }
            
@@ -589,6 +609,48 @@ export async function initScene(assets, chara) {
                             // Character is below, move them below the TV
                             characterBox.position.y = tv.boundingBox.min.y - characterBox.height;
                         }
+                    }
+                }
+            });
+
+            //power station
+            powers.forEach(power => {
+                if (characterBox.intersectsBox(power.boundingBox)) {
+
+                    playSparkSound();
+                    character.position.copy(previousPosition);                
+
+                    if(isScreenOn){
+                        if(isDarkMode){
+                            ambientLight.intensity -= 0.4;
+                            light1.intensity -= 0.23;
+                            light2.intensity -= 0.03;
+                            light3.intensity -= 0.23;
+                            light4.intensity -= 0.05;
+                            isScreenOn = false;
+                        }
+                        else{
+                            ambientLight.intensity -= 0.7;
+                            light1.intensity -= 0.23;
+                            light2.intensity -= 0.33;
+                            light3.intensity -= 0.23;
+                            light4.intensity -= 0.85;
+                            isScreenOn = false;
+                        }
+                        
+                    }
+                    else{
+                        // Restore original intensity values
+
+                        //setInterval(async () => {
+                        
+                            ambientLight.intensity = originalIntensities.ambientLight;
+                            light1.intensity = originalIntensities.light1;
+                            light2.intensity = originalIntensities.light2;
+                            light3.intensity = originalIntensities.light3;
+                            light4.intensity = originalIntensities.light4;
+                            isScreenOn = true;
+                        //}, 2000);
                     }
                 }
             });

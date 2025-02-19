@@ -76,6 +76,11 @@ const skinSound = new Howl({
     rate: 4
 });
 
+const sparkSound = new Howl({
+    src: ['./assets/sounds/spark.mp3'],
+    volume: 0.4
+});
+
 // Export functions to play the sounds
 export function playClickSound() {
     clickSound.stop();
@@ -143,5 +148,11 @@ export function playGlassSound() {
 export function playSkinSound() {
     skinSound.stop();
     skinSound.play();
+    
+}
+
+export function playSparkSound() {
+    sparkSound.stop();
+    sparkSound.play();
     
 }
