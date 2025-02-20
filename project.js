@@ -155,8 +155,8 @@ export async function startProject(scene, assets) {
 
 
     createGlassGround('Developed an AI-driven dance proficiency assessment system \n\nusing Python, OpenCV, and MediaPipe to detect body movement, \n\nscore dance performance in real-time, and display a dynamic \n\nleaderboard through Pygame to encourage participants to \n\ndance with confidence at a tech fest.', -22.5, -0.28, -26.5, -0.5, 1);//first front
-    createGlassGround('hello', -37.5, -0.28, -26.5, -0.5, 1); //second front
-    createGlassGround('hello', -51.5, -0.28, -26.5, -0.5, 1);//third front
+    createGlassGround('Implemented a web platform with HTML, CSS, JavaScript, PHP, \n\nand MySQL to connect blood donors with hospitals and individuals. \n\nThe system enables donors to register and search for donation \n\nopportunities and allows hospital staff to manage blood inventory\n\n and requests, enhancing community participation in blood drives \n\nand improving resource management for healthcare facilities.', -37.5, -0.28, -26.5, -0.5, 1); //second front
+    createGlassGround('Developed a Temperature Conversion Program, \n\nGuessing Game, Simple Contact Management System, \n\nSudoku Solver, Web Scraping Tool', -51.5, -0.28, -26.5, -0.5, 1);//third front
 
     createGlassGround('hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
     createGlassGround('hello', -37.5, -0.28, 0.55, -0.5, 0);//second back
