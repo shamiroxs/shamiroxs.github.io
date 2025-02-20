@@ -7,7 +7,7 @@ import { playClickSound, playAirBalloonSound,
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
-import { startProject, onTV, offTV } from './project';
+import { startProject } from './project';
 import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';

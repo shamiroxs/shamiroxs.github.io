@@ -86,7 +86,7 @@ export async function startProject(scene, assets) {
         fontLoader.load('https://threejs.org/examples/fonts/optimer_regular.typeface.json', (font) => {
             const textGeometry = new TextGeometry(input_text, {
                 font: font,
-                size: 0.2,
+                size: 0.26,
                 height: 0.02,
                 curveSegments: 12,
                 bevelEnabled: true,
@@ -98,17 +98,17 @@ export async function startProject(scene, assets) {
             const textMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF }); // White color
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
-            if(rotx == 0){
+            if(roty == 0){
                 xt = x - 1.8;
                 yt = y + 0.1;
                 zt = z;
             }
-            else if(rotx == -0.5){
-                xt = x;
+            else if(roty == 1){
+                xt = x - 4.5;
                 yt = y + 0.1;
                 zt = z - 1.8;
             }
-            else if(rotx == 0.5){
+            else if(roty == 0.5){
                 xt = x ;
                 yt = y + 0.1;
                 zt = z + 2.5;
@@ -154,7 +154,7 @@ export async function startProject(scene, assets) {
     createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 
 
-    createGlassGround('hello', -22.5, -0.28, -26.5, -0.5, 1);//first front
+    createGlassGround('Developed an AI-driven dance proficiency assessment system \n\nusing Python, OpenCV, and MediaPipe to detect body movement, \n\nscore dance performance in real-time, and display a dynamic \n\nleaderboard through Pygame to encourage participants to \n\ndance with confidence at a tech fest.', -22.5, -0.28, -26.5, -0.5, 1);//first front
     createGlassGround('hello', -37.5, -0.28, -26.5, -0.5, 1); //second front
     createGlassGround('hello', -51.5, -0.28, -26.5, -0.5, 1);//third front
 
@@ -171,32 +171,4 @@ export async function startProject(scene, assets) {
 
     createPower(-23, 0.1, -13, -0.5);
     createPower(-21, 0.1, -13, 0.5);
-}
-
-export function offTV(scene){
-    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
-    createGlassPlane(scene, '', -22.2, 4.5, -29.8, 0);//first front
-
-    createGlassPlane(scene, '', -38, 4.5, -29.8, 0);//second front
-    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
-
-    createGlassPlane(scene, '', -52, 4.5, -29.8, 0);//third front
-    createGlassPlane(scene, '', -52, 4.5, 3.75, 1);//third back
-
-    createGlassPlane(scene, '', -54.6, 4.5, -12.8, 0.5);
-}
-
-
-export async function onTV(scene){
-
-    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
-    createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
-
-    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
-    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
-
-    createGlassPlane(scene, '/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
-    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
-
-    createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
 }
