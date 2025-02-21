@@ -99,9 +99,9 @@ export async function startProject(scene, assets) {
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
             if(roty == 0){
-                xt = x - 1.8;
+                xt = x + 4.5;
                 yt = y + 0.1;
-                zt = z;
+                zt = z + 1.8;
             }
             else if(roty == 1){
                 xt = x - 4.5;
@@ -109,9 +109,9 @@ export async function startProject(scene, assets) {
                 zt = z - 1.8;
             }
             else if(roty == 0.5){
-                xt = x ;
+                xt = x - 0.8 ;
                 yt = y + 0.1;
-                zt = z + 2.5;
+                zt = z + 4.5;
             }
 
             textMesh.position.set(xt, yt, zt);
@@ -160,9 +160,9 @@ export async function startProject(scene, assets) {
 
     createGlassGround('hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
     createGlassGround('hello', -37.5, -0.28, 0.55, -0.5, 0);//second back
-    createGlassGround('hello', -52.4, -0.28, 0.55, -0.5, 0);//third back
+    createGlassGround('Created a Power BI dashboard from a workshop by \n\nJatan Shah, including certificate, dashboard file, and notes.', -52.4, -0.28, 0.55, -0.5, 0);//third back
 
-    createGlassGround('hello', -52.5, -0.28, -13.2, -0.5, 0.5);
+    createGlassGround('Developed an automated eBook-to-video conversion tool \n\nusing Python, integrating file processing, progress tracking, \n\nand multimedia generation with a user-friendly GUI.', -52.5, -0.28, -13.2, -0.5, 0.5);
 
     ////////////////// POWER STATTION \\\\\\\\\\\\\\\\\\\\
 
