@@ -92,8 +92,6 @@ export async function initScene(assets, chara) {
     await drawCharacterSkin(scene, chara, assets);
     await startGame(scene, assets);
 
-    checkMobile(); //is phone browser or desktop
-    
     // Add a skybox
     function toggleDarkMode() {
         const isDarkMode = document.body.classList.toggle('dark-mode');
@@ -306,6 +304,7 @@ export async function initScene(assets, chara) {
     tailor.boundingBox.max.x += 5;
 
     await hideLoadingScreen();
+    checkMobile(); //is phone browser or desktop
     startStory();
 
 
