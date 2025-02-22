@@ -3,7 +3,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 //glaseplane on tv
-async function createGlassPlane(scene, img_path, x , y , z, rot){
+function createGlassPlane(scene, img_path, x , y , z, rot){
 
     const textureLoader = new THREE.TextureLoader();
     const imageTexture = textureLoader.load(img_path);
@@ -77,6 +77,7 @@ export async function startProject(scene, assets) {
         const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(12.5, 11.7), planeGlassMaterial);
         glassPlane.position.set(x, y, z);
         glassPlane.rotation.x = Math.PI * rotx;
+        glassPlane.name = 'glass ground ' + (x + y+ z);
         scene.add(glassPlane);        
 
         let xt, yt, zt;

@@ -53,7 +53,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    let initialPosition = new THREE.Vector3( 22, 0.6,-6); //0,0.6,0.8 || -30,0.6,-11 || 22, 0.6,-6)
+    let initialPosition = new THREE.Vector3(-30,0.6,-11); //0,0.6,0.8 || -30,0.6,-11 || 22, 0.6,-6)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -91,11 +91,9 @@ export async function initScene(assets, chara) {
     await startProject(scene, assets);
     await drawCharacterSkin(scene, chara, assets);
     await startGame(scene, assets);
-    await hideLoadingScreen();
 
     checkMobile(); //is phone browser or desktop
-    startStory();
-
+    
     // Add a skybox
     function toggleDarkMode() {
         const isDarkMode = document.body.classList.toggle('dark-mode');
@@ -106,6 +104,27 @@ export async function initScene(assets, chara) {
 
     let originalIntensities;
     let isDarkMode = false ;
+
+    //power station
+    const powers = scene.children.filter(obj => obj.name.startsWith('power '));
+    powers.forEach(power => {
+        power.boundingBox = new THREE.Box3().setFromObject(power);
+
+        const powerLight = new THREE.SpotLight(0xffa95c, 2);
+        powerLight.angle = Math.PI / 3.5;
+        powerLight.penumbra = 0.1;
+        powerLight.decay = 2;
+        powerLight.distance = 50;
+        powerLight.intensity = 50; 
+
+        
+        powerLight.position.set(0, 2.8, 0);
+        powerLight.target = power;
+        powerLight.visible = false;
+    
+        power.powerLight = powerLight ;
+        power.add(powerLight);
+    });
     
     function updateSceneLighting(isDarkMode) {
             if (isDarkMode) {
@@ -115,6 +134,11 @@ export async function initScene(assets, chara) {
                 light3.intensity = 0.08;
                 light4.intensity = 0.2;
                 torchLight.visible = true; 
+
+                powers.forEach(power => {
+                    power.powerLight.visible = false;
+                });
+
                 scene.background = assets[11]; // Night sky
             } else {
                 ambientLight.intensity = 0.8;
@@ -124,6 +148,10 @@ export async function initScene(assets, chara) {
                 light4.intensity = 1;
                 torchLight.visible = false;
                 scene.background = assets[1]; // Day sky
+
+                powers.forEach(power => {
+                    power.powerLight.visible = false;
+                });
             }
             originalIntensities = {
                 ambientLight: ambientLight.intensity,
@@ -134,52 +162,6 @@ export async function initScene(assets, chara) {
             };
     }
     
-        // Create toggle button
-        const toggleButton = document.createElement('img');
-        toggleButton.id = 'dark-mode-toggle';
-        toggleButton.src = localStorage.getItem('darkMode') === 'true' ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
-        toggleButton.style.position = 'absolute';
-        toggleButton.style.top = '15px';
-        toggleButton.style.right = '15px';
-        toggleButton.style.width = '25px';
-        toggleButton.style.height = '25px';
-        toggleButton.style.cursor = 'pointer';
-        toggleButton.style.opacity = '0.7';
-    
-        toggleButton.addEventListener('mouseenter', () => {
-            toggleButton.style.opacity = '1.5';
-          });
-          
-          toggleButton.addEventListener('mouseleave', () => {
-            toggleButton.style.opacity = '0.7';
-          });
-    
-        document.body.appendChild(toggleButton);
-    
-        toggleButton.addEventListener('click', () => {
-        isDarkMode = localStorage.getItem('darkMode') !== 'true';
-        localStorage.setItem('darkMode', isDarkMode);
-        toggleButton.src = isDarkMode ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
-        updateSceneLighting(isDarkMode);
-    
-        if (isDarkMode) {
-            playNightMusic();
-        } else {
-            playBackgroundMusic();
-        }
-    
-        });
-    
-        // Apply saved dark mode preference on load
-        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-        if (savedDarkMode) {
-            document.body.classList.add('dark-mode');
-            updateSceneLighting(true);
-        }
-        else{
-            updateSceneLighting(false);
-        }
-
     // Car positions and movement ranges
     const carPositions = [
         { x: 0, zStart: 35, zEnd: -60 },
@@ -309,10 +291,11 @@ export async function initScene(assets, chara) {
     let pops = scene.children.filter(obj => obj.name.startsWith('reward '));
     let screens = scene.children.filter(obj => obj.name.startsWith('screen '));
 
-    //power station
-    const powers = scene.children.filter(obj => obj.name.startsWith('power '));
-    powers.forEach(power => {
-        power.boundingBox = new THREE.Box3().setFromObject(power);
+    //project description
+    const grounds = scene.children.filter(obj => obj.name.startsWith('glass ground '));
+    grounds.forEach(ground => {
+        ground.boundingBox = new THREE.Box3().setFromObject(ground);
+        ground.boundingBox.max.y += 10;
     });
 
     //tailor
@@ -321,6 +304,56 @@ export async function initScene(assets, chara) {
     tailor.boundingBox.expandByScalar(2);
     tailor.boundingBox.max.z += 8;
     tailor.boundingBox.max.x += 5;
+
+    await hideLoadingScreen();
+    startStory();
+
+
+    // Create toggle button
+    const toggleButton = document.createElement('img');
+    toggleButton.id = 'dark-mode-toggle';
+    toggleButton.src = localStorage.getItem('darkMode') === 'true' ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
+    toggleButton.style.position = 'absolute';
+    toggleButton.style.top = '15px';
+    toggleButton.style.right = '15px';
+    toggleButton.style.width = '25px';
+    toggleButton.style.height = '25px';
+    toggleButton.style.cursor = 'pointer';
+    toggleButton.style.opacity = '0.7';
+
+    toggleButton.addEventListener('mouseenter', () => {
+        toggleButton.style.opacity = '1.5';
+      });
+      
+      toggleButton.addEventListener('mouseleave', () => {
+        toggleButton.style.opacity = '0.7';
+      });
+
+    document.body.appendChild(toggleButton);
+
+    toggleButton.addEventListener('click', () => {
+    isDarkMode = localStorage.getItem('darkMode') !== 'true';
+    localStorage.setItem('darkMode', isDarkMode);
+    toggleButton.src = isDarkMode ? '/assets/night-mode.svg' : '/assets/light-bulb.svg';
+    updateSceneLighting(isDarkMode);
+
+    if (isDarkMode) {
+        playNightMusic();
+    } else {
+        playBackgroundMusic();
+    }
+
+    });
+
+    // Apply saved dark mode preference on load
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (savedDarkMode) {
+        document.body.classList.add('dark-mode');
+        updateSceneLighting(true);
+    }
+    else{
+        updateSceneLighting(false);
+    }   
 
 
     /////////////////////////////////////////////////////////
@@ -331,7 +364,6 @@ export async function initScene(assets, chara) {
     let initialMousePosition = new THREE.Vector2();
     let initialCameraPosition = new THREE.Vector3();
     let gameCamera = false;
-    let powerTimes = 0;
 
     camera.position.set(0, 5, zoomLevel);
 
@@ -499,6 +531,9 @@ export async function initScene(assets, chara) {
     let isTailor = false;
     let isSkin = false;
 
+
+    ////////////////////////////////////////////////////////////////
+
     async function animate() {
         requestAnimationFrame(animate);
 
@@ -627,6 +662,13 @@ export async function initScene(assets, chara) {
                 }
             });
 
+            grounds.forEach(ground => {
+                if (characterBox.intersectsBox(ground.boundingBox)) {
+                    //project description
+
+                }
+            });
+
             //power station
             powers.forEach(power => {
                 if (characterBox.intersectsBox(power.boundingBox)) {
@@ -635,12 +677,18 @@ export async function initScene(assets, chara) {
                     character.position.copy(previousPosition);                
 
                     if(isScreenOn){
+
+                        powers.forEach(power => {
+                            power.powerLight.visible = true;
+                        });
+
                         if(isDarkMode){
                             ambientLight.intensity -= 0.4;
                             light1.intensity -= 0.23;
                             light2.intensity -= 0.03;
                             light3.intensity -= 0.23;
                             light4.intensity -= 0.05;
+
                             isScreenOn = false;
                         }
                         else{
@@ -649,23 +697,26 @@ export async function initScene(assets, chara) {
                             light2.intensity -= 0.33;
                             light3.intensity -= 0.23;
                             light4.intensity -= 0.85;
+                            
                             isScreenOn = false;
                         }
                         
                     }
                     else{
-                        // Restore original intensity values
+                            // Restore original intensity values
 
-                        //setInterval(async () => {
                         
                             ambientLight.intensity = originalIntensities.ambientLight;
                             light1.intensity = originalIntensities.light1;
                             light2.intensity = originalIntensities.light2;
                             light3.intensity = originalIntensities.light3;
                             light4.intensity = originalIntensities.light4;
+
+                            powers.forEach(power => {
+                                power.powerLight.visible = false;
+                            });
                             isScreenOn = true;
-                        //}, 2000);
-                    }
+                        }
                 }
             });
 
