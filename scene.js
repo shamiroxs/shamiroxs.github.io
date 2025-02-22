@@ -3,7 +3,8 @@ import { playClickSound, playAirBalloonSound,
     playEndSound, playResetSound, playBackgroundMusic, 
     playOceanSound, playHornSound, playGlassSound, 
     playScreenSound, playNightMusic, playAirBalloonFallSound,
-    playMoveSound, playSkinSound, playSparkSound} from './sound';
+    playMoveSound, playSkinSound, playSparkSound, playTailorSound,
+    stopTailorSound} from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
@@ -314,6 +315,14 @@ export async function initScene(assets, chara) {
         power.boundingBox = new THREE.Box3().setFromObject(power);
     });
 
+    //tailor
+    const tailor = scene.children.find(obj => obj.name.startsWith('tailor'));
+    tailor.boundingBox = new THREE.Box3().setFromObject(tailor);
+    tailor.boundingBox.expandByScalar(2);
+    tailor.boundingBox.max.z += 8;
+    tailor.boundingBox.max.x += 5;
+
+
     /////////////////////////////////////////////////////////
 
     let isFirstPerson = false;
@@ -487,6 +496,8 @@ export async function initScene(assets, chara) {
     let skinChanged = false;
     let isScreenOn = true;
     let wind = 0.6;
+    let isTailor = false;
+    let isSkin = false;
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -503,7 +514,7 @@ export async function initScene(assets, chara) {
             else{
                 moveSpeed = 0.2;
                 liftSpeed = 0.4;
-                wind = 0.6;
+                wind = 0.5;
             }
 
             if(!isRingCollision){
@@ -692,6 +703,23 @@ export async function initScene(assets, chara) {
             function delay(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
+
+            if(characterBox.intersectsBox(tailor.boundingBox)){
+                if (!isTailor) { // Play only if not already playing
+                    playTailorSound();
+                    isTailor = true;
+        
+                    /*// Detect when the sound ends to allow restarting
+                    tailorSound.onEnded = () => {
+                        isPlaying = false; // Reset flag when sound finishes
+                    };*/
+                }
+            } else {
+                if (isTailor) { // Stop the sound if it is playing and the character leaves
+                    stopTailorSound();
+                    isTailor = false;
+                }
+            }
             
 
             if(characterBox.intersectsBox(portal.boundingBox)){
@@ -791,7 +819,7 @@ export async function initScene(assets, chara) {
             });
 
             if(score == 14){
-                await drawFinish(scene);
+                drawFinish(scene);
                 score = 0;
             }
             

@@ -55,7 +55,7 @@ const nightMusic = new Howl({
 
 const oceanSound = new Howl({
     src: ['./assets/sounds/ocean.mp3'],
-    volume: 0.1,
+    volume: 0.08,
     loop: true
 });
 
@@ -78,6 +78,12 @@ const skinSound = new Howl({
 const sparkSound = new Howl({
     src: ['./assets/sounds/spark.mp3'],
     volume: 0.4
+});
+
+const tailorSound = new Howl({
+    src: ['./assets/sounds/tailor.mp3'],
+    volume: 0.2,
+    loop: true
 });
 
 // Export functions to play the sounds
@@ -154,4 +160,13 @@ export function playSparkSound() {
     sparkSound.stop();
     sparkSound.play();
     
+}
+
+export function playTailorSound() {
+    tailorSound.stop();
+    tailorSound.play();
+}
+
+export function stopTailorSound(){
+    tailorSound.stop();
 }

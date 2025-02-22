@@ -47,7 +47,7 @@ export async function drawCharacterSkin(scene, chara, assets) {
     let tailor = assets[15].scene.clone();
     tailor.scale.set(4.5, 4.5, 4.5);
     tailor.name = "tailor";
-    tailor.position.set(22.55, 0, -11);
+    tailor.position.set(22.55, 0, -14);
     tailor.rotation.y = -Math.PI * 0.5;
     scene.add(tailor);
 
