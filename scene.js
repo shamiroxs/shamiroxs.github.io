@@ -52,7 +52,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    let initialPosition = new THREE.Vector3(-30,0.6,-11); //0,0.6,0.8 || -30,0.6,-11 || 28, 0.6,-24)
+    let initialPosition = new THREE.Vector3( 22, 0.6,-6); //0,0.6,0.8 || -30,0.6,-11 || 22, 0.6,-6)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -425,7 +425,7 @@ export async function initScene(assets, chara) {
 
         if(keys.KeyP && keys.Digit1){
             if(character){
-                character.position.set(22,0.6,-11);
+                character.position.set(22,0.6,-6);
                 playResetSound();
                 initialPosition.set(22, 0.6, -11);
             }
@@ -486,6 +486,7 @@ export async function initScene(assets, chara) {
     let previousPosition = new THREE.Vector3();
     let skinChanged = false;
     let isScreenOn = true;
+    let wind = 0.6;
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -497,10 +498,12 @@ export async function initScene(assets, chara) {
             if(isMobile()){
                 moveSpeed = 0.16;
                 liftSpeed = 0.18;
+                wind = 0.2 ;
             }
             else{
                 moveSpeed = 0.2;
                 liftSpeed = 0.4;
+                wind = 0.6;
             }
 
             if(!isRingCollision){
@@ -514,36 +517,36 @@ export async function initScene(assets, chara) {
             if (keys.KeyW) {
                 playMoveSound();
                 switch (currentDirection) {
-                    case 0: character.position.z -= moveSpeed+0.03; break; // forward
-                    case 1: character.position.x += moveSpeed+0.03; break; // right
-                    case 2: character.position.z += moveSpeed+0.03; break; // backward
-                    case 3: character.position.x -= moveSpeed+0.03; break; // left
+                    case 0: character.position.z -= moveSpeed+0.1; break; // forward
+                    case 1: character.position.x += moveSpeed+wind; break; // right
+                    case 2: character.position.z += moveSpeed+0.1; break; // backward
+                    case 3: character.position.x -= moveSpeed+wind; break; // left
                 }
             }
             if (keys.KeyS) {
                 playMoveSound();
                 switch (currentDirection) {
                     case 0: character.position.z += moveSpeed; break; // backward
-                    case 1: character.position.x -= moveSpeed; break; // left
+                    case 1: character.position.x -= moveSpeed + wind; break; // left
                     case 2: character.position.z -= moveSpeed; break; // forward
-                    case 3: character.position.x += moveSpeed; break; // right
+                    case 3: character.position.x += moveSpeed + wind; break; // right
                 }
             }
             if (keys.KeyA) {
                 playMoveSound();
                 switch (currentDirection) {
-                    case 0: character.position.x -= moveSpeed; break; // left
+                    case 0: character.position.x -= moveSpeed + wind; break; // left
                     case 1: character.position.z -= moveSpeed; break; // forward
-                    case 2: character.position.x += moveSpeed; break; // right
+                    case 2: character.position.x += moveSpeed + wind; break; // right
                     case 3: character.position.z += moveSpeed; break; // backward
                 }
             }
             if (keys.KeyD) {
                 playMoveSound();
                 switch (currentDirection) {
-                    case 0: character.position.x += moveSpeed; break; // right
+                    case 0: character.position.x += moveSpeed + wind; break; // right
                     case 1: character.position.z += moveSpeed; break; // backward
-                    case 2: character.position.x -= moveSpeed; break; // left
+                    case 2: character.position.x -= moveSpeed + wind; break; // left
                     case 3: character.position.z -= moveSpeed; break; // forward
                 }
             }
