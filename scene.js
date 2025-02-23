@@ -12,7 +12,9 @@ import { startProject } from './project';
 import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';
-import { startStory } from './story';
+import { startStory, endStory } from './story';
+import { projectStory, stopStory } from './description';
+
 
 export async function initScene(assets, chara) {
     const scene = new THREE.Scene();
@@ -529,6 +531,8 @@ export async function initScene(assets, chara) {
     let wind = 0.6;
     let isTailor = false;
     let isSkin = false;
+    let storyStarted = false;
+    let currentGround;
 
 
     ////////////////////////////////////////////////////////////////
@@ -661,10 +665,25 @@ export async function initScene(assets, chara) {
                 }
             });
 
-            grounds.forEach(ground => {
+            grounds.forEach(ground => {//contains
                 if (characterBox.intersectsBox(ground.boundingBox)) {
+                    endStory();
+                    console.log("intersecting");
                     //project description
-
+                    if (!storyStarted && currentGround !== ground.name) {
+                        storyStarted = true;
+                        currentGround = ground.name;
+                        projectStory(scene, ground.name);
+                    }
+                                      
+                }
+                else{
+                    if(storyStarted && currentGround == ground.name){
+                        console.log("not intersecting");
+                        stopStory();
+                        storyStarted = false;
+                        currentGround = '';
+                    }
                 }
             });
 
@@ -758,11 +777,6 @@ export async function initScene(assets, chara) {
                 if (!isTailor) { // Play only if not already playing
                     playTailorSound();
                     isTailor = true;
-        
-                    /*// Detect when the sound ends to allow restarting
-                    tailorSound.onEnded = () => {
-                        isPlaying = false; // Reset flag when sound finishes
-                    };*/
                 }
             } else {
                 if (isTailor) { // Stop the sound if it is playing and the character leaves

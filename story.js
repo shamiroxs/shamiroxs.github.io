@@ -1,9 +1,8 @@
 import { isMobile } from "./phone";
 
 
-export function startStory(scene) {
-    // Create a container for the message
-    const messageDiv = document.createElement("div");
+// Create a container for the message
+const messageDiv = document.createElement("div");
     messageDiv.style.position = "absolute";
     
     messageDiv.style.left = "50%";
@@ -38,7 +37,7 @@ export function startStory(scene) {
             }, 3500);
         }, delay);
     }
-
+export function startStory(scene) {
     // Show messages without blocking other animations
     showMessage("Hello, I am Shamir's Balloon!", 20, () => {
         showMessage("Here we have hidden games and showcased projects.", 500, () => {
@@ -51,6 +50,8 @@ export function startStory(scene) {
             });
         });
     });
+}
 
-    
+export function endStory(){
+    messageDiv.style.opacity = "0";
 }

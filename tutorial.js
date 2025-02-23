@@ -232,6 +232,7 @@ export async function startTutorial(scene, assets) {
     }
 
     createText("Projects", -4.7, 6.3, -3.2, 0.5, 0);
+    createText("Me?", -1.8, 6.3, -11.5, 0, 0);
     createText("Fun!", 4.7, 6.3, -7.2, -0.5, 0);
     createText("Change Your Look", 16, 7, -14, 0, 0);
 
