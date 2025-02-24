@@ -60,6 +60,18 @@ export function projectStory(scene, name) {
                 });
             });
         }
+        else if(name == str + (-64.28)){
+            showMessage("It was a macro project for DBMS.", 20, () => {
+                showMessage("Blood Donation Management System", 500, () => {
+                    showMessage("Designed to connect donors, hospitals, and staff efficiently.", 500, () => {
+                        showMessage("Our mission was to facilitate blood donation processes,", 400, () => {
+                            showMessage("And ensure a steady supply of blood for those in need.", 400, () => {});
+                        });
+                    
+                    });
+                });
+            });
+        }
     });
 }
 

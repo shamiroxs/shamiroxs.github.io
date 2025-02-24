@@ -674,6 +674,7 @@ export async function initScene(assets, chara) {
                         storyStarted = true;
                         currentGround = ground.name;
                         projectStory(scene, ground.name);
+                        console.log(ground.name);
                     }
                                       
                 }
