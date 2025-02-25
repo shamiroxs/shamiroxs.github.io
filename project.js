@@ -132,38 +132,38 @@ export async function startProject(scene, assets) {
         });
     }
 
-    createTv(-22.2, 0, 2, 1);
-    createTv(-22.2, 0, -28, 0);
+    createTv(-22.2, -0.4, 2, 1);
+    createTv(-22.2, -0.4, -28, 0);
 
-    createTv(-38, 0, -28, 0);
-    createTv(-38, 0, 2, 1);
+    createTv(-38, -0.4, -28, 0);
+    createTv(-38, -0.4, 2, 1);
 
-    createTv(-52, 0, -28, 0);
-    createTv(-52, 0, 2, 1);
+    createTv(-52, -0.4, -28, 0);
+    createTv(-52, -0.4, 2, 1);
     
-    createTv(-53, 0, -12.8, 0.5);
+    createTv(-53, -0.4, -12.8, 0.5);
 
-    createGlassPlane(scene, '', -22.2, 4.5, 3.75, 1);//ffirst back
-    createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.5, -29.8, 0);//first front
+    createGlassPlane(scene, '/assets/image/hello.jpeg', -22.2, 4.1, 3.75, 1);//ffirst back
+    createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.1, -29.8, 0);//first front
 
-    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.5, -29.8, 0);//second front
-    createGlassPlane(scene, '', -38, 4.5, 3.75, 1);//second back
+    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.1, -29.8, 0);//second front
+    createGlassPlane(scene, '/assets/image/hello.jpeg', -38, 4.1, 3.75, 1);//second back
 
-    createGlassPlane(scene, '/assets/image/sd.png', -52, 4.5, -29.8, 0);//third front
-    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.5, 3.75, 1);//third back
+    createGlassPlane(scene, '/assets/image/sd.png', -52, 4.1, -29.8, 0);//third front
+    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.1, 3.75, 1);//third back
 
-    createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.5, -12.8, 0.5);
+    createGlassPlane(scene, '/assets/image/lector.png', -54.6, 4.1, -12.8, 0.5);
 
 
     createGlassGround('Developed an AI-driven dance proficiency assessment system \n\nusing Python, OpenCV, and MediaPipe to detect body movement, \n\nscore dance performance in real-time, and display a dynamic \n\nleaderboard through Pygame to encourage participants to \n\ndance with confidence at a tech fest.', -22.5, -0.28, -26.5, -0.5, 1);//first front
     createGlassGround('Implemented a web platform with HTML, CSS, JavaScript, PHP, \n\nand MySQL to connect blood donors with hospitals and individuals. \n\nThe system enables donors to register and search for donation \n\nopportunities and allows hospital staff to manage blood inventory\n\n and requests, enhancing community participation in blood drives \n\nand improving resource management for healthcare facilities.', -37.5, -0.28, -26.5, -0.5, 1); //second front
     createGlassGround('Developed a Temperature Conversion Program, \n\nGuessing Game, Simple Contact Management System, \n\nSudoku Solver, Web Scraping Tool', -51.5, -0.28, -26.5, -0.5, 1);//third front
 
-    createGlassGround('hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
-    createGlassGround('hello', -37.5, -0.28, 0.55, -0.5, 0);//second back
+    createGlassGround('Hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
+    createGlassGround('Hello', -37.5, -0.28, 0.55, -0.5, 0);//second back
     createGlassGround('Created a Power BI dashboard from a workshop by \n\nJatan Shah, including certificate, dashboard file, and notes.', -52.4, -0.28, 0.55, -0.5, 0);//third back
 
-    createGlassGround('Developed an automated eBook-to-video conversion tool \n\nusing Python, integrating file processing, progress tracking, \n\nand multimedia generation with a user-friendly GUI.', -52.5, -0.28, -13.2, -0.5, 0.5);
+    createGlassGround('\n\nDeveloped an automated eBook-to-video conversion tool \n\nusing Python, integrating file processing, progress tracking, \n\nand multimedia generation with a user-friendly GUI.', -52.5, -0.28, -13.2, -0.5, 0.5);
 
     ////////////////// POWER STATTION \\\\\\\\\\\\\\\\\\\\
 

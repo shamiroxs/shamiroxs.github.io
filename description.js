@@ -81,6 +81,18 @@ export function projectStory(scene, name) {
                 });
             });
         }
+        else if(name == str + (-65.98)){
+            showMessage("This is one of my personal projects.", 20, () => {
+                showMessage("My main goal was to create successful YouTube Channel", 300, () => {
+                    showMessage("For this, I needed a high volume of content in the least amount of time.", 300, () => {
+                        showMessage("So, I developed Lector, which converts eBooks directly into Audiobook videos.", 400, () => {
+                            showMessage("Check out my channel if you're interested!", 600, () => {});
+                        });
+                    
+                    });
+                });
+            });
+        }
     });
 }
 
