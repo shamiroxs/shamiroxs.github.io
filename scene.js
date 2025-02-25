@@ -13,7 +13,7 @@ import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';
 import { startStory, endStory } from './story';
-import { projectStory, stopStory } from './description';
+import { projectStory, stopStory, powerOff, powerTouch } from './description';
 
 
 export async function initScene(assets, chara) {
@@ -693,10 +693,11 @@ export async function initScene(assets, chara) {
                 if (characterBox.intersectsBox(power.boundingBox)) {
 
                     playSparkSound();
-                    character.position.copy(previousPosition);                
-
+                    character.position.copy(previousPosition); 
                     if(isScreenOn){
+                        powerTouch();   
 
+                        powerOff();     
                         powers.forEach(power => {
                             power.powerLight.visible = true;
                         });

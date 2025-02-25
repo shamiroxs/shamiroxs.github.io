@@ -61,7 +61,7 @@ export function projectStory(scene, name) {
             });
         }
         else if(name == str + (-64.28)){
-            showMessage("It was a macro project for DBMS.", 20, () => {
+            showMessage("It was a micro project for DBMS.", 20, () => {
                 showMessage("Blood Donation Management System", 500, () => {
                     showMessage("Designed to connect donors, hospitals, and staff efficiently.", 500, () => {
                         showMessage("Our mission was to facilitate blood donation processes,", 400, () => {
@@ -72,7 +72,24 @@ export function projectStory(scene, name) {
                 });
             });
         }
+        else if(name == str + (-78.28)){
+            showMessage("During my internship at InfoTech Prodigy,", 20, () => {
+                showMessage("I developed five projects that mainly focused on software development and data processing.", 500, () => {
+                        showMessage("Through this experience, I gained skills in modular programming, debugging,", 500, () => {
+                            showMessage("And deploying solutions in real-world scenarios.", 200, () => {});
+                        });
+                });
+            });
+        }
     });
+}
+
+export function powerTouch(){
+    showMessage("Power OFF!!", 20, () => {});
+}
+
+export function powerOff(){
+    showMessage("Touch the Power Station again <br>to restore power.", 6000, () => {});
 }
 
 // Stop all messages immediately
