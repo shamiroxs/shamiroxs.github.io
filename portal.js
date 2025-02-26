@@ -23,15 +23,20 @@ export async function startLink(scene, assets){
         scene.add(link);
     }
     
-    // Call the function without color (keeps original textures/materials)
+    // normal link
     createLink(-18.7, -0.4, -24.7, 0.5, 0x121212);
     createLink(-33.5, -0.4, -24.7, 0.5, 0x121212);
-    createLink(-48.2, -0.4, -24.7, 0.5, 0x121212);
+    createLink(-48.4, -0.4, -24.7, 0.5, 0x121212);
 
-    //createLink(-18.7, -0.4, -24.8, 0.5, 0x121212);
+    createLink(-48.4, -0.4, -18.2, 0.5, 0x121212);
 
-    //createLink(-18.7, -0.4, -24.8, 0.5, 0x121212);
-    //createLink(-18.7, -0.4, -24.8, 0.5, 0x121212);
-    //createLink(-18.7, -0.4, -24.8, 0.5, 0x121212);
+    createLink(-18.7, -0.4, -4.3, 0.5, 0x121212);
+    createLink(-33.5, -0.4, -4.3, 0.5, 0x121212);
+    createLink(-48.4, -0.4, -4.3, 0.5, 0x121212);
+
+    // extra link
+    createLink(-55.2, -0.4, -24.7, 0.5, 0x121212);
+
+    createLink(-48.4, -0.4, -11, 0.5, 0x121212);
     
 }

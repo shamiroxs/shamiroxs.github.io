@@ -74,7 +74,7 @@ export async function startProject(scene, assets) {
             side: THREE.DoubleSide
         });
 
-        const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(12.5, 11.7), planeGlassMaterial);
+        const glassPlane = new THREE.Mesh(new THREE.PlaneGeometry(13.5, 12.8), planeGlassMaterial);
         glassPlane.position.set(x, y, z);
         glassPlane.rotation.x = Math.PI * rotx;
         glassPlane.name = 'glass ground ' + (x + y+ z);

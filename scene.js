@@ -56,7 +56,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    let initialPosition = new THREE.Vector3(-30,0.6,-11); //0,0.6,0.8 || -30,0.6,-11 || 22, 0.6,-6)
+    let initialPosition = new THREE.Vector3(-30,1.6,-11); //0,0.6,0.8 || -30,1.6,-11 || 22, 0.6,-6)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -477,9 +477,9 @@ export async function initScene(assets, chara) {
 
         if(keys.KeyP && keys.Digit3){
             if(character){
-                character.position.set(-30, 0.6, -12);
+                character.position.set(-30, 1.6, -12);
                 playResetSound();
-                initialPosition.set(-30, 0.6, -12);
+                initialPosition.set(-30, 1.6, -12);
             }
         }
 
