@@ -93,6 +93,27 @@ export function projectStory(scene, name) {
                 });
             });
         }
+        else if(name == str + (-52.13)){
+            showMessage("I attended a Power BI workshop conducted by Jatan Shah,", 20, () => {
+                showMessage("a Microsoft Certified Trainer.", 200, () => {
+                    showMessage("During this workshop, I learned about Power BI", 500, () => {
+                        showMessage("Designed a dashboard, and gained insights into data visualization & reporting.", 200, () => {
+                            showMessage("I highly recommend this workshop to anyone looking to enhance their data visualization skills.", 400, () => {});
+                        });
+                    });
+                });
+            });
+        }
+        else if(name == str + (-37.230000000000004)){
+            showMessage("Hello!", 20, () => {
+            
+            });
+        }
+        else if(name == str + (-22.23)){
+            showMessage("Hello!", 20, () => {
+            
+            });
+        }
     });
 }
 
