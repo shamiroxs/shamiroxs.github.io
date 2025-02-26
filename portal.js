@@ -85,14 +85,14 @@ export async function startLink(scene, assets){
     createLink(-33.5, -0.4, -24.7, 0.5, 0x121212);
 
     for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
-        createText("^", -48.9, y+2, -23.3, 0, 1); //-0.5, -1.4
+        createText("^", -48.8, y+2, -23.3, 0, 1); //-0.5, -1.4
     }
     createLink(-48.4, -0.4, -24.7, 0.5, 0x121212);
 
                         ////////3\\\\\\\
 
     for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
-        createText("^", -48.9, y+2, -16.8, 0, 1); //-0.5, +1.4
+        createText("^", -48.4, y+2, -17, 0.5, 1); //-0.5, +1.4
     }
     createLink(-48.4, -0.4, -18.2, 0.5, 0x121212);
 
@@ -115,8 +115,7 @@ export async function startLink(scene, assets){
 
     
     // extra link
-    createLink(-55.2, -0.4, -24.7, 0.5, 0x121212);
-
-    createLink(-48.4, -0.4, -11, 0.5, 0x121212);
+    createLink(-55.2, -0.4, -24.7, 0.5, 0x800080);
+    createLink(-48.4, -0.4, -11, 0.5, 0x8F00FF);
     
 }

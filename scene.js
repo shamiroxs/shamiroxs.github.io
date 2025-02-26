@@ -4,7 +4,7 @@ import { playClickSound, playAirBalloonSound,
     playOceanSound, playHornSound, playGlassSound, 
     playScreenSound, playNightMusic, playAirBalloonFallSound,
     playMoveSound, playSkinSound, playSparkSound, playTailorSound,
-    stopTailorSound} from './sound';
+    stopTailorSound, playLinkSound } from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
@@ -15,6 +15,7 @@ import { startGame, playGame, drawFinish, skinText } from './game';
 import { startStory, endStory } from './story';
 import { projectStory, stopStory, powerOff, powerTouch } from './description';
 import { startLink } from './portal';
+import { gotoLink } from './redirect';
 
 
 export async function initScene(assets, chara) {
@@ -94,7 +95,7 @@ export async function initScene(assets, chara) {
     await startProject(scene, assets);
     await drawCharacterSkin(scene, chara, assets);
     await startGame(scene, assets);
-    await startLink(scene, assets);
+    await startLink(scene, assets); //link portal
 
     // Add a skybox
     function toggleDarkMode() {
@@ -282,6 +283,14 @@ export async function initScene(assets, chara) {
 
     skins.forEach(skin => {
         skin.boundingBox = new THREE.Box3().setFromObject(skin);
+    });
+
+    //Projects links
+    const links = scene.children.filter(obj => obj.name.startsWith('link '));
+
+    links.forEach(link => {
+        link.boundingBox = new THREE.Box3().setFromObject(link);
+        link.boundingBox.max.y += 0.7;
     });
 
 
@@ -638,6 +647,18 @@ export async function initScene(assets, chara) {
                 }
             });
 
+            //Projects links
+            links.forEach(link => {
+                if (characterBox.intersectsBox(link.boundingBox)) {
+                    playLinkSound();
+                    gotoLink(scene, link);
+                    console.log(link.name);
+                    
+                    Object.keys(keys).forEach(key => keys[key] = false);
+                    character.position.copy(previousPosition); 
+                }
+            });
+
             //Tv Screens
             tvScreen.forEach(tv => {
                 if (characterBox.intersectsBox(tv.boundingBox)) {
@@ -670,7 +691,6 @@ export async function initScene(assets, chara) {
             grounds.forEach(ground => {//contains
                 if (characterBox.intersectsBox(ground.boundingBox)) {
                     endStory();
-                    console.log("intersecting");
                     //project description
                     if (!storyStarted && currentGround !== ground.name) {
                         storyStarted = true;
@@ -682,7 +702,6 @@ export async function initScene(assets, chara) {
                 }
                 else{
                     if(storyStarted && currentGround == ground.name){
-                        console.log("not intersecting");
                         stopStory();
                         storyStarted = false;
                         currentGround = '';

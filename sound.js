@@ -86,6 +86,11 @@ const tailorSound = new Howl({
     loop: true
 });
 
+const linkSound = new Howl({
+    src: ['./assets/sounds/portal.mp3'],
+    volume: 1
+});
+
 // Export functions to play the sounds
 export function playClickSound() {
     clickSound.stop();
@@ -169,4 +174,10 @@ export function playTailorSound() {
 
 export function stopTailorSound(){
     tailorSound.stop();
+}
+
+export function playLinkSound() {
+    linkSound.stop();
+    linkSound.play();
+    
 }
