@@ -37,7 +37,7 @@ async function initializeApp() {
     './assets/cars/car4.glb', './assets/tv.glb',
     './assets/night.jpg', './assets/pyramid.glb',
     './assets/portal.glb', './assets/electronic.glb',
-    './assets/tailor.glb'];//[0 - 15]
+    './assets/tailor.glb', './assets/skyLink.glb'];//[0 - 16]
 
     const charaPaths = ['./assets/character_skin/blue.glb', 
     './assets/character_skin/purple.glb', 

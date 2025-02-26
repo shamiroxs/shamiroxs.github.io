@@ -14,6 +14,7 @@ import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';
 import { startStory, endStory } from './story';
 import { projectStory, stopStory, powerOff, powerTouch } from './description';
+import { startLink } from './portal';
 
 
 export async function initScene(assets, chara) {
@@ -93,6 +94,7 @@ export async function initScene(assets, chara) {
     await startProject(scene, assets);
     await drawCharacterSkin(scene, chara, assets);
     await startGame(scene, assets);
+    await startLink(scene, assets);
 
     // Add a skybox
     function toggleDarkMode() {
@@ -184,7 +186,7 @@ export async function initScene(assets, chara) {
 
         // Set initial position
         const position = carPositions[i];
-        const initialZ = position.zStart + Math.random() * (position.zEnd - position.zStart);
+        const initialZ = position.zStart + Math.random() * (position.zEnd - position.zStart - 1);
         car.position.set(position.x, 0, Math.min(position.zStart, position.zEnd) + Math.random() * Math.abs(position.zEnd - position.zStart));
 
         // Set random speed
