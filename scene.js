@@ -4,7 +4,7 @@ import { playClickSound, playAirBalloonSound,
     playOceanSound, playHornSound, playGlassSound, 
     playScreenSound, playNightMusic, playAirBalloonFallSound,
     playMoveSound, playSkinSound, playSparkSound, playTailorSound,
-    stopTailorSound, playLinkSound } from './sound';
+    stopTailorSound, playLinkSound, playWinSound } from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
@@ -16,6 +16,8 @@ import { startStory, endStory } from './story';
 import { projectStory, stopStory, powerOff, powerTouch } from './description';
 import { startLink } from './portal';
 import { gotoLink } from './redirect';
+import { createScoreCard, incrementScore, removeScoreCard } from './score.js';
+import { drawMe } from './me.js';
 
 
 export async function initScene(assets, chara) {
@@ -57,7 +59,7 @@ export async function initScene(assets, chara) {
 
     // Add the character model
     let character = assets[0].scene;
-    let initialPosition = new THREE.Vector3(-30,1.6,-11); //0,0.6,0.8 || -30,1.6,-11 || 22, 0.6,-6)
+    let initialPosition = new THREE.Vector3(0, 0.6, 0.8); //0,0.6,0.8 || -30,1.6,-11 || 22, 0.6,-6)
     character.scale.set(0.03, 0.03, 0.03);
     character.position.copy(initialPosition);
     character.name = 'character';
@@ -96,6 +98,7 @@ export async function initScene(assets, chara) {
     await drawCharacterSkin(scene, chara, assets);
     await startGame(scene, assets);
     await startLink(scene, assets); //link portal
+    await drawMe(scene, assets);
 
     // Add a skybox
     function toggleDarkMode() {
@@ -664,27 +667,7 @@ export async function initScene(assets, chara) {
                 if (characterBox.intersectsBox(tv.boundingBox)) {
 
                     playScreenSound();
-                    // Calculate the overlap
-                    const overlap = characterBox.intersection(tv.boundingBox);
-            
-                    // Determine which side of the TV screen the character is touching
-                    if (overlap.width > overlap.height) {  // Character is hitting the left or right side
-                        if (characterBox.center.x < tv.boundingBox.center.x) {
-                            // Character is on the left, move them to the left of the TV
-                            characterBox.position.x = tv.boundingBox.max.x;
-                        } else {
-                            // Character is on the right, move them to the right of the TV
-                            characterBox.position.x = tv.boundingBox.min.x - characterBox.width;
-                        }
-                    } else {  // Character is hitting the top or bottom side
-                        if (characterBox.center.y < tv.boundingBox.center.y) {
-                            // Character is above, move them above the TV
-                            characterBox.position.y = tv.boundingBox.max.y;
-                        } else {
-                            // Character is below, move them below the TV
-                            characterBox.position.y = tv.boundingBox.min.y - characterBox.height;
-                        }
-                    }
+                    character.position.copy(previousPosition);
                 }
             });
 
@@ -812,6 +795,7 @@ export async function initScene(assets, chara) {
             if(characterBox.intersectsBox(portal.boundingBox)){
 
                 await playGame(scene);
+                createScoreCard();
 
                 //game ring
                 rings = scene.children.filter(obj => obj.name.startsWith('ring '));
@@ -887,6 +871,7 @@ export async function initScene(assets, chara) {
                 playGlassSound();
 
                 score += 1;
+                incrementScore();
                 console.log('score ' + score);
 
                 if(score == 14){
@@ -898,6 +883,7 @@ export async function initScene(assets, chara) {
                         scene.remove(pops[j]);
                         pops.splice(j, 1);
                     }
+                    removeScoreCard();
                 }
 
                 scene.remove(pop);
@@ -906,6 +892,7 @@ export async function initScene(assets, chara) {
             });
 
             if(score == 14){
+                playWinSound();
                 drawFinish(scene);
                 score = 0;
             }

@@ -66,7 +66,7 @@ const hornSound = new Howl({
 
 const glassSound = new Howl({
     src: ['./assets/sounds/glass.mp3'],
-    volume: 0.9
+    volume: 0.5
 });
 
 const skinSound = new Howl({
@@ -89,6 +89,11 @@ const tailorSound = new Howl({
 const linkSound = new Howl({
     src: ['./assets/sounds/portal.mp3'],
     volume: 1
+});
+
+const winSound = new Howl({
+    src: ['./assets/sounds/win.mp3'],
+    volume: 0.8
 });
 
 // Export functions to play the sounds
@@ -179,5 +184,11 @@ export function stopTailorSound(){
 export function playLinkSound() {
     linkSound.stop();
     linkSound.play();
+    
+}
+
+export function playWinSound() {
+    winSound.stop();
+    winSound.play();
     
 }

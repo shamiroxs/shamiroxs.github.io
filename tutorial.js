@@ -118,7 +118,7 @@ export async function startTutorial(scene, assets) {
     }
 
     // Function to create a glass block with text
-    function createText(input_text, x, y, z, roty, rotx) {
+    function createText(input_text, x, y, z, roty, rotx, mirror = false) {
         
         let xt, yt, zt;
         const fontLoader = new FontLoader();
@@ -157,6 +157,10 @@ export async function startTutorial(scene, assets) {
             textMesh.rotation.y = Math.PI * roty;
             textMesh.rotation.x = Math.PI * rotx;
             textMesh.position.set(xt, yt, zt); // Adjust position to place text on the block
+
+            if (mirror) {
+                textMesh.scale.x = -1;
+            }
             scene.add(textMesh);
         });
     }
@@ -239,4 +243,16 @@ export async function startTutorial(scene, assets) {
 
     createText("!", -37, 3.8, -12.5, 0.5, 0);
     createText("!", -22, 3.8, -12.5, 0.5, 0);
+
+    //project titles
+    createText("Dance", -24.6, 7.6, -29.7, 0, 0);
+    createText("DataBase", -41.4, 7.6, -29.7, 0, 0);
+    createText("Intership", -54.6, 7.6, -29.7, 0, 0);
+
+    createText("Editor", -54.8, 7.45, -10.4, 0.5, 0);
+
+    createText("Soon!", -19.8, 7.6, 4.1, 0, 0, true);
+    createText("Soon!", -36, 7.6, 4.1, 0, 0, true);
+    createText("PowerBI", -48.8, 7.6, 4.1, 0, 0, true);
+
 }
