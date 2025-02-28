@@ -15,9 +15,10 @@ import { startGame, playGame, drawFinish, skinText } from './game';
 import { startStory, endStory } from './story';
 import { projectStory, stopStory, powerOff, powerTouch } from './description';
 import { startLink } from './portal';
-import { gotoLink } from './redirect';
+import { gotoLink, openLink } from './redirect';
 import { createScoreCard, incrementScore, removeScoreCard } from './score.js';
 import { drawMe } from './me.js';
+import gsap from "gsap";
 
 
 export async function initScene(assets, chara) {
@@ -301,6 +302,18 @@ export async function initScene(assets, chara) {
     const portal = scene.children.find(obj => obj.name === 'portal');
     portal.boundingBox = new THREE.Box3().setFromObject(portal);
     
+    //logo
+    const logos = scene.children.filter(obj => obj.name.startsWith('logo '));   
+    logos.forEach(logo => {
+        logo.boundingBox = new THREE.Box3().setFromObject(logo);
+
+        if(logo.name == 'logo 4'){
+            logo.boundingBox.max.z += 2;
+            logo.boundingBox.max.x += 2;
+            logo.boundingBox.max.y += 2;
+        }
+    });
+
     let rings = scene.children.filter(obj => obj.name.startsWith('ring '));
     let pops = scene.children.filter(obj => obj.name.startsWith('reward '));
     let screens = scene.children.filter(obj => obj.name.startsWith('screen '));
@@ -692,6 +705,17 @@ export async function initScene(assets, chara) {
                 }
             });
 
+            logos.forEach(logo => {
+                if (characterBox.intersectsBox(logo.boundingBox)) {
+                    playLinkSound();
+                    openLink(logo);
+
+                    Object.keys(keys).forEach(key => keys[key] = false);
+                    character.position.copy(previousPosition);
+                }
+                    
+            });
+
             //power station
             powers.forEach(power => {
                 if (characterBox.intersectsBox(power.boundingBox)) {
@@ -1000,5 +1024,17 @@ export async function initScene(assets, chara) {
         renderer.render(scene, camera);
     }
 
+    function startLogoAnimations() {
+        logos.forEach(logo => {
+            let tl = gsap.timeline({ repeat: -1 });
+    
+            tl.to(logo.position, { y: "+=1", duration: 2, ease: "sine.inOut" })
+              .to(logo.position, { y: "-=1", duration: 2, ease: "sine.inOut" });
+    
+        });
+    }
+    
+
+    startLogoAnimations();
     animate();
 }

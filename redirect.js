@@ -32,3 +32,19 @@ export function gotoLink(scene, link){
     }
     
 }
+
+export function openLink(logo){
+    let str = 'logo ';
+    if(logo.name == str + (1)){//github
+        window.open("https://github.com/shamiroxs/", "_blank");
+    }
+    else if(logo.name == str + (2)){//linkedin
+        window.open("https://www.linkedin.com/in/shamiroxs/", "_blank");
+    }
+    else if(logo.name == str + (3)){//whatsapp
+        window.open("https://wa.me/+919544123218", "_blank");
+    }
+    else if(logo.name == str + (4)){//gmail
+        window.open("mailto:shamirkolakkadan26@gmail.com", "_blank");
+    }
+}
