@@ -135,6 +135,11 @@ export function skinText(scene){
 }
 
 export function resumeText(){
-    showMessage("Resume Opened.", 20, () => {
+    showMessage("Resume Downloaded.", 20, () => {
+    });
+}
+
+export function thankyouText(){
+    showMessage("Thank YOU!", 20, () => {
     });
 }

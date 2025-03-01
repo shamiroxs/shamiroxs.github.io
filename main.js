@@ -56,7 +56,8 @@ async function initializeApp() {
     './assets/portal.glb', './assets/electronic.glb',
     './assets/tailor.glb', './assets/skyLink.glb', //[0 - 16]
     './assets/github.glb', './assets/linkedin.glb', 
-    './assets/whatsapp.glb','./assets/gmail.glb'];//[ 0 - 20]
+    './assets/whatsapp.glb','./assets/gmail.glb',
+    './assets/coffee.glb'];//[ 0 - 21]
 
     const charaPaths = ['./assets/character_skin/blue.glb', 
     './assets/character_skin/purple.glb', 

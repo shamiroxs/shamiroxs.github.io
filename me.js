@@ -29,4 +29,12 @@ export async function drawMe(scene, assets){
     logo.name = "logo 4";
     logo.position.set(-0.4, 22, -62);
     scene.add(logo);
+
+    //Coffee
+    logo = assets[21].scene.clone();
+    logo.scale.set(12, 12, 12);
+    logo.name = "logo 5";
+    logo.position.set(0, 6, 7);
+    logo.rotation.y = Math.PI ;
+    scene.add(logo);
 }

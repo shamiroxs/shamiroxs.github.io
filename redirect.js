@@ -1,4 +1,5 @@
-import { resumeText } from "./game";
+import { resumeText, thankyouText } from "./game";
+import { isMobile } from "./phone.js";
 
 export function gotoLink(scene, link){
     let str = 'link ';
@@ -36,6 +37,63 @@ export function gotoLink(scene, link){
     
 }
 
+function showQRCode() {
+    // Check if QR container already exists, prevent duplicates
+    if (document.getElementById("qr-container")) return;
+
+    // Create QR container
+    let qrContainer = document.createElement("div");
+    qrContainer.id = "qr-container";
+    qrContainer.style.position = "fixed";
+    qrContainer.style.top = "50%";
+    qrContainer.style.left = "50%";
+    qrContainer.style.transform = "translate(-50%, -50%)";
+    qrContainer.style.background = "white";
+    qrContainer.style.padding = "20px";
+    qrContainer.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.2)";
+    qrContainer.style.borderRadius = "10px";
+    qrContainer.style.textAlign = "center";
+    qrContainer.style.zIndex = "1000";
+
+    // Create Close Button
+    let closeButton = document.createElement("button");
+    closeButton.innerHTML = "x";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "5px";
+    closeButton.style.right = "10px";
+    //closeButton.style.background = "red";
+    closeButton.style.color = "black";
+    closeButton.style.border = "none";
+    closeButton.style.fontSize = "16px";
+    closeButton.style.padding = "5px 10px";
+    closeButton.style.cursor = "pointer";
+    closeButton.style.borderRadius = "50%";
+    
+    closeButton.onclick = function () {
+        document.body.removeChild(qrContainer);
+        thankyouText();
+    };
+
+    // Create text
+    let text = document.createElement("p");
+    text.innerText = "☕ Buy Me a Coffee!";
+    text.style.marginBottom = "10px";
+
+    // Create QR Code Image
+    let qrImage = document.createElement("img");
+    qrImage.src = "/assets/qr_code.png";
+    qrImage.alt = "UPI QR Code";
+    qrImage.style.width = "200px";
+    qrImage.style.height = "200px";
+
+    // Append elements
+    qrContainer.appendChild(closeButton);
+    qrContainer.appendChild(text);
+    qrContainer.appendChild(qrImage);
+    document.body.appendChild(qrContainer);
+}
+
+
 export function openLink(logo){
     let str = 'logo ';
     if(logo.name == str + (1)){//github
@@ -49,5 +107,13 @@ export function openLink(logo){
     }
     else if(logo.name == str + (4)){//gmail
         window.open("mailto:shamirkolakkadan26@gmail.com", "_blank");
+    }
+    else if(logo.name == str + (5)){//coffee
+        if(isMobile()){
+            window.open("upi://pay?pa=9544123218@ybl&pn=Shamir+Ashraf&tn=Buy+Me+Coffee&cu=INR");
+        }
+        else{
+            showQRCode();
+        }
     }
 }
