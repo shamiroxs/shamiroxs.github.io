@@ -110,7 +110,7 @@ export function openLink(logo){
     }
     else if(logo.name == str + (5)){//coffee
         if(isMobile()){
-            window.open("upi://pay?pa=9544123218@ybl&pn=Shamir+Ashraf&tn=Buy+Me+Coffee&cu=INR");
+            window.open("upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=10&cu=INR");
         }
         else{
             showQRCode();
