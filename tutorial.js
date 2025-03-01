@@ -255,4 +255,7 @@ export async function startTutorial(scene, assets) {
     createText("Soon!", -36, 7.6, 4.1, 0, 0, true);
     createText("PowerBI", -48.8, 7.6, 4.1, 0, 0, true);
 
+
+    //resume 
+    createText("Resume", -30, 11, -7.4, 0.5, 0);
 }

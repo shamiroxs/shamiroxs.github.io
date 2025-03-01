@@ -3,6 +3,8 @@ import { showLoadingScreen, updateLoadingProgress, hideLoadingScreen } from './l
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+let progress;
+
 async function loadAssets(assetPaths, type) {
     const loader = new GLTFLoader();
     const textureLoader = new THREE.TextureLoader();
@@ -14,7 +16,12 @@ async function loadAssets(assetPaths, type) {
         return new Promise((resolve, reject) => {
             const onLoad = (asset) => {
                 loadedCount++;
-                const progress = Math.round((loadedCount / totalAssets) * 100);
+                if(totalAssets < 8){
+                    progress = 100;
+                }
+                else{
+                    progress = Math.round((loadedCount / totalAssets) * 100) - 1;
+                }                
                 updateLoadingProgress(progress); // Update UI
                 resolve(asset);
             };

@@ -43,9 +43,9 @@ export async function startLink(scene, assets){
                 bevelSegments: 5
             });
             const textMaterial = new THREE.MeshBasicMaterial({ 
-                color: 0xFFFFFF,
+                color: 0xffff00,
                 transparent: true, // Enable transparency
-                opacity: 0.1
+                opacity: 0.6
             });
             const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
@@ -74,41 +74,41 @@ export async function startLink(scene, assets){
 
     
     // normal link
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -19.2, y+2, -23.3, 0, 1);
     }
     createLink(-18.7, -0.4, -24.7, 0.5, 0x121212);
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -34, y+2, -23.3, 0, 1); //-0.5, -1.4
     }
     createLink(-33.5, -0.4, -24.7, 0.5, 0x121212);
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -48.8, y+2, -23.3, 0, 1); //-0.5, -1.4
     }
     createLink(-48.4, -0.4, -24.7, 0.5, 0x121212);
 
                         ////////3\\\\\\\
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -48.4, y+2, -17, 0.5, 1); //-0.5, +1.4
     }
     createLink(-48.4, -0.4, -18.2, 0.5, 0x121212);
 
                         //////1\\\\\\
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -19.2, y+2, -2.9, 0, 1);
     }
     createLink(-18.7, -0.4, -4.3, 0.5, 0x121212);
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -34, y+2, -2.9, 0, 1); //-0.5, -1.4
     }
     createLink(-33.5, -0.4, -4.3, 0.5, 0x121212);
 
-    for (let y = -0.5; y < 2; y += 0.5) { // Loop through the x-axis (inside boundaries of sides 1 and 3)
+    for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -48.9, y+2, -2.9, 0, 1); //-0.5, -1.4
     }
     createLink(-48.4, -0.4, -4.3, 0.5, 0x121212);
@@ -116,6 +116,16 @@ export async function startLink(scene, assets){
     
     // extra link
     createLink(-55.2, -0.4, -24.7, 0.5, 0x800080);
-    createLink(-48.4, -0.4, -11, 0.5, 0x8F00FF);
+    createLink(-48.4, -0.4, -11, 0.5, 0x800080);
     
+    // resume link
+    createLink(-30, 8.4, -12, 0.5, 0xA52A2A);   
+    for (let y = -0.5; y < 1; y += 0.5) {
+        createText("^", -30, y+11, -10.8, 0.5, 1); //-0.5, -1.4
+    }
+
+    //down
+    for (let y = -0.5; y < 1; y += 0.5) {
+        createText("^", -30, y+6, -9.9, 0.5, 0); //-0.5, -1.4
+    }
 }

@@ -133,3 +133,8 @@ export function skinText(scene){
     showMessage("Skin Changed!", 20, () => {
     });
 }
+
+export function resumeText(){
+    showMessage("Resume Opened.", 20, () => {
+    });
+}

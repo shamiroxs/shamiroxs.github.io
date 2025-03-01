@@ -1,5 +1,4 @@
-
-
+import { resumeText } from "./game";
 
 export function gotoLink(scene, link){
     let str = 'link ';
@@ -29,6 +28,10 @@ export function gotoLink(scene, link){
     }
     else if(link.name == str + (-23.4)){//hello 1
         ///window.open("https://www.google.com", "_blank");
+    }
+    else if(link.name == str + (-33.6)){//internship
+        window.open("assets/Resume.pdf", "_blank");
+        resumeText();
     }
     
 }
