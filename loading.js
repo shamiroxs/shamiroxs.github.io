@@ -30,8 +30,8 @@ export function showLoadingScreen() {
         loadingContainer.style.top = '75%';
         loadingContainer.style.left = '50%';
         loadingContainer.style.transform = 'translate(-50%, -50%)';
-        loadingContainer.style.width = '300px';
-        loadingContainer.style.height = '40px';
+        loadingContainer.style.width = '290px';
+        loadingContainer.style.height = '35px';
         loadingContainer.style.background = 'black';
         loadingContainer.style.borderRadius = '10px';
         loadingContainer.style.border = '2px solid goldenrod';
