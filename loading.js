@@ -33,8 +33,8 @@ export function showLoadingScreen() {
         loadingContainer.style.transform = 'translate(-50%, -50%)';
 
         if(isMobile()){
-            loadingContainer.style.width = '150px';
-            loadingContainer.style.height = '20px';
+            loadingContainer.style.width = '180px';
+            loadingContainer.style.height = '25px';
         }
         else{
             loadingContainer.style.width = '300px';
