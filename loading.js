@@ -34,7 +34,7 @@ export function showLoadingScreen() {
         loadingContainer.style.transform = 'translate(-50%, -50%)';
 
         if(isMobile()){
-            loadingContainer.style.width = '280px';
+            loadingContainer.style.width = '260px';
         }
         else{
             loadingContainer.style.width = '300px';
