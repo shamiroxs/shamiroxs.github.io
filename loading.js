@@ -7,7 +7,10 @@ let animationFrameId; // To store the animation frame ID for cleanup
 
 export function showLoadingScreen() {
     return new Promise((resolve) => {
-        // Initialize the scene, camera, and renderer
+        // Create loading screen elements
+
+        document.body.style.backgroundColor = 'black';
+
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -25,33 +28,42 @@ export function showLoadingScreen() {
         circle = new THREE.Mesh(circleGeometry, circleMaterial);
         circle.position.set(0, 1.5, 0); // Start above the sphere
         scene.add(circle);
-1
-        // Create and style the "loading.." text
-        const loadingText = document.createElement("div");
-        loadingText.innerText = "Loading..";
-        loadingText.style.position = "absolute";
-        loadingText.style.top = "75%"; // Adjusted for proper positioning1
-        loadingText.style.left = "50%";
-        loadingText.style.transform = "translate(-50%, -50%)";
-        loadingText.style.color = "white";
-        loadingText.style.fontSize = "25px";
-        loadingText.style.fontFamily = "Verdana, sans-serif";
-        loadingText.style.textAlign = "center";
-        loadingText.style.animation = "blink 2s infinite";
-        loadingText.id = "loading3";
 
-        document.body.appendChild(loadingText);
+        const loadingContainer = document.createElement('div');
+        loadingContainer.id = 'loadingContainer';
+        loadingContainer.style.position = 'absolute';
+        loadingContainer.style.top = '75%';
+        loadingContainer.style.left = '50%';
+        loadingContainer.style.transform = 'translate(-50%, -50%)';
+        loadingContainer.style.width = '300px';
+        loadingContainer.style.height = '40px';
+        loadingContainer.style.background = 'lightyellow';
+        loadingContainer.style.borderRadius = '10px';
+        loadingContainer.style.border = '2px solid goldenrod';
+        loadingContainer.style.overflow = 'hidden';
 
-        // Add CSS for blinking effect
-        const style = document.createElement("style");
-        style.innerHTML = `
-            @keyframes blink {
-                0% { opacity: 1; }
-                50% { opacity: 0.5; }
-                100% { opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
+        const progressBar = document.createElement('div');
+        progressBar.id = 'progressBar';
+        progressBar.style.width = '0%';
+        progressBar.style.height = '100%';
+        progressBar.style.background = 'goldenrod';
+        progressBar.style.transition = 'width 0.2s ease-in-out';
+
+        const loadingText = document.createElement('div');
+        loadingText.id = 'loadingText';
+        loadingText.style.position = 'absolute';
+        loadingText.style.width = '100%';
+        loadingText.style.textAlign = 'center';
+        loadingText.style.top = '50%';
+        loadingText.style.transform = 'translateY(-50%)';
+        loadingText.style.fontFamily = 'Verdana, sans-serif';
+        loadingText.style.fontSize = '18px';
+        loadingText.style.color = '#444';
+        loadingText.innerText = 'Loading... 0%';
+
+        loadingContainer.appendChild(progressBar);
+        loadingContainer.appendChild(loadingText);
+        document.body.appendChild(loadingContainer);
         
         // Set camera position
         camera.position.z = 5;
@@ -84,27 +96,25 @@ export function showLoadingScreen() {
     });
 }
 
+export function updateLoadingProgress(progress) {
+    const progressBar = document.getElementById('progressBar');
+    const loadingText = document.getElementById('loadingText');
+
+    if (progressBar && loadingText) {
+        progressBar.style.width = `${progress}%`;
+        loadingText.innerText = `Loading... ${progress}%`;
+    }
+}
+
+
 export function hideLoadingScreen() {
 
     // Add hover and click interactions, and clean up the scene
-    return new Promise((resolve) => {
-        // Create text elements for "Click to Start" and "Start"
-         /*// Add a text element for "Touch Me" (hidden initially)
-        const loaderTextDiv = document.createElement('div');
-        loaderTextDiv.style.position = 'absolute';
-        loaderTextDiv.style.color = 'white';
-        loaderTextDiv.style.fontFamily = 'Arial, sans-serif';
-        loaderTextDiv.style.fontSize = '20px';
-        loaderTextDiv.style.top = '60%'; // Positioned below the sphere
-        loaderTextDiv.style.left = '50%';
-        loaderTextDiv.style.transform = 'translate(-50%, -50%)';
-        loaderTextDiv.style.display = 'block'; // Hidden by default
-        loaderTextDiv.innerText = 'Click to Start';
-        //loaderTextDiv.id = 'loading1';
-        document.body.appendChild(loaderTextDiv);
-*/      
-        const loadingText = document.getElementById("loading3");
-        loadingText.remove();
+    return new Promise((resolve) => {    
+        const loadingContainer = document.getElementById('loadingContainer');
+        if (loadingContainer) {
+            loadingContainer.remove();
+        }
 
         // Add a text element for "Start" (inside the sphere)
         const startTextDiv = document.createElement('div');
@@ -162,6 +172,7 @@ export function hideLoadingScreen() {
         
             // 3. Remove dynamically created DOM elements
             const startTextDiv = document.getElementById('loading2');
+            console.log(startTextDiv);
             const loaderTextDiv = Array.from(document.body.children).find(
                 (el) => el.innerText === 'Click to Start'
             );

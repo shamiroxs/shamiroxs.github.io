@@ -1,18 +1,28 @@
 import * as THREE from 'three';
-import { showLoadingScreen, hideLoadingScreen } from './loading.js';
+import { showLoadingScreen, updateLoadingProgress, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-async function loadAssets(assetPaths) {
+async function loadAssets(assetPaths, type) {
     const loader = new GLTFLoader();
     const textureLoader = new THREE.TextureLoader();
 
+    let loadedCount = 0;
+    const totalAssets = assetPaths.length;
+
     const promises = assetPaths.map((path) => {
         return new Promise((resolve, reject) => {
+            const onLoad = (asset) => {
+                loadedCount++;
+                const progress = Math.round((loadedCount / totalAssets) * 100);
+                updateLoadingProgress(progress); // Update UI
+                resolve(asset);
+            };
+
             if (path.endsWith('.glb')) {
-                loader.load(path, resolve, undefined, reject);
+                loader.load(path, onLoad, undefined, reject);
             } else if (path.endsWith('.jpg') || path.endsWith('.png')) {
-                textureLoader.load(path, resolve, undefined, reject);
+                textureLoader.load(path, onLoad, undefined, reject);
             } else {
                 reject(new Error(`Unsupported asset type: ${path}`));
             }
@@ -25,7 +35,7 @@ async function loadAssets(assetPaths) {
 async function initializeApp() {
     console.log('Starting the application...');
 
-    // Display the loading screen
+    // Display the loading screen UI
     showLoadingScreen();
 
     // Load assets
@@ -47,18 +57,17 @@ async function initializeApp() {
     './assets/character_skin/org.glb', 
     './assets/character_skin/green.glb', 
     './assets/character_skin/grey.glb', 
-    './assets/character_skin/dark_grey.glb']
+    './assets/character_skin/dark_grey.glb']    
+ 
 
-    const assets = await loadAssets(assetPaths);
-    console.log('Assets loaded and loading screen completed!');
-    const chara = await loadAssets(charaPaths);
-    console.log('Character skins loaded and loading screen completed!');
+    const assets = await loadAssets(assetPaths, "Game Assets");
+    console.log('Game assets loaded!');
 
-    // Hide the loading screen
-     // Clear the DOM content
+    const chara = await loadAssets(charaPaths, "Character Skins");
+    console.log('Character skins loaded!');
 
-    // Initialize the main scene with the loaded assets
-    initScene(assets, chara);    
+    // Initialize the scene with loaded assets
+    initScene(assets, chara);
 }
 
 // Start the application
