@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { playAirBalloonSound } from './sound';
+import { isMobile } from './phone';
 
 // Shared variables for the scene, camera, renderer, and objects
 let scene, camera, renderer, sphere, circle, raycaster, mouse;
@@ -30,8 +31,17 @@ export function showLoadingScreen() {
         loadingContainer.style.top = '75%';
         loadingContainer.style.left = '50%';
         loadingContainer.style.transform = 'translate(-50%, -50%)';
-        loadingContainer.style.width = '290px';
-        loadingContainer.style.height = '35px';
+
+        if(isMobile()){
+            loadingContainer.style.width = '150px';
+            loadingContainer.style.height = '20px';
+        }
+        else{
+            loadingContainer.style.width = '300px';
+            loadingContainer.style.height = '30px';
+        }
+
+        
         loadingContainer.style.background = 'black';
         loadingContainer.style.borderRadius = '10px';
         loadingContainer.style.border = '2px solid goldenrod';
