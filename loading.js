@@ -110,7 +110,7 @@ export function updateLoadingProgress(progress) {
         loadingText.innerText = `Loading... ${progress}%`;
     }
 
-    if (progress > 50) {
+    if (progress > 62) {
         loadingText.style.color = 'black'; // Better visibility when over goldenrod
     } else {
         loadingText.style.color = 'white'; // When mostly over black
