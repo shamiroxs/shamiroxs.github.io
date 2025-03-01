@@ -30,15 +30,14 @@ export function showLoadingScreen() {
         loadingContainer.style.position = 'absolute';
         loadingContainer.style.top = '75%';
         loadingContainer.style.left = '50%';
+        loadingContainer.style.height = '30px';
         loadingContainer.style.transform = 'translate(-50%, -50%)';
 
         if(isMobile()){
-            loadingContainer.style.width = '180px';
-            loadingContainer.style.height = '25px';
+            loadingContainer.style.width = '280px';
         }
         else{
             loadingContainer.style.width = '300px';
-            loadingContainer.style.height = '30px';
         }
 
         
