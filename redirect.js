@@ -118,15 +118,8 @@ export function openLink(logo){
             iframe.src = "upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=15&cu=INR";
             document.body.appendChild(iframe);
             //window.open("upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=15&cu=INR");
-            qrTimeout = setTimeout(() => {
-                showQRCode(upiLink);
-            }, 3000);
-
-            document.addEventListener("visibilitychange", () => {
-                if (document.hidden) {
-                    clearTimeout(qrTimeout); // Cancel QR code if UPI app opened
-                }
-            });
+            
+            showQRCode();
         }
         else{
             showQRCode();
