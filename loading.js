@@ -16,12 +16,7 @@ export function showLoadingScreen() {
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-/*
-        // Add a grey sphere to the scene
-        const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-        const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 }); // Grey
-        sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-      */  
+
         // Add a white circle that moves up and down
         const circleGeometry = new THREE.CircleGeometry(0.1, 32);
         const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // White
@@ -37,7 +32,7 @@ export function showLoadingScreen() {
         loadingContainer.style.transform = 'translate(-50%, -50%)';
         loadingContainer.style.width = '300px';
         loadingContainer.style.height = '40px';
-        loadingContainer.style.background = 'lightyellow';
+        loadingContainer.style.background = 'black';
         loadingContainer.style.borderRadius = '10px';
         loadingContainer.style.border = '2px solid goldenrod';
         loadingContainer.style.overflow = 'hidden';
@@ -58,7 +53,8 @@ export function showLoadingScreen() {
         loadingText.style.transform = 'translateY(-50%)';
         loadingText.style.fontFamily = 'Verdana, sans-serif';
         loadingText.style.fontSize = '18px';
-        loadingText.style.color = '#444';
+        loadingText.style.color = 'white';
+        loadingText.style.transition = 'color 1s ease-in-out';
         loadingText.innerText = 'Loading... 0%';
 
         loadingContainer.appendChild(progressBar);
@@ -104,6 +100,13 @@ export function updateLoadingProgress(progress) {
         progressBar.style.width = `${progress}%`;
         loadingText.innerText = `Loading... ${progress}%`;
     }
+
+    if (progress > 50) {
+        loadingText.style.color = 'black'; // Better visibility when over goldenrod
+    } else {
+        loadingText.style.color = 'white'; // When mostly over black
+    }
+    
 }
 
 
