@@ -99,21 +99,28 @@ function showQRCode(n) {
     qrDiv.onclick = function () {
         let img = qrDiv.querySelector("img"); // Get the generated QR image
         if (img) {
-            let link = document.createElement("a");
-            link.href = img.src;
-
-            if(n == 1){
-                link.download = "Buy a coffee.png";
-            }
-            else{
-                link.download = "Share portfolio.png";
-            }
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            fetch(img.src)
+                .then(response => response.blob()) // Convert image to Blob
+                .then(blob => {
+                    let link = document.createElement("a");
+                    let url = URL.createObjectURL(blob);
+                    link.href = url;
+    
+                    // Set the correct filename based on 'n' value
+                    if (n == 1) {
+                        link.download = "Buy a coffee.png";
+                    } else {
+                        link.download = "Share portfolio.png";
+                    }
+    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url); // Clean up
+                })
+                .catch(console.error);
         }
-    };
+    };    
     
 
     // Append elements
