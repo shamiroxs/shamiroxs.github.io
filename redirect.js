@@ -86,7 +86,7 @@ function showQRCode(n) {
     } else if (n == 2) {
         // Portfolio QR Code
         text = document.createElement("p");
-        text.innerText = "Shamir's Balloon!";
+        text.innerText = "Sharing is appreciated!";
         text.style.marginBottom = "10px";
 
         new QRCode(qrDiv, {
