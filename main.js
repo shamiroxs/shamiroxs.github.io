@@ -50,8 +50,8 @@ async function initializeApp() {
     './assets/sky.jpg', './assets/background.glb', 
     './assets/cars/car1.glb', './assets/cars/car2.glb', 
     './assets/cars/car3.glb', './assets/cars/car4.glb', 
-    './assets/aircraft.glb', './assets/cars/car1.glb', 
-    './assets/cars/car4.glb', './assets/tv.glb',
+    './assets/aircraft.glb', './assets/share.glb', //[7,8]
+    './assets/chatbot.glb', './assets/tv.glb',//[9,10]
     './assets/night.jpg', './assets/pyramid.glb',
     './assets/portal.glb', './assets/electronic.glb',
     './assets/tailor.glb', './assets/skyLink.glb', //[0 - 16]

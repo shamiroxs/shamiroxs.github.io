@@ -1,45 +1,40 @@
 import { resumeText, thankyouText } from "./game";
 import { isMobile } from "./phone.js";
 
-export function gotoLink(scene, link){
-    let str = 'link ';
-    if(link.name == str + (-43.8)){//abcd
+export function gotoLink(scene, link) {
+    let str = "link ";
+    if (link.name == str + (-43.8)) {
         window.open("https://github.com/shamiroxs/abcd", "_blank");
-    }
-    else if(link.name == str + (-58.599999999999994)){//dbms
+    } else if (link.name == str + (-58.6)) {
         window.open("https://github.com/MrCodeCrafter/BDW", "_blank");
-    }
-    else if(link.name == str + (-73.5)){//internship
+    } else if (link.name == str + (-73.5)) {
         window.open("https://github.com/shamiroxs/PRODIGY_SD_01", "_blank");
-    }
-    else if(link.name == str + (-80.3)){//intership register
+    } else if (link.name == str + (-80.3)) {
         window.open("https://prodigyinfotech.dev/apply", "_blank");
-    }
-    else if(link.name == str + (-67)){//lector
+    } else if (link.name == str + (-67)) {
         window.open("https://github.com/shamiroxs/lector", "_blank");
-    }
-    else if(link.name == str + (-59.8)){//lector channel
+    } else if (link.name == str + (-59.8)) {
         window.open("https://www.youtube.com/@lector-audiobook", "_blank");
-    }
-    else if(link.name == str + (-53.099999999999994)){//powerbi
+    } else if (link.name == str + (-53.1)) {
         window.open("https://github.com/shamiroxs/Learning-with-Data", "_blank");
-    }
-    else if(link.name == str + (-38.199999999999996)){//hello 2
+    } else if (link.name == str + (-38.2)) {
         //window.open("https://www.google.com", "_blank");
-    }
-    else if(link.name == str + (-23.4)){//hello 1
+    } else if (link.name == str + (-23.4)) {
         ///window.open("https://www.google.com", "_blank");
-    }
-    else if(link.name == str + (-33.6)){//internship
+    } else if (link.name == str + (-33.6)) {
         window.open("assets/Resume.pdf", "_blank");
         resumeText();
     }
-    
 }
 
-function showQRCode() {
-    // Check if QR container already exists, prevent duplicates
-    if (document.getElementById("qr-container")) return;
+// Function to Show QR Code (Using qrcode.js Instead of Google API)
+function showQRCode(n) {
+    // Remove existing QR code if present
+    let existingQR = document.getElementById("qr-container");
+    if (existingQR) {
+        console.log("QR Container already exists. Removing it first.");
+        existingQR.remove();
+    }
 
     // Create QR container
     let qrContainer = document.createElement("div");
@@ -61,68 +56,98 @@ function showQRCode() {
     closeButton.style.position = "absolute";
     closeButton.style.top = "5px";
     closeButton.style.right = "10px";
-    //closeButton.style.background = "red";
     closeButton.style.color = "black";
     closeButton.style.border = "none";
     closeButton.style.fontSize = "16px";
     closeButton.style.padding = "5px 10px";
     closeButton.style.cursor = "pointer";
     closeButton.style.borderRadius = "50%";
-    
+
     closeButton.onclick = function () {
         document.body.removeChild(qrContainer);
         thankyouText();
     };
 
-    // Create text
-    let text = document.createElement("p");
-    text.innerText = "☕ Buy Me a Coffee!";
-    text.style.marginBottom = "10px";
+    let text;
+    let qrDiv = document.createElement("div"); // QR Code Container
+    qrDiv.id = "qrcode";
 
-    // Create QR Code Image
-    let qrImage = document.createElement("img");
-    qrImage.src = "/assets/qr_code.png";
-    qrImage.alt = "UPI QR Code";
-    qrImage.style.width = "200px";
-    qrImage.style.height = "200px";
+    if (n == 1) {
+        // Buy Me a Coffee QR Code
+        text = document.createElement("p");
+        text.innerText = "☕ Buy Me a Coffee!";
+        text.style.marginBottom = "10px";
+
+        new QRCode(qrDiv, {
+            text: "upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=15&cu=INR",
+            width: 200,
+            height: 200
+        });
+    } else if (n == 2) {
+        // Portfolio QR Code
+        text = document.createElement("p");
+        text.innerText = "Shamir's Balloon!";
+        text.style.marginBottom = "10px";
+
+        new QRCode(qrDiv, {
+            text: "https://shamir-ashraf.vercel.app",
+            width: 200,
+            height: 200
+        });
+    }
 
     // Append elements
     qrContainer.appendChild(closeButton);
     qrContainer.appendChild(text);
-    qrContainer.appendChild(qrImage);
+    qrContainer.appendChild(qrDiv);
     document.body.appendChild(qrContainer);
 }
 
-let qrTimeout;
-
-export function openLink(logo){
-    let str = 'logo ';
-    if(logo.name == str + (1)){//github
+export function openLink(logo) {
+    let str = "logo ";
+    if (logo.name == str + 1) {
         window.open("https://github.com/shamiroxs/", "_blank");
-    }
-    else if(logo.name == str + (2)){//linkedin
+    } else if (logo.name == str + 2) {
         window.open("https://www.linkedin.com/in/shamiroxs/", "_blank");
-    }
-    else if(logo.name == str + (3)){//whatsapp
+    } else if (logo.name == str + 3) {
         window.open("https://wa.me/+919544123218", "_blank");
-    }
-    else if(logo.name == str + (4)){//gmail
+    } else if (logo.name == str + 4) {
         window.open("mailto:shamirkolakkadan26@gmail.com", "_blank");
-    }
-    else if(logo.name == str + (5)){//coffee
-        if(isMobile()){
+    } else if (logo.name == str + 5) {
+        // Coffee Payment QR Code
+        if (isMobile()) {
             let iframe = document.createElement("iframe");
             iframe.style.width = "0px";
             iframe.style.height = "0px";
             iframe.style.border = "none";
             iframe.src = "upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=15&cu=INR";
             document.body.appendChild(iframe);
-            //window.open("upi://pay?pa=9544123218@ybl&pn=Shamir%20Ashraf&tn=Buy%20Me%20Coffee&am=15&cu=INR");
-            
-            showQRCode();
+            showQRCode(1);
+        } else {
+            showQRCode(1);
         }
-        else{
-            showQRCode();
+    } else if (logo.name == str + 6) {
+        // Portfolio Share QR Code
+        console.log("showQRCode(2) called");
+        if (isMobile()) {
+            if (navigator.share) {
+                navigator
+                    .share({
+                        title: "Check out this portfolio!",
+                        text: "Visit Shamir's Balloon:",
+                        url: "https://shamir-ashraf.vercel.app",
+                    })
+                    .then(() => {
+                        console.log("Shared successfully!");
+                    })
+                    .catch((error) => {
+                        console.error("Error sharing:", error);
+                    });
+            } else {
+                alert("Sharing not supported on this device.");
+            }
+        } else {
+            showQRCode(2);
         }
     }
 }

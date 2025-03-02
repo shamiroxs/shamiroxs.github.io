@@ -37,4 +37,13 @@ export async function drawMe(scene, assets){
     logo.position.set(0, 6, 7);
     logo.rotation.y = Math.PI ;
     scene.add(logo);
+
+    //share
+    logo = assets[8].scene.clone();
+    logo.scale.set(1, 1, 1);
+    logo.name = "logo 6";
+    logo.position.set(0, 3, 20);
+    logo.rotation.x = Math.PI * -0.25 ;
+    logo.rotation.y = Math.PI * -0.25 ;
+    scene.add(logo);
 }
