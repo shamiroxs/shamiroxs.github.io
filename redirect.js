@@ -86,7 +86,7 @@ function showQRCode(n) {
     } else if (n == 2) {
         // Portfolio QR Code
         text = document.createElement("p");
-        text.innerText = "Sharing is appreciated!";
+        text.innerText = "🎈 Share my Portfolio!";
         text.style.marginBottom = "10px";
 
         new QRCode(qrDiv, {
@@ -95,6 +95,26 @@ function showQRCode(n) {
             height: 200
         });
     }
+
+    qrDiv.onclick = function () {
+        let img = qrDiv.querySelector("img"); // Get the generated QR image
+        if (img) {
+            let link = document.createElement("a");
+            link.href = img.src;
+
+            if(n == 1){
+                link.download = "Buy a coffee.png";
+            }
+            else{
+                link.download = "Share portfolio.png";
+            }
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+    
 
     // Append elements
     qrContainer.appendChild(closeButton);

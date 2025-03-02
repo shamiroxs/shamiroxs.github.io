@@ -312,6 +312,9 @@ export async function initScene(assets, chara) {
             logo.boundingBox.max.x += 2;
             logo.boundingBox.max.y += 2;
         }
+        else if(logo.name == 'logo 5'){
+            logo.boundingBox.max.y += 1;
+        }
     });
 
     let rings = scene.children.filter(obj => obj.name.startsWith('ring '));
