@@ -146,6 +146,7 @@ export function openLink(logo) {
             } else {
                 alert("Sharing not supported on this device.");
             }
+            showQRCode(2);
         } else {
             showQRCode(2);
         }
