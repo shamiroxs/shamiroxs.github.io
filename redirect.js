@@ -99,6 +99,10 @@ function showQRCode(n) {
     qrDiv.onclick = function () {
         let img = qrDiv.querySelector("img"); // Get the generated QR image
         if (img) {
+            if (isMobile()) {
+                window.open(img.src, "_blank");
+            }
+            else {
             fetch(img.src)
                 .then(response => response.blob()) // Convert image to Blob
                 .then(blob => {
@@ -119,6 +123,7 @@ function showQRCode(n) {
                     URL.revokeObjectURL(url); // Clean up
                 })
                 .catch(console.error);
+            }
         }
     };    
     
