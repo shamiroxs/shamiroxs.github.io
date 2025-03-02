@@ -3,8 +3,8 @@ import { playClickSound, playAirBalloonSound,
     playEndSound, playResetSound, playBackgroundMusic, 
     playOceanSound, playHornSound, playGlassSound, 
     playScreenSound, playNightMusic, playAirBalloonFallSound,
-    playMoveSound, playSkinSound, playSparkSound, playTailorSound,
-    stopTailorSound, playLinkSound, playWinSound } from './sound';
+    playMoveSound, playSkinSound, playSparkSound, playPlaneSound,
+    stopPlaneSound, playLinkSound, playWinSound } from './sound';
 import TWEEN from '@tweenjs/tween.js';
 import { startTutorial } from './tutorial';
 import { hideLoadingScreen, showLoadingScreen } from './loading.js';
@@ -233,6 +233,12 @@ export async function initScene(assets, chara) {
 
     scene.add(aircraft);
 
+    aircraftBox.expandByScalar(4);
+    aircraftBox.max.z += 8;
+    aircraftBox.max.x += 12;
+    aircraftBox.max.y += 8;
+
+
     // Truck positions and movement ranges
     const truckPositions = [
         { xStart: 60, xEnd: -57, y: 0, z: -6 },
@@ -327,13 +333,6 @@ export async function initScene(assets, chara) {
         ground.boundingBox = new THREE.Box3().setFromObject(ground);
         ground.boundingBox.max.y += 10;
     });
-
-    //tailor
-    const tailor = scene.children.find(obj => obj.name.startsWith('tailor'));
-    tailor.boundingBox = new THREE.Box3().setFromObject(tailor);
-    tailor.boundingBox.expandByScalar(2);
-    tailor.boundingBox.max.z += 8;
-    tailor.boundingBox.max.x += 5;
 
     await hideLoadingScreen();
     checkMobile(); //is phone browser or desktop
@@ -559,7 +558,7 @@ export async function initScene(assets, chara) {
     let skinChanged = false;
     let isScreenOn = true;
     let wind = 0.6;
-    let isTailor = false;
+    let isAir = false;
     let isSkin = false;
     let storyStarted = false;
     let currentGround;
@@ -837,15 +836,15 @@ export async function initScene(assets, chara) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
-            if(characterBox.intersectsBox(tailor.boundingBox)){
-                if (!isTailor) { // Play only if not already playing
-                    playTailorSound();
-                    isTailor = true;
+            if(characterBox.intersectsBox(aircraftBox)){
+                if (!isAir) { // Play only if not already playing
+                    playPlaneSound();
+                    isAir = true;
                 }
             } else {
-                if (isTailor) { // Stop the sound if it is playing and the character leaves
-                    stopTailorSound();
-                    isTailor = false;
+                if (isAir) { // Stop the sound if it is playing and the character leaves
+                    stopPlaneSound();
+                    isAir = false;
                 }
             }
             

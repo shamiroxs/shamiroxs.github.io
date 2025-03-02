@@ -80,8 +80,8 @@ const sparkSound = new Howl({
     volume: 0.4
 });
 
-const tailorSound = new Howl({
-    src: ['./assets/sounds/tailor.mp3'],
+const planeSound = new Howl({
+    src: ['./assets/sounds/plane.mp3'],
     volume: 0.2,
     loop: true
 });
@@ -172,13 +172,17 @@ export function playSparkSound() {
     
 }
 
-export function playTailorSound() {
-    tailorSound.stop();
-    tailorSound.play();
+export function playPlaneSound() {
+    planeSound.stop();
+    planeSound.volume(0.2); 
+    planeSound.play();
 }
 
-export function stopTailorSound(){
-    tailorSound.stop();
+export function stopPlaneSound(){
+    planeSound.fade(0.2, 0, 1000); // Fade out from 0.2 to 0 over 1 second (1000ms)
+    setTimeout(() => {
+        planeSound.volume(0); // Keep it in a muted state instead of stopping
+    }, 1000);
 }
 
 export function playLinkSound() {
