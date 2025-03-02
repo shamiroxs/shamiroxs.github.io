@@ -134,3 +134,9 @@ export function stopStory() {
     // Hide the message instantly
     messageDiv.style.opacity = "0";
 }
+
+export function boostText(){
+    showMessage("Shadow Blaze!", 20, () => {
+        showMessage("4X speed activated.", 20, () => {});
+    });
+}

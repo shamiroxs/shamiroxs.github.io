@@ -13,7 +13,7 @@ import { checkMobile, isMobile } from './phone.js';
 import { drawCharacterSkin } from './fun';
 import { startGame, playGame, drawFinish, skinText } from './game';
 import { startStory, endStory } from './story';
-import { projectStory, stopStory, powerOff, powerTouch } from './description';
+import { projectStory, stopStory, powerOff, powerTouch, boostText } from './description';
 import { startLink } from './portal';
 import { gotoLink, openLink } from './redirect';
 import { createScoreCard, incrementScore, removeScoreCard } from './score.js';
@@ -566,6 +566,27 @@ export async function initScene(assets, chara) {
 
 
     ////////////////////////////////////////////////////////////////
+    if (savedSkinIndex === 6) {
+        if (isMobile()) {
+            moveSpeed = 0.64;
+            liftSpeed = 0.72;
+            wind = 0.2;
+        } else {
+            moveSpeed = 0.8;
+            liftSpeed = 1.6;
+            wind = 0.5;
+        }
+    } else {
+        if (isMobile()) {
+            moveSpeed = 0.16;
+            liftSpeed = 0.18;
+            wind = 0.2;
+        } else {
+            moveSpeed = 0.2;
+            liftSpeed = 0.4;
+            wind = 0.5;
+        }
+    }
 
     async function animate() {
         requestAnimationFrame(animate);
@@ -574,16 +595,6 @@ export async function initScene(assets, chara) {
         const characterBox = new THREE.Box3().setFromObject(character);
         
         if (character) {
-            if(isMobile()){
-                moveSpeed = 0.16;
-                liftSpeed = 0.18;
-                wind = 0.2 ;
-            }
-            else{
-                moveSpeed = 0.2;
-                liftSpeed = 0.4;
-                wind = 0.5;
-            }
 
             if(!isRingCollision){
                 if(previousPosition.distanceTo(character.position) > 4){
@@ -776,6 +787,7 @@ export async function initScene(assets, chara) {
 
                 if (characterBox.intersectsBox(skin.boundingBox)) {
                     playSkinSound();
+
                     const index = parseInt(skin.name.replace('character ', ''));
             
                     // Remove current character model
@@ -794,6 +806,25 @@ export async function initScene(assets, chara) {
                     localStorage.setItem('selectedSkin', index);
                     console.log(`Character skin changed to: ${index}`);
                     skinChanged = true;
+
+                    if (skin.name === 'character 6') {
+                        if (isMobile()) {
+                            moveSpeed = 0.64;
+                            liftSpeed = 0.72;
+                        } else {
+                            moveSpeed = 0.8;
+                            liftSpeed = 1.6;
+                        }
+                        boostText();
+                    } else {
+                        if (isMobile()) {
+                            moveSpeed = 0.16;
+                            liftSpeed = 0.18;
+                        } else {
+                            moveSpeed = 0.2;
+                            liftSpeed = 0.4;
+                        }
+                    }
                 }
             });
 
@@ -922,10 +953,7 @@ export async function initScene(assets, chara) {
                 playWinSound();
                 drawFinish(scene);
                 score = 0;
-            }
-            
-            
-                
+            }    
 
             if (isFirstPerson && !gameCamera) {
                 // Calculate the direction vector from the camera to the character
