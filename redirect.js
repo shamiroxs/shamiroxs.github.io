@@ -106,7 +106,10 @@ function showQRCode(n) {
                     let url = URL.createObjectURL(blob);
                     link.href = url;
     
-                    link.download = (n == 1) ? "Buy a coffee.png" : "Share portfolio.png";
+                    // Explicitly set the MIME type
+                    link.setAttribute("type", "image/png");
+    
+                    link.download = (n == 1) ? "Buy_a_coffee.png" : "Share_portfolio.png";
     
                     document.body.appendChild(link);
                     link.click();
@@ -115,9 +118,7 @@ function showQRCode(n) {
                 })
                 .catch(error => console.error("Error downloading image:", error));
         }
-    };
-    
-    
+    };   
 
     // Append elements
     qrContainer.appendChild(closeButton);
