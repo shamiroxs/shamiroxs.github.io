@@ -191,8 +191,8 @@ export async function initScene(assets, chara) {
 
         // Set initial position
         const position = carPositions[i];
-        const initialZ = position.zStart + Math.random() * (position.zEnd - position.zStart - 1);
-        car.position.set(position.x, 0, Math.min(position.zStart, position.zEnd) + Math.random() * Math.abs(position.zEnd - position.zStart));
+        const initialZ = position.zStart + Math.random() * (position.zEnd - position.zStart);
+        car.position.set(position.x, 0, initialZ);
 
         // Set random speed
         const speed = 0.05 + Math.random() * 0.15;
