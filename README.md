@@ -20,8 +20,13 @@ An immersive **game-like 3D portfolio** built with **Three.js**, where users exp
 - **JavaScript (ES6+)** – Core functionality and interactivity.  
 - **HTML & CSS** – Structure and styling.  
 
-## **📸 Screenshots**  
-(Add screenshots or GIFs showcasing the portfolio experience.)  
+## 📸 Screenshots  
+Here are some screenshots showcasing the portfolio experience:
+
+![Screenshot 1](./image/img1.jpg)  
+![Screenshot 2](./image/img2.jpg)  
+![Screenshot 3](./image/img3.jpg)  
+![Screenshot 4](./image/img4.jpg) 
 
 ## **🔧 Installation & Setup**  
 1. Clone the repository:  
