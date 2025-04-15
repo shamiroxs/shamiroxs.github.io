@@ -252,7 +252,7 @@ export async function startTutorial(scene, assets) {
     createText("Editor", -54.8, 7.45, -10.4, 0.5, 0);
 
     createText("Soon!", -19.8, 7.6, 4.1, 0, 0, true);
-    createText("Deepfake", -36, 7.6, 4.1, 0, 0, true);
+    createText("Deepfake", -34, 7.6, 4.1, 0, 0, true);
     createText("PowerBI", -48.8, 7.6, 4.1, 0, 0, true);
 
 
