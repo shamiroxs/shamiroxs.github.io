@@ -18,7 +18,7 @@ export function gotoLink(scene, link) {
     } else if (link.name == str + (-53.1)) {
         window.open("https://github.com/shamiroxs/Learning-with-Data", "_blank");
     } else if (link.name == str + (-38.2)) {
-        //window.open("https://www.google.com", "_blank");
+        window.open("https://github.com/shamiroxs/deepfake-bot", "_blank");
     } else if (link.name == str + (-23.4)) {
         ///window.open("https://www.google.com", "_blank");
     } else if (link.name == str + (-33.6)) {
