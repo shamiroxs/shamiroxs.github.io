@@ -16,7 +16,7 @@ export function gotoLink(scene, link) {
     } else if (link.name == str + (-59.8)) {
         window.open("https://www.youtube.com/@lector-audiobook", "_blank");
     } else if (link.name == str + (-53.099999999999994)) {
-        window.open("https://github.com/shamiroxs/Learning-with-Data/tree/main/02%3A%20PowerBi%20Workshop", "_blank");
+        window.open("https://github.com/shamiroxs/Learning-with-Data/blob/main/02%3A%20PowerBi%20Workshop%2FREADME.md", "_blank");
     } else if (link.name == str + (-38.199999999999996)) {
         window.open("https://github.com/shamiroxs/deepfake-bot", "_blank");
     } else if (link.name == str + (-23.4)) {
