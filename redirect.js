@@ -5,7 +5,7 @@ export function gotoLink(scene, link) {
     let str = "link ";
     if (link.name == str + (-43.8)) {
         window.open("https://github.com/shamiroxs/abcd", "_blank");
-    } else if (link.name == str + (-58.6)) {
+    } else if (link.name == str + (-58.599999999999994)) {
         window.open("https://github.com/MrCodeCrafter/BDW", "_blank");
     } else if (link.name == str + (-73.5)) {
         window.open("https://github.com/shamiroxs/PRODIGY_SD_01", "_blank");
@@ -15,9 +15,9 @@ export function gotoLink(scene, link) {
         window.open("https://github.com/shamiroxs/lector", "_blank");
     } else if (link.name == str + (-59.8)) {
         window.open("https://www.youtube.com/@lector-audiobook", "_blank");
-    } else if (link.name == str + (-53.1)) {
+    } else if (link.name == str + (-53.099999999999994)) {
         window.open("https://github.com/shamiroxs/Learning-with-Data/tree/main/02%3A%20PowerBi%20Workshop", "_blank");
-    } else if (link.name == str + (-38.2)) {
+    } else if (link.name == str + (-38.199999999999996)) {
         window.open("https://github.com/shamiroxs/deepfake-bot", "_blank");
     } else if (link.name == str + (-23.4)) {
         ///window.open("https://www.google.com", "_blank");
