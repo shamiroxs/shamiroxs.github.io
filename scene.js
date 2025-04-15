@@ -51,7 +51,7 @@ export async function initScene(assets, chara) {
     scene.add(light4);
 
     // Add ground
-    const groundGeometry = new THREE.PlaneGeometry(500, 500);
+    const groundGeometry = new THREE.PlaneGeometry(500, 200);
     const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x001F3F });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.position.set(0, -12, 0);
