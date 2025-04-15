@@ -105,9 +105,15 @@ export function projectStory(scene, name) {
             });
         }
         else if(name == str + (-37.230000000000004)){
-            showMessage("Hello!", 20, () => {
-            
-            });
+            showMessage("A mini project associated with APJ Abdul Kalam University.", 20, () => {
+        		showMessage("I led a team of 3, to work on Deepfake Detection Bot.", 200, () => {
+        			showMessage("Even though deepfake detection already exists, they are not easily available.", 300, () => {
+            			showMessage("Users are not well aware about deepfakes and are spreading them throughout social media.", 400, () => {
+                			showMessage("So we implemented this bot to detect deepfake in real-time, and prevent misinformation.", 500, () => {});
+            			});
+        			});
+    			});
+			 });
         }
         else if(name == str + (-22.23)){
             showMessage("Hello!", 20, () => {
