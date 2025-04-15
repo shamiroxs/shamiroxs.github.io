@@ -147,7 +147,7 @@ export async function startProject(scene, assets) {
     createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.1, -29.8, 0);//first front
 
     createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.1, -29.8, 0);//second front
-    createGlassPlane(scene, '/assets/image/bot.jpeg', -38, 4.1, 3.75, 1);//second back
+    createGlassPlane(scene, '/assets/image/bot.jpg', -38, 4.1, 3.75, 1);//second back
 
     createGlassPlane(scene, '/assets/image/sd.png', -52, 4.1, -29.8, 0);//third front
     createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.1, 3.75, 1);//third back
@@ -160,7 +160,7 @@ export async function startProject(scene, assets) {
     createGlassGround('Developed a Temperature Conversion Program, \n\nGuessing Game, Simple Contact Management System, \n\nSudoku Solver, Web Scraping Tool', -51.5, -0.28, -26.5, -0.5, 1);//third front
 
     createGlassGround('Hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
-    createGlassGround('Developed and deployed a Deepfake Detection Bot using PyTorch (EfficientNetV2), MTCNN, and OpenCV, with Facebook Graph API integration and Google Cloud (Flask, Pub/Sub, Colab) for GPU-based inference, leading a team of three.', -37.5, -0.28, 0.55, -0.5, 0);//second back
+    createGlassGround('Developed and deployed a Deepfake Detection Bot using PyTorch \n\n(EfficientNetV2), MTCNN, and OpenCV, with Facebook Graph API \n\nand Google Cloud (Flask, Pub/Sub, Colab) for GPU-based inference, \n\nleading a team of three.', -37.5, -0.28, 0.55, -0.5, 0);//second back
     createGlassGround('Created a Power BI dashboard from a workshop by \n\nJatan Shah, including certificate, dashboard file, and notes.', -52.4, -0.28, 0.55, -0.5, 0);//third back
 
     createGlassGround('\n\nDeveloped an automated eBook-to-video conversion tool \n\nusing Python, integrating file processing, progress tracking, \n\nand multimedia generation with a user-friendly GUI.', -52.5, -0.28, -13.2, -0.5, 0.5);
