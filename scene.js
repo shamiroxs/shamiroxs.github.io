@@ -52,7 +52,7 @@ export async function initScene(assets, chara) {
 
     // Add ground
     const groundGeometry = new THREE.PlaneGeometry(1000, 1000);
-    const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x404040 });
+    const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x001F3F });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.position.set(0, -12, 0);
     ground.rotation.x = -Math.PI / 2;
