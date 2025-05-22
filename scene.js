@@ -21,15 +21,7 @@ import { drawMe } from './me.js';
 import gsap from "gsap";
 
 
-export async function initScene(assets) {
-    const charaPaths = ['./assets/character_skin/blue.glb', 
-    './assets/character_skin/purple.glb', 
-    './assets/character_skin/yellow.glb', 
-    './assets/character_skin/org.glb', 
-    './assets/character_skin/green.glb', 
-    './assets/character_skin/grey.glb', 
-    './assets/character_skin/dark_grey.glb']    
-    
+export async function initScene(assets) {    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -73,6 +65,19 @@ export async function initScene(assets) {
     character.position.copy(initialPosition);
     character.name = 'character';
     scene.add(character);
+
+    //recent skin
+    let savedSkinIndex = localStorage.getItem('selectedSkin') ? parseInt(localStorage.getItem('selectedSkin')) : 3;
+
+    if (chara[savedSkinIndex]) {
+        while (character.children.length > 0) {
+            character.remove(character.children[0]);
+        }
+        chara[savedSkinIndex].scene.children.forEach(child => {
+            character.add(child.clone());
+        });
+    }
+    
 
     // Add a torch light to the character
     const torchLight = new THREE.SpotLight(0xffa95c, 2);
@@ -331,21 +336,6 @@ export async function initScene(assets) {
     });
 
     await hideLoadingScreen();
-    //SKINS
-    const chara = await loadAssets(charaPaths, "Character Skins");
-    console.log('Character skins loaded!');
-    //recent skin
-    let savedSkinIndex = localStorage.getItem('selectedSkin') ? parseInt(localStorage.getItem('selectedSkin')) : 3;
-
-    if (chara[savedSkinIndex]) {
-        while (character.children.length > 0) {
-            character.remove(character.children[0]);
-        }
-        chara[savedSkinIndex].scene.children.forEach(child => {
-            character.add(child.clone());
-        });
-    }
-    
     checkMobile(); //is phone browser or desktop
     startStory();
 
