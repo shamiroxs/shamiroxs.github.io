@@ -59,8 +59,19 @@ async function initializeApp() {
     './assets/whatsapp.glb','./assets/gmail.glb',
     './assets/coffee.glb'];//[ 0 - 21]
 
+    const charaPaths = ['./assets/character_skin/blue.glb', 
+    './assets/character_skin/purple.glb', 
+    './assets/character_skin/yellow.glb', 
+    './assets/character_skin/org.glb', 
+    './assets/character_skin/green.glb', 
+    './assets/character_skin/grey.glb', 
+    './assets/character_skin/dark_grey.glb']    
+
     const assets = await loadAssets(assetPaths, "Game Assets");
     console.log('Game assets loaded!');
+
+    const chara = await loadAssets(charaPaths, "Character Skins");
+    console.log('Character skins loaded!');
 
     // Initialize the scene with loaded assets
     initScene(assets);
