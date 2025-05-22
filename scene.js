@@ -21,7 +21,7 @@ import { drawMe } from './me.js';
 import gsap from "gsap";
 
 
-export async function initScene(assets) {    
+export async function initScene(assets, chara) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -51,8 +51,8 @@ export async function initScene(assets) {
     scene.add(light4);
 
     // Add ground
-    const groundGeometry = new THREE.PlaneGeometry(500, 200);
-    const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x001F3F });
+    const groundGeometry = new THREE.PlaneGeometry(1000, 1000);
+    const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x404040 });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.position.set(0, -12, 0);
     ground.rotation.x = -Math.PI / 2;
@@ -77,7 +77,6 @@ export async function initScene(assets) {
             character.add(child.clone());
         });
     }
-    
 
     // Add a torch light to the character
     const torchLight = new THREE.SpotLight(0xffa95c, 2);

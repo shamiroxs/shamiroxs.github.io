@@ -66,6 +66,7 @@ async function initializeApp() {
     './assets/character_skin/green.glb', 
     './assets/character_skin/grey.glb', 
     './assets/character_skin/dark_grey.glb']    
+ 
 
     const assets = await loadAssets(assetPaths, "Game Assets");
     console.log('Game assets loaded!');
@@ -74,7 +75,7 @@ async function initializeApp() {
     console.log('Character skins loaded!');
 
     // Initialize the scene with loaded assets
-    initScene(assets);
+    initScene(assets, chara);
 }
 
 // Start the application
