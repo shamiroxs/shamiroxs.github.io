@@ -2,18 +2,16 @@ import * as THREE from 'three';
 import { showLoadingScreen, updateLoadingProgress, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'; // ✅ Import DRACOLoader
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'; 
 
 let progress;
 
 async function loadAssets(assetPaths, type) {
-    // ✅ Setup DRACO loader
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Or use local: '/draco/'
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); 
 
     const loader = new GLTFLoader();
-    loader.setDRACOLoader(dracoLoader); // ✅ Attach DRACO to GLTFLoader
-
+    loader.setDRACOLoader(dracoLoader); 
     const textureLoader = new THREE.TextureLoader();
 
     let loadedCount = 0;
@@ -47,11 +45,9 @@ async function loadAssets(assetPaths, type) {
 
 async function initializeApp() {
     console.log('Starting the application...');
-
-    // Show the loading UI
     showLoadingScreen();
 
-    // Game and environment asset paths
+    // Load assets
     const assetPaths = [
         './assets/character.glb', 
         './assets/sky.jpg', 
@@ -79,19 +75,13 @@ async function initializeApp() {
         './assets/character_skin/dark_grey.glb'
     ];
 
-    // Load assets
     const assets = await loadAssets(assetPaths, "Game Assets");
     console.log('Game assets loaded!');
 
     const chara = await loadAssets(charaPaths, "Character Skins");
     console.log('Character skins loaded!');
 
-    // Initialize scene with assets
     initScene(assets, chara);
-
-    // Optionally hide the loading screen
-    hideLoadingScreen();
 }
 
-// Start your application
 initializeApp();
