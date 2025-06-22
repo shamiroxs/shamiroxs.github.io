@@ -2,16 +2,18 @@ import * as THREE from 'three';
 import { showLoadingScreen, updateLoadingProgress, hideLoadingScreen } from './loading.js';
 import { initScene } from './scene.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'; 
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'; // ✅ Import DRACOLoader
 
 let progress;
 
 async function loadAssets(assetPaths, type) {
+    // ✅ Setup DRACO loader
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); 
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Or use local: '/draco/'
 
     const loader = new GLTFLoader();
-    loader.setDRACOLoader(dracoLoader); 
+    loader.setDRACOLoader(dracoLoader); // ✅ Attach DRACO to GLTFLoader
+
     const textureLoader = new THREE.TextureLoader();
 
     let loadedCount = 0;
@@ -42,3 +44,54 @@ async function loadAssets(assetPaths, type) {
 
     return Promise.all(promises);
 }
+
+async function initializeApp() {
+    console.log('Starting the application...');
+
+    // Show the loading UI
+    showLoadingScreen();
+
+    // Game and environment asset paths
+    const assetPaths = [
+        './assets/character.glb', 
+        './assets/sky.jpg', 
+        './assets/background.glb', 
+        './assets/cars/car1.glb', './assets/cars/car2.glb', 
+        './assets/cars/car3.glb', './assets/cars/car4.glb', 
+        './assets/aircraft.glb', './assets/share.glb',
+        './assets/chatbot.glb', './assets/tv.glb',
+        './assets/night.jpg', './assets/pyramid.glb',
+        './assets/portal.glb', './assets/electronic.glb',
+        './assets/tailor.glb', './assets/skyLink.glb',
+        './assets/github.glb', './assets/linkedin.glb', 
+        './assets/whatsapp.glb','./assets/gmail.glb',
+        './assets/coffee.glb'
+    ];
+
+    // Character skins
+    const charaPaths = [
+        './assets/character_skin/blue.glb', 
+        './assets/character_skin/purple.glb', 
+        './assets/character_skin/yellow.glb', 
+        './assets/character_skin/org.glb', 
+        './assets/character_skin/green.glb', 
+        './assets/character_skin/grey.glb', 
+        './assets/character_skin/dark_grey.glb'
+    ];
+
+    // Load assets
+    const assets = await loadAssets(assetPaths, "Game Assets");
+    console.log('Game assets loaded!');
+
+    const chara = await loadAssets(charaPaths, "Character Skins");
+    console.log('Character skins loaded!');
+
+    // Initialize scene with assets
+    initScene(assets, chara);
+
+    // Optionally hide the loading screen
+    hideLoadingScreen();
+}
+
+// Start your application
+initializeApp();
