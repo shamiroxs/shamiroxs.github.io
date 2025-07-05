@@ -161,7 +161,7 @@ export async function startProject(scene, assets) {
 
     createGlassGround('Hello', -22.5, -0.28, 0.55, -0.5, 0);//frist back
     createGlassGround('Developed and deployed a Deepfake Detection Bot using PyTorch \n\n(EfficientNetV2), MTCNN, and OpenCV, with Facebook Graph API \n\nand Google Cloud (Flask, Pub/Sub, Colab) for GPU-based inference, \n\nleading a team of three.', -37.5, -0.28, 0.55, -0.5, 0);//second back
-    createGlassGround('Developed a real-time multiplayer 3D RPG using Three.js, Cannon.js, \n\nand WebSockets players explore the fantasy world, challenge each other to duels, \n\nDesigned for both fun and learning, fully browser-based and mobile-aware.', -52.4, -0.28, 0.55, -0.5, 0);//third back
+    createGlassGround('Developed a real-time multiplayer 3D RPG using Three.js,\n\n Cannon.js, and WebSockets players explore the fantasy world,\n\n challenge each other to duels, Designed for both fun and\n\nlearning, fully browser-based and mobile-aware.', -52.4, -0.28, 0.55, -0.5, 0);//third back
 
     createGlassGround('\n\nDeveloped an automated eBook-to-video conversion tool \n\nusing Python, integrating file processing, progress tracking, \n\nand multimedia generation with a user-friendly GUI.', -52.5, -0.28, -13.2, -0.5, 0.5);
 
