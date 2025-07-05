@@ -6,7 +6,7 @@ export function gotoLink(scene, link) {
     if (link.name == str + (-43.8)) {
         window.open("https://github.com/shamiroxs/abcd", "_blank");
     } else if (link.name == str + (-58.599999999999994)) {
-        window.open("https://github.com/shamiroxs/CODE", "_blank");
+        window.open("https://github.com/shamiroxs/CODE/tree/master", "_blank");
     } else if (link.name == str + (-73.5)) {
         window.open("https://github.com/shamiroxs/PRODIGY_SD_01", "_blank");
     } else if (link.name == str + (-80.3)) {
@@ -20,9 +20,9 @@ export function gotoLink(scene, link) {
     } else if (link.name == str + (-38.199999999999996)) {
         window.open("https://github.com/shamiroxs/deepfake-bot", "_blank");
     } 
-    else if (link.name == str + (-80.3)) {
+    else if (link.name == str + (-59.9)) {
         window.open("https://ember-lands-4d5v.vercel.app/", "_blank");
-    } else if (link.name == str + (-63.4)) {
+    } else if (link.name == str + (-66.1)) {
         window.open("https://code-game-h4f3.onrender.com/", "_blank");
     } 
     else if (link.name == str + (-23.4)) {
