@@ -82,7 +82,7 @@ export async function startLink(scene, assets){
     for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -34, y+2, -23.3, 0, 1); //-0.5, -1.4
     }
-    createLink(-33.5, -0.4, -24.7, 0.5, 0x121212);
+    createLink(-33.5, -0.4, -24.7, 0.5, 0x121212);//CODE
 
     for (let y = -0.5; y < 2; y += 0.5) { 
         createText("^", -48.8, y+2, -23.3, 0, 1); //-0.5, -1.4
@@ -117,8 +117,9 @@ export async function startLink(scene, assets){
     // extra link
     createLink(-55.2, -0.4, -24.7, 0.5, 0x800080);
     createLink(-48.4, -0.4, -11, 0.5, 0x800080);
-    createLink(-55.2, -0.4, -3, 0.5, 0x800080);
-    createLink(-40, -0.4, -23, 0.5, 0x800080);
+    
+    createLink(-55.2, -0.4, -4.3, 0.5, 0x800080);
+    createLink(-40, -0.4, -24.7, 0.5, 0x800080);
     
     // resume link
     createLink(-30, 8.4, -12, 0.5, 0xA52A2A);   
