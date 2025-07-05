@@ -117,6 +117,8 @@ export async function startLink(scene, assets){
     // extra link
     createLink(-55.2, -0.4, -24.7, 0.5, 0x800080);
     createLink(-48.4, -0.4, -11, 0.5, 0x800080);
+    createLink(-55.2, -0.4, -3, 0.5, 0x800080);
+    createLink(-40, -0.4, -23, 0.5, 0x800080);
     
     // resume link
     createLink(-30, 8.4, -12, 0.5, 0xA52A2A);   
