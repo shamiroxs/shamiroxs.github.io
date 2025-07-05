@@ -63,7 +63,7 @@ export function projectStory(scene, name) {
         else if(name == str + (-64.28)){
             showMessage("Inspired by a childhood game called Kozhithala.", 20, () => {
 		    showMessage("We used to race to collect letters on scraps of paper.", 500, () => {
-		        showMessage("In college, I wanted to bring that fun online — no installs, just play.", 500, () => {
+		        showMessage("In college, I wanted to bring that fun online, no installs, just play.", 500, () => {
 		            showMessage("So I built CODE: a real-time multiplayer card game in the browser.", 500, () => {
 		                showMessage("Fast, nostalgic, and playable anywhere. Just click and start.", 500, () => {});
 		            });
