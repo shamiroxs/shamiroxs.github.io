@@ -146,11 +146,11 @@ export async function startProject(scene, assets) {
     createGlassPlane(scene, '/assets/image/hello.jpeg', -22.2, 4.1, 3.75, 1);//ffirst back
     createGlassPlane(scene, '/assets/image/abcd.jpeg', -22.2, 4.1, -29.8, 0);//first front
 
-    createGlassPlane(scene, '/assets/image/blood.jpg', -38, 4.1, -29.8, 0);//second front
+    createGlassPlane(scene, '/assets/image/code.png', -38, 4.1, -29.8, 0);//second front
     createGlassPlane(scene, '/assets/image/bot.jpg', -38, 4.1, 3.75, 1);//second back
 
     createGlassPlane(scene, '/assets/image/sd.png', -52, 4.1, -29.8, 0);//third front
-    createGlassPlane(scene, '/assets/image/dashboard.png', -52, 4.1, 3.75, 1);//third back
+    createGlassPlane(scene, '/assets/image/emberlands.png', -52, 4.1, 3.75, 1);//third back
 
     createGlassPlane(scene, '/assets/image/lector.png', -54.8, 4.1, -12.8, 0.5);
 
