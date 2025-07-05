@@ -6,7 +6,7 @@ export function gotoLink(scene, link) {
     if (link.name == str + (-43.8)) {
         window.open("https://github.com/shamiroxs/abcd", "_blank");
     } else if (link.name == str + (-58.599999999999994)) {
-        window.open("https://github.com/MrCodeCrafter/BDW", "_blank");
+        window.open("https://github.com/shamiroxs/CODE", "_blank");
     } else if (link.name == str + (-73.5)) {
         window.open("https://github.com/shamiroxs/PRODIGY_SD_01", "_blank");
     } else if (link.name == str + (-80.3)) {
@@ -16,10 +16,16 @@ export function gotoLink(scene, link) {
     } else if (link.name == str + (-59.8)) {
         window.open("https://www.youtube.com/@lector-audiobook", "_blank");
     } else if (link.name == str + (-53.099999999999994)) {
-        window.open("https://github.com/shamiroxs/Learning-with-Data/blob/main/02%3A%20PowerBi%20Workshop%2FREADME.md", "_blank");
+        window.open("https://github.com/shamiroxs/EmberLands", "_blank");
     } else if (link.name == str + (-38.199999999999996)) {
         window.open("https://github.com/shamiroxs/deepfake-bot", "_blank");
-    } else if (link.name == str + (-23.4)) {
+    } 
+    else if (link.name == str + (-80.3)) {
+        window.open("https://ember-lands-4d5v.vercel.app/", "_blank");
+    } else if (link.name == str + (-63.4)) {
+        window.open("https://code-game-h4f3.onrender.com/", "_blank");
+    } 
+    else if (link.name == str + (-23.4)) {
         ///window.open("https://www.google.com", "_blank");
     } else if (link.name == str + (-33.6)) {
         window.open("assets/Resume.pdf", "_blank");
