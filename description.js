@@ -61,16 +61,16 @@ export function projectStory(scene, name) {
             });
         }
         else if(name == str + (-64.28)){
-            showMessage("It was a micro project for DBMS.", 20, () => {
-                showMessage("Blood Donation Management System", 500, () => {
-                    showMessage("Designed to connect donors, hospitals, and staff efficiently.", 500, () => {
-                        showMessage("Our mission was to facilitate blood donation processes,", 400, () => {
-                            showMessage("And ensure a steady supply of blood for those in need.", 400, () => {});
-                        });
-                    
-                    });
-                });
-            });
+            showMessage("Inspired by a childhood game called Kozhithala.", 20, () => {
+		    showMessage("We used to race to collect letters on scraps of paper.", 500, () => {
+		        showMessage("In college, I wanted to bring that fun online — no installs, just play.", 500, () => {
+		            showMessage("So I built CODE: a real-time multiplayer card game in the browser.", 500, () => {
+		                showMessage("Fast, nostalgic, and playable anywhere. Just click and start.", 500, () => {});
+		            });
+		        });
+		    });
+		});
+
         }
         else if(name == str + (-78.28)){
             showMessage("During my internship at InfoTech Prodigy,", 20, () => {
@@ -94,15 +94,16 @@ export function projectStory(scene, name) {
             });
         }
         else if(name == str + (-52.13)){
-            showMessage("I attended a Power BI workshop conducted by Jatan Shah,", 20, () => {
-                showMessage("a Microsoft Certified Trainer.", 200, () => {
-                    showMessage("During this workshop, I learned about Power BI", 500, () => {
-                        showMessage("Designed a dashboard, and gained insights into data visualization & reporting.", 200, () => {
-                            showMessage("I highly recommend this workshop to anyone looking to enhance their data visualization skills.", 400, () => {});
-                        });
-                    });
-                });
-            });
+            showMessage("This is one of my long-term personal projects.", 20, () => {
+		  showMessage("I wanted to build a real-time multiplayer fantasy game.", 300, () => {
+		    showMessage("So I created Emberlands: The Last Flame, a 3D RPG where players explore the world and duel with other players.", 400, () => {
+		      showMessage("I used Three.js for 3D, Cannon.js for physics, and WebSockets to sync up to 10 players in real time.", 400, () => {
+		        showMessage("The entire world is interactive and it's hosted live if you want to try it!", 600, () => {});
+		      });
+		    });
+		  });
+		});
+
         }
         else if(name == str + (-37.230000000000004)){
             showMessage("A mini project associated with APJ Abdul Kalam University.", 20, () => {
