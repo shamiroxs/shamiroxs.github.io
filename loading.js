@@ -25,28 +25,27 @@ export function showLoadingScreen() {
         // Create loading screen elements
 
         // 1. Background Image Setup with Vignette overlay
-       document.body.style.backgroundColor = '#0a0a0a';
+       document.body.style.backgroundColor = '#050505';
 
-        // 2. Centered Preview Frame
-        const previewFrame = document.createElement('div');
-        previewFrame.id = 'previewFrame';
-        previewFrame.style.cssText = `
-            position: absolute; top: 40%; left: 50%;
+        // 2. Wide Image Preview (No frame, just the image)
+        const previewImage = document.createElement('div');
+        previewImage.id = 'previewImage';
+        previewImage.style.cssText = `
+            position: absolute; top: 35%; left: 50%;
             transform: translate(-50%, -50%);
-            width: ${isMobile() ? '280px' : '450px'};
-            height: ${isMobile() ? '160px' : '250px'};
-            border: 4px solid #333;
-            border-radius: 8px;
-            background-color: #000;
+            width: 90vw; 
+            max-width: ${isMobile() ? '100%' : '800px'}; 
+            aspect-ratio: 16 / 9;
             background-size: cover;
             background-position: center;
             background-image: url(${bgImages[0]});
-            box-shadow: 0 0 30px rgba(0,0,0,1), 0 0 10px rgba(218, 165, 32, 0.2);
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: background-image 0.8s ease-in-out;
-            z-index: 10;
+            z-index: 5;
         `;
-        document.body.appendChild(previewFrame);
-
+        document.body.appendChild(previewImage);
+        
         // 2. Original Three.js setup
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -131,16 +130,16 @@ export function showLoadingScreen() {
         // 4. Cycle Images and Tips
         bgInterval = setInterval(() => {
             currentImgIndex = (currentImgIndex + 1) % bgImages.length;
-            previewFrame.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
+            const imgElement = document.getElementById('previewImage');
+            if (imgElement) imgElement.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
             
-            // Update Tip Text
             const tips = getGameTips();
             const tipElement = document.getElementById('tipText');
             if (tipElement) {
-                tipElement.style.opacity = 0; // Fade out
+                tipElement.style.opacity = 0;
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
-                    tipElement.style.opacity = 1; // Fade in
+                    tipElement.style.opacity = 1;
                 }, 2000);
             }
         }, 5000);
@@ -270,8 +269,9 @@ export function hideLoadingScreen() {
         
             // Remove the Three.js canvas (renderer.domElement)
             if (renderer.domElement) renderer.domElement.remove();
-            const previewFrame = document.getElementById('previewFrame');
-            if (previewFrame) previewFrame.remove();
+            
+            const previewImg = document.getElementById('previewImage');
+            if (previewImg) previewImg.remove();
         
             // 5. Cancel any active animation frames
             //if (animationFrameId) cancelAnimationFrame(animationFrameId);
