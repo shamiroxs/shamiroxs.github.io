@@ -246,14 +246,15 @@ export function hideLoadingScreen() {
         const startTextDiv = document.createElement('div');
         startTextDiv.style.position = 'absolute';
         startTextDiv.style.color = 'white';
-        startTextDiv.style.fontFamily = 'Verdana, sans-serif';
-        startTextDiv.style.fontSize = '30px';
+        startTextDiv.style.fontFamily = "'Orbitron', sans-serif";
+        startTextDiv.style.letterSpacing = '2px';
+        startTextDiv.style.fontSize = '36px';
         startTextDiv.style.top = '50%'; 
         startTextDiv.style.left = '50%';
         startTextDiv.style.transform = 'translate(-50%, -50%)';
         startTextDiv.style.display = 'block'; // Hidden until loading completes
         startTextDiv.id = 'loading2';
-        startTextDiv.innerText = 'START';
+        startTextDiv.innerText = 'START GAME';
         
         document.body.appendChild(startTextDiv);
 
