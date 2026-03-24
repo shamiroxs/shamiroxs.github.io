@@ -7,7 +7,7 @@ let scene, camera, renderer, sphere, circle, raycaster, mouse;
 let animationFrameId; // To store the animation frame ID for cleanup
 
 // Carousel and Tips data
-const bgImages = ['/image/imge1.jpg', '/image/imge2.jpg', '/image/imge4.jpg'];
+const bgImages = ['/image/img1.jpg', '/image/img2.jpg', '/image/img4.jpg'];
 let currentImgIndex = 0;
 let bgInterval;
 
@@ -165,7 +165,7 @@ export function showLoadingScreen() {
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
                     tipElement.style.opacity = '1';
-                }, 1000);
+                }, 1400);
             }
         }, 3000);
         
