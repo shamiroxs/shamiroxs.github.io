@@ -7,7 +7,7 @@ let scene, camera, renderer, sphere, circle, raycaster, mouse;
 let animationFrameId; // To store the animation frame ID for cleanup
 
 // Carousel and Tips data
-const bgImages = ['/image/img1.jpg', '/image/img2.jpg', '/image/img4.jpg'];
+const bgImages = ['/image/imge1.jpg', '/image/imge2.jpg', '/image/imge4.jpg'];
 let currentImgIndex = 0;
 let bgInterval;
 
@@ -36,11 +36,12 @@ export function showLoadingScreen() {
         renderer.domElement.style.top = '0';
         document.body.appendChild(renderer.domElement);
 
+        /*
         const circleGeometry = new THREE.CircleGeometry(0.1, 32);
         const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         circle = new THREE.Mesh(circleGeometry, circleMaterial);
         circle.position.set(0, 1.5, 0);
-        scene.add(circle);
+        scene.add(circle);*/
 
         // 3. New Glassmorphism UI Container
         const uiContainer = document.createElement('div');
@@ -52,6 +53,7 @@ export function showLoadingScreen() {
         `;
         const previewImage = document.createElement('div');
         previewImage.id = 'previewImage';
+        previewImage.className = 'skeleton-loading';
         previewImage.style.cssText = `
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -64,6 +66,21 @@ export function showLoadingScreen() {
             position: relative;
         `;
         previewImage.style.marginBottom = '10px';
+        // ADD THIS instead:
+        previewImage.style.backgroundImage = 'none'; // hide image while loading
+
+        const img = new Image();
+        img.src = bgImages[0];
+        img.onload = () => {
+            previewImage.classList.remove('skeleton-loading');
+            previewImage.style.transition = 'opacity 0.4s ease';
+            previewImage.style.opacity = '0';
+            previewImage.style.backgroundImage = `url(${bgImages[0]})`;
+            // Fade in after swap
+            requestAnimationFrame(() => {
+                previewImage.style.opacity = '1';
+            });
+        };
 
         // Tip Text
         const tipText = document.createElement('div');
@@ -128,15 +145,26 @@ export function showLoadingScreen() {
         bgInterval = setInterval(() => {
             currentImgIndex = (currentImgIndex + 1) % bgImages.length;
             const imgElement = document.getElementById('previewImage');
-            if (imgElement) imgElement.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
-            
-            const tips = getGameTips();
+            if (!imgElement) return;
+        
+            // Preload next image before swapping
+            const nextImg = new Image();
+            nextImg.src = bgImages[currentImgIndex];
+            nextImg.onload = () => {
+                imgElement.style.opacity = '0';
+                setTimeout(() => {
+                    imgElement.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
+                    imgElement.style.opacity = '1';
+                }, 400); // wait for fade out
+            };
+        
+            // Tip fade
             const tipElement = document.getElementById('tipText');
             if (tipElement) {
-                tipElement.style.opacity = 0;
+                tipElement.style.opacity = '0';
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
-                    tipElement.style.opacity = 1;
+                    tipElement.style.opacity = '1';
                 }, 1000);
             }
         }, 3000);
@@ -224,7 +252,7 @@ export function hideLoadingScreen() {
         startTextDiv.style.color = 'white';
         startTextDiv.style.fontFamily = "'Orbitron', sans-serif";
         startTextDiv.style.letterSpacing = '2px';
-        startTextDiv.style.fontSize = '36px';
+        startTextDiv.style.fontSize = isMobile() ? '22px' : '36px';
         startTextDiv.style.top = '50%'; 
         startTextDiv.style.left = '50%';
         startTextDiv.style.transform = 'translate(-50%, -50%)';
@@ -232,7 +260,9 @@ export function hideLoadingScreen() {
         startTextDiv.id = 'loading2';
         startTextDiv.innerText = 'START GAME';
         startTextDiv.style.zIndex = '2';
-        
+        if (isMobile()) {
+            startTextDiv.style.letterSpacing = '1px';
+        }
         if (previewImage) {
             previewImage.appendChild(startTextDiv);
         }
@@ -243,8 +273,8 @@ export function hideLoadingScreen() {
             }
         }, 50);
         
-        scene.remove(circle);
-        
+        //scene.remove(circle);
+
         const infoRow = document.getElementById('infoRow');
         if (infoRow) infoRow.remove();
         const tipText = document.getElementById('tipText');
