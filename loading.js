@@ -66,19 +66,32 @@ export function showLoadingScreen() {
             position: relative;
         `;
         previewImage.style.marginBottom = '10px';
-        // ADD THIS instead:
-        previewImage.style.backgroundImage = 'none'; // hide image while loading
-
+        
+        const bgLayer = document.createElement('div');
+        bgLayer.id = 'bgLayer';
+        bgLayer.style.cssText = `
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            border-radius: 6px;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        `;
+        previewImage.appendChild(bgLayer);
         const img = new Image();
         img.src = bgImages[0];
+        
         img.onload = () => {
             previewImage.classList.remove('skeleton-loading');
-            previewImage.style.transition = 'opacity 0.4s ease';
-            previewImage.style.opacity = '0';
-            previewImage.style.backgroundImage = `url(${bgImages[0]})`;
-            // Fade in after swap
+        
+            // Set initial state for bgLayer
+            bgLayer.style.opacity = '0';
+            bgLayer.style.backgroundImage = `url(${bgImages[0]})`;
+        
+            // Fade in ONLY the background layer
             requestAnimationFrame(() => {
-                previewImage.style.opacity = '1';
+                bgLayer.style.opacity = '1';
             });
         };
 
@@ -151,11 +164,14 @@ export function showLoadingScreen() {
             const nextImg = new Image();
             nextImg.src = bgImages[currentImgIndex];
             nextImg.onload = () => {
-                imgElement.style.opacity = '0';
+                const bgLayer = document.getElementById('bgLayer');
+
+                bgLayer.style.opacity = '0';
+
                 setTimeout(() => {
-                    imgElement.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
-                    imgElement.style.opacity = '1';
-                }, 400); // wait for fade out
+                    bgLayer.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
+                    bgLayer.style.opacity = '1';
+                }, 400);
             };
         
             // Tip fade
@@ -252,7 +268,7 @@ export function hideLoadingScreen() {
         startTextDiv.style.color = 'white';
         startTextDiv.style.fontFamily = "'Orbitron', sans-serif";
         startTextDiv.style.letterSpacing = '2px';
-        startTextDiv.style.fontSize = isMobile() ? '18px' : '36px';
+        startTextDiv.style.fontSize = isMobile() ? '12px' : '36px';
         startTextDiv.style.top = '50%'; 
         startTextDiv.style.left = '50%';
         startTextDiv.style.transform = 'translate(-50%, -50%)';
