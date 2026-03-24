@@ -75,89 +75,19 @@ export function showLoadingScreen() {
         tipText.innerText = tips[0];
 
         // Loading Bar Container (Glassmorphism)
-         const loadingContainer = document.createElement('div');
-
+        const loadingContainer = document.createElement('div');
         loadingContainer.id = 'loadingContainer';
-
-        loadingContainer.style.position = 'absolute';
-        loadingContainer.style.top = '75%';
-        loadingContainer.style.left = '50%';
-        loadingContainer.style.transform = 'translate(-50%, -50%)';
-
-
-        if(isMobile()){
-
-            loadingContainer.style.width = '260px';
-
-        }
-
-        else{
-
-            loadingContainer.style.width = '300px';
-
-        }
-
-
-        
-
-        loadingContainer.style.background = 'black';
-
-        loadingContainer.style.borderRadius = '10px';
-
-        loadingContainer.style.border = '2px solid goldenrod';
-
-        loadingContainer.style.overflow = 'hidden';
-
+        loadingContainer.style.cssText = `
+            height: 15px; background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px); overflow: hidden;
+        `;
 
         const progressBar = document.createElement('div');
-
         progressBar.id = 'progressBar';
-
-        progressBar.style.width = '0%';
-
-        progressBar.style.height = '100%';
-
-        progressBar.style.background = 'goldenrod';
-
-        progressBar.style.transition = 'width 0.2s ease-in-out';
-
-
-        const loadingText = document.createElement('div');
-
-        loadingText.id = 'loadingText';
-
-        loadingText.style.position = 'absolute';
-
-        loadingText.style.width = '100%';
-
-        loadingText.style.textAlign = 'center';
-
-        loadingText.style.top = '50%';
-
-        loadingText.style.transform = 'translateY(-50%)';
-
-        loadingText.style.fontFamily = 'Verdana, sans-serif';
-
-        loadingText.style.fontSize = '18px';
-
-        loadingText.style.color = 'white';
-
-        loadingText.style.transition = 'color 1s ease-in-out';
-
-        loadingText.innerText = 'Loading... 0%';
-
-
-        loadingContainer.appendChild(progressBar);
-
-        loadingContainer.appendChild(loadingText);
-
-        document.body.appendChild(loadingContainer); 
-
-        // Bottom Info Row (Speed & Percent)
-        const infoRow = document.createElement('div');
-        infoRow.style.cssText = `
-            display: flex; justify-content: space-between;
-            color: white; font-family: Verdana, sans-serif; font-size: 12px;
+        progressBar.style.cssText = `
+            width: 0%; height: 100%; background: goldenrod;
+            box-shadow: 0 0 10px goldenrod; transition: width 0.2s ease-in-out;
         `;
         
         const speedText = document.createElement('div');
@@ -169,13 +99,19 @@ export function showLoadingScreen() {
         }
 
         // Append everything
-        
+        const loadingText = document.createElement('div');
+        loadingText.id = 'loadingText';
+        loadingText.innerText = '0%';
+
+        // Append everything
+        loadingContainer.appendChild(progressBar);
+        infoRow.appendChild(speedText);
+        infoRow.appendChild(loadingText);
         
         uiContainer.appendChild(tipText);
         uiContainer.appendChild(loadingContainer);
         uiContainer.appendChild(infoRow);
         document.body.appendChild(uiContainer);
-        infoRow.appendChild(speedText);
 
         // 4. Cycle Images and Tips
         bgInterval = setInterval(() => {
