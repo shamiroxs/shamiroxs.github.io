@@ -25,19 +25,26 @@ export function showLoadingScreen() {
         // Create loading screen elements
 
         // 1. Background Image Setup with Vignette overlay
-        const bgContainer = document.createElement('div');
-        bgContainer.id = 'loadingBg';
-        bgContainer.style.cssText = `
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: black;
-            background-size: cover; background-position: center;
+       document.body.style.backgroundColor = '#0a0a0a';
+
+        // 2. Centered Preview Frame
+        const previewFrame = document.createElement('div');
+        previewFrame.id = 'previewFrame';
+        previewFrame.style.cssText = `
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: ${isMobile() ? '280px' : '450px'};
+            height: ${isMobile() ? '160px' : '250px'};
+            border: 4px solid #333;
+            border-radius: 8px;
+            background-color: #000;
+            background-size: cover;
+            background-position: center;
             background-image: url(${bgImages[0]});
-            transition: background-image 1s ease-in-out;
-            z-index: -1; 
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9); /* Vignette effect */
-            filter: brightness(0.5);
+            box-shadow: 0 0 30px rgba(0,0,0,1), 0 0 10px rgba(218, 165, 32, 0.2);
+            transition: background-image 0.8s ease-in-out;
+            z-index: 10;
         `;
-        document.body.appendChild(bgContainer);
 
         // 2. Original Three.js setup
         scene = new THREE.Scene();
