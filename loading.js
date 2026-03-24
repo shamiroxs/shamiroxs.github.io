@@ -156,6 +156,13 @@ export function showLoadingScreen() {
         loadingContainer.appendChild(loadingText);
 
         document.body.appendChild(loadingContainer); 
+
+        // Bottom Info Row (Speed & Percent)
+        const infoRow = document.createElement('div');
+        infoRow.style.cssText = `
+            display: flex; justify-content: space-between;
+            color: white; font-family: Verdana, sans-serif; font-size: 12px;
+        `;
         
         const speedText = document.createElement('div');
         speedText.id = 'speedText';
