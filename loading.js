@@ -165,7 +165,7 @@ export function showLoadingScreen() {
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
                     tipElement.style.opacity = '1';
-                }, 1400);
+                }, 400);
             }
         }, 3000);
         
@@ -252,7 +252,7 @@ export function hideLoadingScreen() {
         startTextDiv.style.color = 'white';
         startTextDiv.style.fontFamily = "'Orbitron', sans-serif";
         startTextDiv.style.letterSpacing = '2px';
-        startTextDiv.style.fontSize = isMobile() ? '22px' : '36px';
+        startTextDiv.style.fontSize = isMobile() ? '18px' : '36px';
         startTextDiv.style.top = '50%'; 
         startTextDiv.style.left = '50%';
         startTextDiv.style.transform = 'translate(-50%, -50%)';
