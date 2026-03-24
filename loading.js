@@ -96,6 +96,13 @@ export function showLoadingScreen() {
             width: 0%; height: 100%; background: goldenrod;
             box-shadow: 0 0 10px goldenrod; transition: width 0.2s ease-in-out;
         `;
+
+        // Bottom Info Row (Speed & Percent)
+        const infoRow = document.createElement('div');
+        infoRow.style.cssText = `
+            display: flex; justify-content: space-between;
+            color: white; font-family: Verdana, sans-serif; font-size: 12px;
+        `;
         
         const speedText = document.createElement('div');
         speedText.id = 'speedText';
@@ -123,8 +130,18 @@ export function showLoadingScreen() {
         // 4. Cycle Images and Tips
         bgInterval = setInterval(() => {
             currentImgIndex = (currentImgIndex + 1) % bgImages.length;
-            bgContainer.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
-            tipText.innerText = tips[currentImgIndex % tips.length];
+            previewFrame.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
+            
+            // Update Tip Text
+            const tips = getGameTips();
+            const tipElement = document.getElementById('tipText');
+            if (tipElement) {
+                tipElement.style.opacity = 0; // Fade out
+                setTimeout(() => {
+                    tipElement.innerText = tips[currentImgIndex % tips.length];
+                    tipElement.style.opacity = 1; // Fade in
+                }, 400);
+            }
         }, 5000);
         
         // Set camera position
@@ -252,8 +269,8 @@ export function hideLoadingScreen() {
         
             // Remove the Three.js canvas (renderer.domElement)
             if (renderer.domElement) renderer.domElement.remove();
-            const bgContainer = document.getElementById('loadingBg');
-            if (bgContainer) bgContainer.remove();
+            const previewFrame = document.getElementById('previewFrame');
+            if (previewFrame) previewFrame.remove();
         
             // 5. Cancel any active animation frames
             //if (animationFrameId) cancelAnimationFrame(animationFrameId);
