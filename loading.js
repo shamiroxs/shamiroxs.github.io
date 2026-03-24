@@ -29,6 +29,7 @@ export function showLoadingScreen() {
         bgContainer.id = 'loadingBg';
         bgContainer.style.cssText = `
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: black;
             background-size: cover; background-position: center;
             background-image: url(${bgImages[0]});
             transition: background-image 1s ease-in-out;
@@ -78,8 +79,10 @@ export function showLoadingScreen() {
 
         loadingContainer.id = 'loadingContainer';
 
-        loadingContainer.style.position = 'relative';
-        loadingContainer.style.margin = '0 auto'; // center horizontally
+        loadingContainer.style.position = 'absolute';
+        loadingContainer.style.top = '75%';
+        loadingContainer.style.left = '50%';
+        loadingContainer.style.transform = 'translate(-50%, -50%)';
 
 
         if(isMobile()){
