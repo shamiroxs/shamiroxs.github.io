@@ -7,7 +7,7 @@ let scene, camera, renderer, sphere, circle, raycaster, mouse;
 let animationFrameId; // To store the animation frame ID for cleanup
 
 // Carousel and Tips data
-const bgImages = ['public/image/img1.jpg', 'public/image/img2.jpg', 'public/image/img3.jpg'];
+const bgImages = ['/image/img1.jpg', '/image/img2.jpg', '/image/img3.jpg'];
 let currentImgIndex = 0;
 let bgInterval;
 
