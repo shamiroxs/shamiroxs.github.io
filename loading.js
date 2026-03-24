@@ -59,7 +59,7 @@ export function showLoadingScreen() {
         uiContainer.style.cssText = `
             position: absolute; bottom: 10%; left: 50%;
             transform: translateX(-50%); width: ${isMobile() ? '85%' : '500px'};
-            display: flex; flex-direction: column; gap: 10px;
+            display: flex; flex-direction: column; gap: 15px;
         `;
 
         // Tip Text
@@ -78,15 +78,8 @@ export function showLoadingScreen() {
 
         loadingContainer.id = 'loadingContainer';
 
-        loadingContainer.style.position = 'absolute';
-
-        loadingContainer.style.top = '75%';
-
-        loadingContainer.style.left = '50%';
-
-        loadingContainer.style.height = '30px';
-
-        loadingContainer.style.transform = 'translate(-50%, -50%)';
+        loadingContainer.style.position = 'relative';
+        loadingContainer.style.margin = '0 auto'; // center horizontally
 
 
         if(isMobile()){
@@ -173,12 +166,13 @@ export function showLoadingScreen() {
         }
 
         // Append everything
-        infoRow.appendChild(speedText);
+        
         
         uiContainer.appendChild(tipText);
         uiContainer.appendChild(loadingContainer);
         uiContainer.appendChild(infoRow);
         document.body.appendChild(uiContainer);
+        infoRow.appendChild(speedText);
 
         // 4. Cycle Images and Tips
         bgInterval = setInterval(() => {
