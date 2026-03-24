@@ -46,8 +46,8 @@ export function showLoadingScreen() {
         const uiContainer = document.createElement('div');
         uiContainer.id = 'uiContainer';
         uiContainer.style.cssText = `
-            position: absolute; bottom: 10%; left: 50%;
-            transform: translateX(-50%); width: ${isMobile() ? '85%' : '500px'};
+            position: absolute; top: 20%; left: 50%;
+            transform: translateX(-50%); width: ${isMobile() ? '85%' : '800px'};
             display: flex; flex-direction: column; gap: 15px;
         `;
         const previewImage = document.createElement('div');
@@ -61,6 +61,7 @@ export function showLoadingScreen() {
             border-radius: 6px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: background-image 0.8s ease-in-out;
+            position: relative;
         `;
         previewImage.style.marginBottom = '10px';
 
@@ -93,6 +94,7 @@ export function showLoadingScreen() {
 
         // Bottom Info Row (Speed & Percent)
         const infoRow = document.createElement('div');
+        infoRow.id = 'infoRow';
         infoRow.style.cssText = `
             display: flex; justify-content: space-between;
             color: white; font-family: Verdana, sans-serif; font-size: 12px;
@@ -135,9 +137,9 @@ export function showLoadingScreen() {
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
                     tipElement.style.opacity = 1;
-                }, 2000);
+                }, 1000);
             }
-        }, 5000);
+        }, 3000);
         
         // Set camera position
         camera.position.z = 5;
@@ -197,6 +199,25 @@ export function hideLoadingScreen() {
             loadingContainer.remove();
         }
 
+        const previewImage = document.getElementById('previewImage');
+
+        // 🔲 Create overlay (initially transparent)
+        let overlay;
+        if (previewImage) {
+            overlay = document.createElement('div');
+            overlay.id = 'previewOverlay';
+            overlay.style.cssText = `
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0);
+                border-radius: 6px;
+                transition: background 0.5s ease;
+                z-index: 1;
+                pointer-events: none;
+            `;
+            previewImage.appendChild(overlay);
+        }
+
         // Add a text element for "Start" (inside the sphere)
         const startTextDiv = document.createElement('div');
         startTextDiv.style.position = 'absolute';
@@ -210,11 +231,25 @@ export function hideLoadingScreen() {
         startTextDiv.style.display = 'block'; // Hidden until loading completes
         startTextDiv.id = 'loading2';
         startTextDiv.innerText = 'START GAME';
+        startTextDiv.style.zIndex = '2';
         
-        document.body.appendChild(startTextDiv);
-
+        if (previewImage) {
+            previewImage.appendChild(startTextDiv);
+        }
+        
+        setTimeout(() => {
+            if (overlay) {
+                overlay.style.background = 'rgba(0, 0, 0, 0.45)';
+            }
+        }, 50);
         
         scene.remove(circle);
+        
+        const infoRow = document.getElementById('infoRow');
+        if (infoRow) infoRow.remove();
+        const tipText = document.getElementById('tipText');
+        if (tipText) tipText.remove();
+
         // Add hover effect for the text
         startTextDiv.addEventListener('mouseover', () => {
             startTextDiv.style.color = '#ffe135'; // Change color to yellow
@@ -267,6 +302,8 @@ export function hideLoadingScreen() {
             
             const previewImg = document.getElementById('previewImage');
             if (previewImg) previewImg.remove();
+            const overlay = document.getElementById('previewOverlay');
+            if (overlay) overlay.remove();
         
             // 5. Cancel any active animation frames
             //if (animationFrameId) cancelAnimationFrame(animationFrameId);
