@@ -26,25 +26,6 @@ export function showLoadingScreen() {
 
         // 1. Background Image Setup with Vignette overlay
        document.body.style.backgroundColor = '#050505';
-
-        // 2. Wide Image Preview (No frame, just the image)
-        const previewImage = document.createElement('div');
-        previewImage.id = 'previewImage';
-        previewImage.style.cssText = `
-            position: absolute; top: 35%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90vw; 
-            max-width: ${isMobile() ? '100%' : '800px'}; 
-            aspect-ratio: 16 / 9;
-            background-size: cover;
-            background-position: center;
-            background-image: url(${bgImages[0]});
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: background-image 0.8s ease-in-out;
-            z-index: 5;
-        `;
-        document.body.appendChild(previewImage);
         
         // 2. Original Three.js setup
         scene = new THREE.Scene();
@@ -69,6 +50,19 @@ export function showLoadingScreen() {
             transform: translateX(-50%); width: ${isMobile() ? '85%' : '500px'};
             display: flex; flex-direction: column; gap: 15px;
         `;
+        const previewImage = document.createElement('div');
+        previewImage.id = 'previewImage';
+        previewImage.style.cssText = `
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+            background-position: center;
+            background-image: url(${bgImages[0]});
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: background-image 0.8s ease-in-out;
+        `;
+        previewImage.style.marginBottom = '10px';
 
         // Tip Text
         const tipText = document.createElement('div');
@@ -122,6 +116,7 @@ export function showLoadingScreen() {
         infoRow.appendChild(speedText);
         infoRow.appendChild(loadingText);
         
+        uiContainer.appendChild(previewImage);
         uiContainer.appendChild(tipText);
         uiContainer.appendChild(loadingContainer);
         uiContainer.appendChild(infoRow);
