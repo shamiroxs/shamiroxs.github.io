@@ -6,69 +6,124 @@ import { isMobile } from './phone';
 let scene, camera, renderer, sphere, circle, raycaster, mouse;
 let animationFrameId; // To store the animation frame ID for cleanup
 
+// Carousel and Tips data
+const bgImages = ['public/image/img1.jpg', 'public/image/img2.jpg', 'public/image/img3.jpg'];
+let currentImgIndex = 0;
+let bgInterval;
+
+const getGameTips = () => [
+    isMobile() ? "Tip: Use the on-screen controls and swipe to navigate." : "Tip: Use W, A, S, D to move and Mouse to look around.",
+    "Navigation: Head left from the spawn to explore showcased projects.",
+    "Navigation: Go straight ahead to find contact details.",
+    "Customization: Turn right to change your character's skin.",
+    "Secret: Touch the shiny pyramid on the right to start a mini-game!",
+    "Lore: Beating the mini-game unlocks the power to teleport instantly.",
+];
+
 export function showLoadingScreen() {
     return new Promise((resolve) => {
         // Create loading screen elements
 
-        document.body.style.backgroundColor = 'black';
+        // 1. Background Image Setup with Vignette overlay
+        const bgContainer = document.createElement('div');
+        bgContainer.id = 'loadingBg';
+        bgContainer.style.cssText = `
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            background-image: url(${bgImages[0]});
+            transition: background-image 1s ease-in-out;
+            z-index: -1; 
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9); /* Vignette effect */
+            filter: brightness(0.5);
+        `;
+        document.body.appendChild(bgContainer);
 
+        // 2. Original Three.js setup
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true so background shows
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = '0';
         document.body.appendChild(renderer.domElement);
 
-        // Add a white circle that moves up and down
         const circleGeometry = new THREE.CircleGeometry(0.1, 32);
-        const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // White
+        const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         circle = new THREE.Mesh(circleGeometry, circleMaterial);
-        circle.position.set(0, 1.5, 0); // Start above the sphere
+        circle.position.set(0, 1.5, 0);
         scene.add(circle);
 
+        // 3. New Glassmorphism UI Container
+        const uiContainer = document.createElement('div');
+        uiContainer.id = 'uiContainer';
+        uiContainer.style.cssText = `
+            position: absolute; bottom: 10%; left: 50%;
+            transform: translateX(-50%); width: ${isMobile() ? '85%' : '500px'};
+            display: flex; flex-direction: column; gap: 10px;
+        `;
+
+        // Tip Text
+        const tipText = document.createElement('div');
+        tipText.id = 'tipText';
+        tipText.style.cssText = `
+            color: #ddd; font-family: Verdana, sans-serif; font-size: 14px;
+            text-align: center; font-style: italic; min-height: 20px;
+            text-shadow: 1px 1px 2px black;
+        `;
+        const tips = getGameTips();
+        tipText.innerText = tips[0];
+
+        // Loading Bar Container (Glassmorphism)
         const loadingContainer = document.createElement('div');
         loadingContainer.id = 'loadingContainer';
-        loadingContainer.style.position = 'absolute';
-        loadingContainer.style.top = '75%';
-        loadingContainer.style.left = '50%';
-        loadingContainer.style.height = '30px';
-        loadingContainer.style.transform = 'translate(-50%, -50%)';
-
-        if(isMobile()){
-            loadingContainer.style.width = '260px';
-        }
-        else{
-            loadingContainer.style.width = '300px';
-        }
-
-        
-        loadingContainer.style.background = 'black';
-        loadingContainer.style.borderRadius = '10px';
-        loadingContainer.style.border = '2px solid goldenrod';
-        loadingContainer.style.overflow = 'hidden';
+        loadingContainer.style.cssText = `
+            height: 15px; background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px); overflow: hidden;
+        `;
 
         const progressBar = document.createElement('div');
         progressBar.id = 'progressBar';
-        progressBar.style.width = '0%';
-        progressBar.style.height = '100%';
-        progressBar.style.background = 'goldenrod';
-        progressBar.style.transition = 'width 0.2s ease-in-out';
+        progressBar.style.cssText = `
+            width: 0%; height: 100%; background: goldenrod;
+            box-shadow: 0 0 10px goldenrod; transition: width 0.2s ease-in-out;
+        `;
+
+        // Bottom Info Row (Speed & Percent)
+        const infoRow = document.createElement('div');
+        infoRow.style.cssText = `
+            display: flex; justify-content: space-between;
+            color: white; font-family: Verdana, sans-serif; font-size: 12px;
+        `;
+        
+        const speedText = document.createElement('div');
+        speedText.id = 'speedText';
+        if (navigator.connection && navigator.connection.downlink) {
+            speedText.innerText = `Speed: ${navigator.connection.downlink} Mbps`;
+        } else {
+            speedText.innerText = `Speed: Unknown`;
+        }
 
         const loadingText = document.createElement('div');
         loadingText.id = 'loadingText';
-        loadingText.style.position = 'absolute';
-        loadingText.style.width = '100%';
-        loadingText.style.textAlign = 'center';
-        loadingText.style.top = '50%';
-        loadingText.style.transform = 'translateY(-50%)';
-        loadingText.style.fontFamily = 'Verdana, sans-serif';
-        loadingText.style.fontSize = '18px';
-        loadingText.style.color = 'white';
-        loadingText.style.transition = 'color 1s ease-in-out';
-        loadingText.innerText = 'Loading... 0%';
+        loadingText.innerText = '0%';
 
+        // Append everything
         loadingContainer.appendChild(progressBar);
-        loadingContainer.appendChild(loadingText);
-        document.body.appendChild(loadingContainer);
+        infoRow.appendChild(speedText);
+        infoRow.appendChild(loadingText);
+        
+        uiContainer.appendChild(tipText);
+        uiContainer.appendChild(loadingContainer);
+        uiContainer.appendChild(infoRow);
+        document.body.appendChild(uiContainer);
+
+        // 4. Cycle Images and Tips
+        bgInterval = setInterval(() => {
+            currentImgIndex = (currentImgIndex + 1) % bgImages.length;
+            bgContainer.style.backgroundImage = `url(${bgImages[currentImgIndex]})`;
+            tipText.innerText = tips[currentImgIndex % tips.length];
+        }, 5000);
         
         // Set camera position
         camera.position.z = 5;
