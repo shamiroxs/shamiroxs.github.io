@@ -45,6 +45,8 @@ export function showLoadingScreen() {
             transition: background-image 0.8s ease-in-out;
             z-index: 10;
         `;
+        previewFrame.appendChild(scanline);
+        document.body.appendChild(previewFrame);
 
         // 2. Original Three.js setup
         scene = new THREE.Scene();
@@ -140,7 +142,7 @@ export function showLoadingScreen() {
                 setTimeout(() => {
                     tipElement.innerText = tips[currentImgIndex % tips.length];
                     tipElement.style.opacity = 1; // Fade in
-                }, 400);
+                }, 2000);
             }
         }, 5000);
         
