@@ -309,6 +309,8 @@ export function hideLoadingScreen() {
         
             // Remove the Three.js canvas (renderer.domElement)
             if (renderer.domElement) renderer.domElement.remove();
+            const bgContainer = document.getElementById('loadingBg');
+            if (bgContainer) bgContainer.remove();
         
             // 5. Cancel any active animation frames
             //if (animationFrameId) cancelAnimationFrame(animationFrameId);
